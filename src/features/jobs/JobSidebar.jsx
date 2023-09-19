@@ -23,7 +23,7 @@ const categories = [
 
 function JobSidebar() {
     return (
-        <div className="ml-8">
+        <div className="mr-8">
             <FilterContainer title="Ngân sách">
                 <RangeSlider />
             </FilterContainer>

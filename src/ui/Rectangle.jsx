@@ -3,8 +3,8 @@ function Rectangle({ children, primary }) {
         <span
             className={`rounded ${
                 primary
-                    ? 'bg-green-500/20 p-2 text-green-500'
-                    : 'bg-stone-500/20 p-2 text-sm text-stone-500'
+                    ? 'border-2 p-2 font-semibold text-stone-900'
+                    : 'border-2 p-2 text-sm text-stone-500'
             } `}
         >
             {children}

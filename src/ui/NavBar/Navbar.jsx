@@ -7,7 +7,7 @@ function Navbar() {
                 <LinkItem to="/jobs">Tìm việc làm</LinkItem>
             </li>
             <li className="px-2 py-0">
-                <LinkItem>Tìm Freelancer</LinkItem>
+                <LinkItem to="/freelancers">Tìm Freelancer</LinkItem>
             </li>
         </ul>
     )

@@ -9,7 +9,7 @@ import Rectangle from '../../ui/Rectangle'
 
 function JobItem({ job }) {
     return (
-        <li className="relative w-full cursor-pointer overflow-hidden rounded-xl border-2 border-gray-400 bg-slate-50 px-8 py-5 transition-all ease-in-out before:absolute before:-right-8 before:-top-12 before:block before:h-24 before:w-24 before:rounded-full before:bg-sky-600 before:content-[''] hover:-translate-y-2 hover:border-primary">
+        <li className="relative w-full cursor-pointer overflow-hidden rounded-xl border border-gray-300 bg-slate-50 px-8 py-5 transition-all ease-in-out hover:-translate-y-2">
             <span className=" text-stone-400">
                 <UilClockThree className="mr-2 inline-block" />
                 {job.createdAt} giờ trước
@@ -17,11 +17,11 @@ function JobItem({ job }) {
 
             <div className="flex items-center justify-between">
                 <div>
-                    <h2 className="mt-2 text-xl font-bold text-sky-800">
+                    <h2 className="mt-2 text-xl font-bold text-stone-900">
                         {job.name}
                     </h2>
 
-                    <span className="mt-4 text-base font-semibold text-stone-900">
+                    <span className="mt-4 text-base font-semibold text-stone-700">
                         {job.position} | {job.maxBudget}đ | Kinh nghiệm :{' '}
                         {job.experienceYear} năm
                     </span>
@@ -50,7 +50,7 @@ function JobItem({ job }) {
                 ))}
             </div>
 
-            <div className="flex items-center justify-between rounded-lg bg-stone-200 px-2">
+            <div className="flex items-center justify-between rounded-lg  px-2">
                 <UserLocation user={job.employer} />
                 <span className="font-semibold text-sky-600">
                     {job.numberBid} chào giá

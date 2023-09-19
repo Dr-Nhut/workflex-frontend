@@ -26,6 +26,10 @@
     .large {
         @apply p-4;
     }
+
+    .active {
+        color: #ccc;
+    }
 }
 
 /* Google Font Raleway */

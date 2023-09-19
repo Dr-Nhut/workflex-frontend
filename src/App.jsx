@@ -10,6 +10,7 @@ import Login from './page/Login'
 import Register from './page/Register'
 import Job from './page/Job'
 import AppLayout from './layouts/AppLayout'
+import Freelancer from './page/Freelancer'
 
 const router = createBrowserRouter([
     {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
             {
                 path: '/jobs',
                 element: <Job />,
+            },
+            {
+                path: '/freelancers',
+                element: <Freelancer />,
             },
         ],
     },

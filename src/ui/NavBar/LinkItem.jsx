@@ -1,13 +1,18 @@
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 function LinkItem({ children, to }) {
     return (
-        <Link
+        <NavLink
             to={to}
-            className="inline-block bg-transparent no-underline text-xl text-brand_stone hover:text-primary capitalize font-semibold leading-[81px] cursor-pointer"
+            className={(navData) =>
+                `inline-block cursor-pointer bg-transparent text-xl font-semibold capitalize leading-[81px] text-brand_stone no-underline hover:text-primary ${
+                    navData.isActive ? 'text-sky-600/70' : ''
+                }`
+            }
+            // className={` inline-block cursor-pointer bg-transparent text-xl font-semibold capitalize leading-[81px] text-brand_stone no-underline hover:text-primary ${classnameActive}`}
         >
             {children}
-        </Link>
+        </NavLink>
     )
 }
 
