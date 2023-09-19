@@ -7,6 +7,9 @@ import {
 } from 'react-router-dom'
 import HomePage from './page/HomePage'
 import Login from './page/Login'
+import Register from './page/Register'
+import Job from './page/Job'
+import AppLayout from './layouts/AppLayout'
 
 const router = createBrowserRouter([
     {
@@ -16,6 +19,19 @@ const router = createBrowserRouter([
     {
         path: '/login',
         element: <Login />,
+    },
+    {
+        path: '/register',
+        element: <Register />,
+    },
+    {
+        element: <AppLayout />,
+        children: [
+            {
+                path: '/jobs',
+                element: <Job />,
+            },
+        ],
     },
 ])
 
