@@ -6,14 +6,14 @@ function SelectTypeAccount({ typeAccount, onSelected, onContinue }) {
             <div className="mb-8 flex justify-around gap-x-4">
                 <label
                     htmlFor="client"
-                    className={`relative bg-stone-200 rounded-xl px-4 py-8 text-xl hover:ring-2 hover:ring-primary ${
+                    className={`relative rounded-xl bg-stone-200 px-4 py-8 text-xl hover:ring-2 hover:ring-primary ${
                         typeAccount === 'client' ? 'ring-2 ring-primary' : ''
                     }`}
                 >
                     Tôi muốn tuyển dụng freelancer
                     <input
                         id="client"
-                        className="absolute top-2 right-2 w-4 h-4 text-primary bg-gray-100 border-gray-300 "
+                        className="absolute right-2 top-2 h-4 w-4 border-gray-300 bg-gray-100 text-primary "
                         type="radio"
                         name="typeAccount"
                         value="client"
@@ -24,7 +24,7 @@ function SelectTypeAccount({ typeAccount, onSelected, onContinue }) {
 
                 <label
                     htmlFor="freelancer"
-                    className={`relative bg-stone-200 rounded-xl px-4 py-8 text-xl hover:ring-2 hover:ring-primary ${
+                    className={`relative rounded-xl bg-stone-200 px-4 py-8 text-xl hover:ring-2 hover:ring-primary ${
                         typeAccount === 'freelancer'
                             ? 'ring-2 ring-primary'
                             : ''
@@ -33,7 +33,7 @@ function SelectTypeAccount({ typeAccount, onSelected, onContinue }) {
                     Tôi là người tìm việc freelance
                     <input
                         id="freelancer"
-                        className="absolute top-2 right-2 w-4 h-4 text-primary bg-gray-100 border-gray-300 "
+                        className="absolute right-2 top-2 h-4 w-4 border-gray-300 bg-gray-100 text-primary "
                         type="radio"
                         name="typeAccount"
                         value="freelancer"
@@ -45,7 +45,7 @@ function SelectTypeAccount({ typeAccount, onSelected, onContinue }) {
 
             <Button
                 type="btn-primary"
-                className="rounded mx-auto w-72"
+                className="mx-auto w-72 rounded"
                 onClick={() => onContinue((step) => step + 1)}
             >
                 Tiếp tục với vai trò{' '}

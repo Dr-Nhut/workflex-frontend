@@ -16,11 +16,11 @@
     }
 
     .small {
-        @apply p-2;
+        @apply h-10 p-2;
     }
 
     .medium {
-        @apply p-3;
+        @apply h-[51.2px] p-3;
     }
 
     .large {
@@ -29,6 +29,22 @@
 
     .active {
         color: #ccc;
+    }
+
+    .smallImage {
+        @apply h-12 w-12;
+    }
+
+    .mediumImage {
+        @apply h-16 w-16;
+    }
+
+    .largeImage {
+        @apply h-20 w-20;
+    }
+
+    .activeTab {
+        @apply border-b-2 border-sky-500 text-sky-500;
     }
 }
 

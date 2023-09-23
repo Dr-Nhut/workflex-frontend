@@ -1,11 +1,12 @@
-import UserLocation from '../user/UserLocation'
 import Button from '../../common/buttons/Button'
 import {
     UilBookmark,
     UilClockThree,
     UilFavorite,
+    UilMapMarker,
 } from '@iconscout/react-unicons'
 import Rectangle from '../../ui/Rectangle'
+import UserCard from '../user/UserCard'
 
 function JobItem({ job }) {
     return (
@@ -51,7 +52,20 @@ function JobItem({ job }) {
             </div>
 
             <div className="flex items-center justify-between rounded-lg  px-2">
-                <UserLocation user={job.employer} />
+                <UserCard
+                    fullName={job.employer.fullName}
+                    avatarUrl={job.employer.avatarUrl}
+                >
+                    <span className="flex p-px text-sm font-extralight italic">
+                        <UilMapMarker size="18" className="text-red-500" />
+                        {job.employer.address}
+                    </span>
+                </UserCard>
+                {/* <UserLocation
+                    fullName={job.employer.fullName}
+                    avatarUrl={job.employer.avatarUrl}
+                    address={job.employer.address}
+                /> */}
                 <span className="font-semibold text-sky-600">
                     {job.numberBid} chào giá
                 </span>

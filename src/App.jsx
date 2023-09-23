@@ -11,6 +11,7 @@ import Register from './page/Register'
 import Job from './page/Job'
 import AppLayout from './layouts/AppLayout'
 import Freelancer from './page/Freelancer'
+import MyProfile from './page/MyProfile'
 
 const router = createBrowserRouter([
     {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
             {
                 path: '/freelancers',
                 element: <Freelancer />,
+            },
+            {
+                path: '/my-profile',
+                element: <MyProfile />,
             },
         ],
     },
