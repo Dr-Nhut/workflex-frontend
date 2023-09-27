@@ -5,7 +5,7 @@ function RangeSlider() {
     return (
         <div className="relative mt-10">
             <input
-                className="w-full cursor-pointer appearance-none rounded-lg bg-gray-400 bg-transparent accent-sky-500/30"
+                className="w-full cursor-pointer appearance-none rounded-lg bg-gray-300 accent-sky-500/30"
                 type="range"
                 min="1000000"
                 max="50000000"

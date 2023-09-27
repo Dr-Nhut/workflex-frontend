@@ -1,10 +1,11 @@
 import UserCard from '../features/user/UserCard'
+import CardContainer from './CardContainer'
 import DescriptionSection from './Section/DescriptionSection'
 import StarRating from './StarRating'
 
 function Feedback() {
     return (
-        <div className="mb-4 rounded-md bg-stone-100 px-4 py-2">
+        <CardContainer>
             <UserCard
                 fullName="Saka"
                 avatarUrl="https://i.pravatar.cc/150?u=a042581f4e29026awsl"
@@ -18,7 +19,7 @@ function Feedback() {
             <DescriptionSection align="text-justify">
                 Quickly helped my website problem efficiently!
             </DescriptionSection>
-        </div>
+        </CardContainer>
     )
 }
 

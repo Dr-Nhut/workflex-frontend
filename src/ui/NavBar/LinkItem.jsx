@@ -5,7 +5,7 @@ function LinkItem({ children, to }) {
         <NavLink
             to={to}
             className={(navData) =>
-                `inline-block cursor-pointer bg-transparent text-xl font-semibold capitalize leading-[81px] text-brand_stone no-underline hover:text-primary ${
+                `inline-block cursor-pointer bg-transparent font-semibold capitalize  text-brand_stone no-underline hover:text-primary ${
                     navData.isActive ? 'text-sky-600/70' : ''
                 }`
             }

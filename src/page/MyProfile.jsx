@@ -21,7 +21,7 @@ function MyProfile() {
     const [isActive, setIsActive] = useState(1)
 
     return (
-        <div>
+        <>
             <PageHeader />
             <SidebarLayout sidebar={<UserProfileCard />}>
                 <div className="ml-8 border">
@@ -31,7 +31,7 @@ function MyProfile() {
                     </Tab>
                 </div>
             </SidebarLayout>
-        </div>
+        </>
     )
 }
 

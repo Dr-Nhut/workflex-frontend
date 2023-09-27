@@ -3,9 +3,9 @@ import Tippy from '@tippyjs/react'
 function Progress({ percent = 80, content }) {
     return (
         <Tippy content={content}>
-            <div className="h-4 w-3/5 rounded-full bg-gray-300 dark:bg-gray-700">
+            <div className="h-4 w-full rounded-full bg-gray-300 dark:bg-gray-700">
                 <div
-                    className="rounded-full bg-green-600 p-0.5 text-center text-xs font-medium leading-none text-green-100"
+                    className="rounded-full bg-teal-600 p-0.5 text-center text-xs font-medium leading-none text-green-100"
                     style={{ width: percent + '%' }}
                 >
                     {' '}

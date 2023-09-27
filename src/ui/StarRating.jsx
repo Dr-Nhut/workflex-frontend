@@ -17,7 +17,7 @@ function StarRating({ numStars = 1 }) {
             {Array.apply(null, Array(5 - numStars)).map((i, y) => {
                 return (
                     <UilStar
-                        key={i}
+                        key={y}
                         className="inline-block text-yellow-500"
                         size="16"
                     />

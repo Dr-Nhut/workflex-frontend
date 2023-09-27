@@ -8,10 +8,12 @@ import {
 import HomePage from './page/HomePage'
 import Login from './page/Login'
 import Register from './page/Register'
-import Job from './page/Job'
+import FindWork from './page/FindWork'
 import AppLayout from './layouts/AppLayout'
 import Freelancer from './page/Freelancer'
 import MyProfile from './page/MyProfile'
+import FreelancerDashboard from './page/FreelancerDashboard'
+import DashboardLayout from './layouts/DashboardLayout'
 
 const router = createBrowserRouter([
     {
@@ -30,8 +32,8 @@ const router = createBrowserRouter([
         element: <AppLayout />,
         children: [
             {
-                path: '/jobs',
-                element: <Job />,
+                path: '/findwork',
+                element: <FindWork />,
             },
             {
                 path: '/freelancers',
@@ -40,6 +42,19 @@ const router = createBrowserRouter([
             {
                 path: '/my-profile',
                 element: <MyProfile />,
+            },
+            {
+                element: <DashboardLayout />,
+                children: [
+                    {
+                        path: '/dashboard',
+                        element: <FreelancerDashboard />,
+                    },
+                    {
+                        path: '/freelancer-findwork',
+                        element: <FindWork />,
+                    },
+                ],
             },
         ],
     },

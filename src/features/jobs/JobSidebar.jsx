@@ -21,9 +21,9 @@ const categories = [
     },
 ]
 
-function JobSidebar() {
+function JobSidebar({ right }) {
     return (
-        <div className="mr-8">
+        <div className={`col-span-3 ${right ? 'ml-8' : 'mr-8'}`}>
             <FilterContainer title="Ngân sách">
                 <RangeSlider />
             </FilterContainer>

@@ -12,7 +12,7 @@ import Contact from '../../ui/Contact'
 
 function UserProfileCard() {
     return (
-        <div>
+        <div className="col-span-3">
             <section className="flex flex-col items-center gap-y-2 border border-stone-300 py-6">
                 <Avatar
                     image="https://i.pravatar.cc/150?u=a042581f4e29026awsl"
