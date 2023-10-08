@@ -6,8 +6,10 @@ import SidebarLayout from '../layouts/SidebarLayout'
 import Button from '../common/buttons/Button'
 import Progress from '../ui/Progress'
 import Partner from '../features/user/Partner'
+import { useState } from 'react'
 
 function FreelancerDashboard() {
+    const [employer] = useState(true)
     return (
         <div className="bg-slate-100 pl-10 pt-4">
             <SidebarLayout
@@ -18,30 +20,34 @@ function FreelancerDashboard() {
             >
                 <UserName dark>Hi, John</UserName>
 
-                <div className="mt-2 flex justify-between">
-                    <StatOverview
-                        title="Đang thực hiện"
-                        number={5}
-                        className="bg-orange-500"
-                    />
+                {!employer && (
+                    <div className="mt-2 flex justify-between">
+                        <StatOverview
+                            title="Đang thực hiện"
+                            number={5}
+                            className="bg-orange-500"
+                        />
 
-                    <StatOverview
-                        title="Đang chào giá"
-                        number={10}
-                        className="bg-blue-500"
-                    />
+                        <StatOverview
+                            title="Đang chào giá"
+                            number={10}
+                            className="bg-blue-500"
+                        />
 
-                    <StatOverview
-                        title="Đã hoàn thành"
-                        number={26}
-                        className="bg-green-500"
-                    />
-                </div>
+                        <StatOverview
+                            title="Đã hoàn thành"
+                            number={26}
+                            className="bg-green-500"
+                        />
+                    </div>
+                )}
 
                 <section>
                     <header>
                         <h4 className="text-xl font-semibold capitalize text-stone-700">
-                            Dự án đang thực hiện
+                            {employer
+                                ? 'Dự án của bạn'
+                                : 'Dự án đang thực hiện'}
                         </h4>
                         <Button
                             type="btn-primary"

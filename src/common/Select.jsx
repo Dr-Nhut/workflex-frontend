@@ -12,6 +12,9 @@ function Select({ label, options, icon }) {
                     className="my-4 block w-full cursor-pointer  rounded-xl bg-stone-400/70 p-2 pl-8 font-semibold outline-none ring-primary ring-offset-1 focus:ring-2"
                     id={label}
                 >
+                    <option value="" disabled>
+                        {label}
+                    </option>
                     {options.map((category) => (
                         <option key={category.id} value={category.id}>
                             {category.name}

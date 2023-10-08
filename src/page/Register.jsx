@@ -5,8 +5,15 @@ import SelectTypeAccount from '../features/auth/SelectTypeAccount'
 import InfoFreelancerForm from '../common/forms/InfoFreelancerForm'
 
 function Register() {
+    const [userInfor, setUserInfor] = useState()
     const [step, setStep] = useState(0)
-    const [typeAccount, setTypeAccount] = useState('client')
+
+    console.log(userInfor)
+
+    function handleContinue(data) {
+        setUserInfor((pre) => ({ ...pre, ...data }))
+        setStep((step) => step + 1)
+    }
 
     return (
         <div className="h-screen bg-slate-100 py-20">
@@ -23,15 +30,20 @@ function Register() {
                     )}
                 </header>
                 <main className="mb-4 mt-8">
-                    {step === 0 && <RegisterForm onContinue={setStep} />}
+                    {step === 0 && <RegisterForm onContinue={handleContinue} />}
                     {step === 1 && (
                         <SelectTypeAccount
-                            typeAccount={typeAccount}
-                            onSelected={setTypeAccount}
-                            onContinue={setStep}
+                            typeAccount={userInfor.role}
+                            onContinue={handleContinue}
                         />
                     )}
-                    {step === 2 && <InfoFreelancerForm />}
+                    {step === 2 && (
+                        <InfoFreelancerForm
+                            role={userInfor.role}
+                            userInfor={userInfor}
+                            handleUserInfor={setUserInfor}
+                        />
+                    )}
                 </main>
                 <footer className="flex justify-between">
                     <Link

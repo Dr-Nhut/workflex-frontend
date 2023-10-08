@@ -14,6 +14,9 @@ import Freelancer from './page/Freelancer'
 import MyProfile from './page/MyProfile'
 import FreelancerDashboard from './page/FreelancerDashboard'
 import DashboardLayout from './layouts/DashboardLayout'
+import FreelancerJob from './page/FreelancerJob'
+import Contract from './features/jobs/Contract'
+import EmployerJob from './page/EmployerJob'
 
 const router = createBrowserRouter([
     {
@@ -51,8 +54,24 @@ const router = createBrowserRouter([
                         element: <FreelancerDashboard />,
                     },
                     {
+                        path: '/freelancer-jobs',
+                        element: <FreelancerJob />,
+                    },
+                    {
+                        path: 'employer-job',
+                        element: <EmployerJob />,
+                    },
+                    {
+                        path: '/contract',
+                        element: <Contract />,
+                    },
+                    {
                         path: '/freelancer-findwork',
                         element: <FindWork />,
+                    },
+                    {
+                        path: '/find-freelancer',
+                        element: <Freelancer />,
                     },
                 ],
             },

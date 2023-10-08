@@ -10,6 +10,7 @@ import ListItem from './ListItem'
 import UserName from './UserName'
 
 function DashboardSidebar() {
+    const employer = true
     return (
         <div className="col-span-2 mt-4">
             <header className="relative flex flex-col items-center gap-y-2">
@@ -23,12 +24,18 @@ function DashboardSidebar() {
                     Tổng quan
                 </ListItem>
 
-                <ListItem to="/myjob" icon={<UilBriefcase />}>
-                    Công việc của bạn
+                <ListItem
+                    to={employer ? 'employer-job' : '/freelancer-jobs'}
+                    icon={<UilBriefcase />}
+                >
+                    {employer ? 'Quản lý công việc' : 'Công việc của bạn'}
                 </ListItem>
 
-                <ListItem to="/freelancer-findwork" icon={<UilFileSearchAlt />}>
-                    Tìm việc
+                <ListItem
+                    to={employer ? '/find-freelancer' : '/freelancer-findwork'}
+                    icon={<UilFileSearchAlt />}
+                >
+                    {employer ? 'Tìm freelancer' : 'Tìm việc'}
                 </ListItem>
             </main>
         </div>

@@ -16,7 +16,7 @@
     }
 
     .small {
-        @apply h-10 p-2;
+        @apply h-10 p-2 text-sm;
     }
 
     .medium {
