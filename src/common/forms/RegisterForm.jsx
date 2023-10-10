@@ -1,7 +1,9 @@
 // import { useState } from 'react'
+import axios from 'axios'
 import Button from '../buttons/Button'
 import Input from '../Input'
 import { useForm } from 'react-hook-form'
+import { URL_SERVER } from '../../constants'
 
 function RegisterForm({ onContinue }) {
     const {
@@ -10,18 +12,20 @@ function RegisterForm({ onContinue }) {
         handleSubmit,
         formState: { errors },
     } = useForm()
-    // const [fullName, setFullName] = useState('')
-    // const [email, setEmail] = useState('')
-    // const [password, setPassword] = useState('')
-    // const [confirmPassword, setConfirmPassword] = useState('')
 
-    // function handleSubmit(e) {
-    //     e.preventDefault()
-    //     if (!fullName || !email || !password || !confirmPassword) return
-    //     onContinue((step) => step + 1)
-    // }
+    const submitAndVerifyEmail = (data) => {
+        console.log(data)
+        axios
+            .post(`${URL_SERVER}/auth/send-email-verify`, data)
+            .then((response) => {
+                if (response.status === 200) onContinue((step) => step + 1)
+                // else display error
+            })
+            .catch((err) => console.error(err))
+    }
+
     return (
-        <form onSubmit={handleSubmit((data) => onContinue(data))}>
+        <form onSubmit={handleSubmit(submitAndVerifyEmail)}>
             <Input
                 label="Họ và tên"
                 type="text"

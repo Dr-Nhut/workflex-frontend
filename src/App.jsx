@@ -17,6 +17,8 @@ import DashboardLayout from './layouts/DashboardLayout'
 import FreelancerJob from './page/FreelancerJob'
 import Contract from './features/jobs/Contract'
 import EmployerJob from './page/EmployerJob'
+import VerifyEmail from './page/VerifyEmail'
+import RegisterAccount from './features/auth/RegisterAccount'
 
 const router = createBrowserRouter([
     {
@@ -28,9 +30,26 @@ const router = createBrowserRouter([
         element: <Login />,
     },
     {
-        path: '/register',
-        element: <Register />,
+        element: <RegisterAccount />,
+        children: [
+            {
+                path: '/register',
+                element: <Register />,
+            },
+            {
+                path: '/verify-email',
+                element: <VerifyEmail />,
+            },
+        ],
     },
+    // {
+    //     path: '/register',
+    //     element: <Register />,
+    // },
+    // {
+    //     path: '/verify-email',
+    //     element: <VerifyEmail />,
+    // },
     {
         element: <AppLayout />,
         children: [
