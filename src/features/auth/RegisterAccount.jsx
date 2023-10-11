@@ -1,3 +1,4 @@
+import { useCallback } from 'react'
 import { useState } from 'react'
 import { Link, Outlet } from 'react-router-dom'
 
@@ -7,10 +8,12 @@ function RegisterAccount() {
 
     console.log(userInfor)
 
-    function handleContinue(data, stepSpecify) {
-        setUserInfor((pre) => ({ ...pre, ...data }))
+    const handleContinue = useCallback((data, stepSpecify) => {
+        if (data) {
+            setUserInfor((pre) => ({ ...pre, ...data }))
+        }
         setStep((step) => stepSpecify || step + 1)
-    }
+    }, [])
 
     return (
         <div className="h-screen bg-slate-100 py-20">

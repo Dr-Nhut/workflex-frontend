@@ -1,32 +1,15 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import Select from 'react-select'
+import { Controller } from 'react-hook-form'
 import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
 import axios from 'axios'
 
 import { URL_SERVER, EXP } from '../constants'
-import 'react-datepicker/dist/react-datepicker.css'
 import formatKeyObject from '../utils/formatKeyObject'
-import { Controller } from 'react-hook-form'
-import { useState } from 'react'
 
 function FreelancerInfor({ control, errors }) {
-    const [categories, setCategories] = useState([])
     const [skills, setSkills] = useState([])
-
-    useEffect(() => {
-        axios
-            .get(`${URL_SERVER}/category/all`)
-            .then((res) => {
-                const cateFormatted = formatKeyObject(res.data, [
-                    { old: 'id', new: 'value' },
-                    { old: 'name', new: 'label' },
-                ])
-                setCategories(cateFormatted)
-            })
-            .catch((err) => {
-                console.log(err)
-            })
-    }, [])
 
     useEffect(() => {
         axios
@@ -45,26 +28,6 @@ function FreelancerInfor({ control, errors }) {
 
     return (
         <>
-            <Controller
-                control={control}
-                name="categories"
-                rules={{ required: true }}
-                render={({ field: { onChange, value } }) => (
-                    <Select
-                        className="mt-4"
-                        // defaultValue={selectedOption}
-                        value={value}
-                        onChange={onChange}
-                        placeholder="Lĩnh vực"
-                        options={categories}
-                        isMulti
-                    />
-                )}
-            />
-            {errors.categories && (
-                <p className="text-red-500">Vui lòng chọn lĩnh vực của bạn.</p>
-            )}
-
             <Controller
                 control={control}
                 rules={{ required: true }}

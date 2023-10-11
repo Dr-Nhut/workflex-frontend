@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import {
-    redirect,
     useNavigate,
     useOutletContext,
     useSearchParams,
@@ -28,14 +27,20 @@ function VerifyEmail() {
             .then((response) => {
                 if (response.status === 200) {
                     setStatus(response.data.status)
-                    handleContinue({ email }, 2)
+                    handleContinue(
+                        {
+                            email,
+                            emailVerifiedAt: response.data.emailVerifiedAt,
+                        },
+                        2
+                    )
                     navigate('/register')
                 } else {
                     setStatus('fail')
                 }
             })
             .catch(() => setStatus('fail'))
-    }, [email, token])
+    }, [email, token, navigate, handleContinue])
 
     return (
         <div className="mt-8 flex justify-center">
