@@ -19,7 +19,6 @@ const tabs = [
 
 function MyProfile() {
     const [isActive, setIsActive] = useState(1)
-
     return (
         <>
             <PageHeader />

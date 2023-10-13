@@ -3,7 +3,7 @@ export const DEFAULT_NAV = [
         to: 'findwork',
         title: 'Tìm việc làm'
     }, {
-        to: 'jobs',
+        to: 'findfreelancer',
         title: 'Tìm Freelancer'
     }
 ];
@@ -29,4 +29,8 @@ export const EXP = [
     { value: 4, label: 'Trên 6 năm' },
 ]
 
+export const TypeProject = [
+    { value: 1, label: 'Online' },
+    { value: 2, label: 'Offline' },
+]
 export const URL_SERVER = "http://localhost:3000/api";

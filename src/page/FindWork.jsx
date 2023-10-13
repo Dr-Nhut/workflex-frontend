@@ -3,10 +3,11 @@ import PageHeader from '../ui/PageHeader'
 import JobSidebar from '../features/jobs/JobSidebar'
 import JobFilters from '../features/jobs/JobFilters'
 import JobList from '../features/jobs/JobList'
-import { useState } from 'react'
+import { useContext } from 'react'
+import { UserContext } from '../features/user/userSlice'
 
 function FindWork() {
-    const [user] = useState(true)
+    const { user } = useContext(UserContext)
     return (
         <div>
             <PageHeader

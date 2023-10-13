@@ -8,7 +8,7 @@ function Button({
 }) {
     return (
         <button
-            className={`flex items-center capitalize font-semibold cursor-pointer ${type} ${size} ${className}`}
+            className={`flex cursor-pointer items-center font-semibold capitalize ${type} ${size} ${className}`}
             onClick={onClick}
         >
             {icon}

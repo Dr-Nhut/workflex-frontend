@@ -5,13 +5,12 @@ import { Controller, useForm } from 'react-hook-form'
 import { URL_SERVER } from '../../constants'
 import axios from 'axios'
 import toast, { Toaster } from 'react-hot-toast'
-import { useEffect, useState } from 'react'
-import formatKeyObject from '../../utils/formatKeyObject'
-import Select from 'react-select'
 import { useNavigate } from 'react-router-dom'
+import useOptions from '../../hooks/useOptions'
+import SelectFetching from '../SelectFetching'
 
 function InfoFreelancerForm({ userInfor }) {
-    const [categories, setCategories] = useState([])
+    const categories = useOptions('categories/all')
     const navigate = useNavigate()
     const { role } = userInfor
     const {
@@ -21,21 +20,6 @@ function InfoFreelancerForm({ userInfor }) {
         control,
         formState: { errors },
     } = useForm()
-
-    useEffect(() => {
-        axios
-            .get(`${URL_SERVER}/category/all`)
-            .then((res) => {
-                const cateFormatted = formatKeyObject(res.data, [
-                    { old: 'id', new: 'value' },
-                    { old: 'name', new: 'label' },
-                ])
-                setCategories(cateFormatted)
-            })
-            .catch((err) => {
-                console.log(err)
-            })
-    }, [])
 
     const registerUser = (data) => {
         data.categories = data.categories.map((category) => category.value)
@@ -94,7 +78,7 @@ function InfoFreelancerForm({ userInfor }) {
                 name="categories"
                 rules={{ required: true }}
                 render={({ field: { onChange, value } }) => (
-                    <Select
+                    <SelectFetching
                         className="mt-4"
                         // defaultValue={selectedOption}
                         value={value}

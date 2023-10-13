@@ -1,11 +1,14 @@
+import { useContext } from 'react'
 import JobFilters from '../features/jobs/JobFilters'
 import JobSidebar from '../features/jobs/JobSidebar'
 import FreelancerList from '../features/user/FreelancerList'
 import SidebarLayout from '../layouts/SidebarLayout'
 import PageHeader from '../ui/PageHeader'
+import { UserContext } from '../features/user/userSlice'
 
 function Freelancer() {
-    const user = true
+    const { user } = useContext(UserContext)
+
     return (
         <div>
             <PageHeader

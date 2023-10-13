@@ -6,8 +6,6 @@ function RegisterAccount() {
     const [userInfor, setUserInfor] = useState()
     const [step, setStep] = useState(0)
 
-    console.log(userInfor)
-
     const handleContinue = useCallback((data, stepSpecify) => {
         if (data) {
             setUserInfor((pre) => ({ ...pre, ...data }))
