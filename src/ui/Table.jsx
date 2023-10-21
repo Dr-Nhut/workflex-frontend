@@ -25,12 +25,14 @@ function Header({ children }) {
     )
 }
 
-function Row({ children, onClick }) {
+function Row({ children, onClick, disabled }) {
     const columns = useContext(TableContext)
     return (
         <tr
             onClick={onClick}
-            className={`grid cursor-pointer items-center gap-x-2 border py-2 text-center transition-none hover:bg-slate-100 ${columns}`}
+            className={`grid cursor-pointer items-center gap-x-2 border py-2 text-center transition-none ${
+                disabled ? 'bg-red-200' : 'hover:bg-slate-100'
+            }  ${columns}`}
         >
             {children}
         </tr>

@@ -8,6 +8,7 @@ import Avatar from '../../ui/Avatar'
 import { useContext } from 'react'
 import { UserContext } from './userSlice'
 import { useNavigate } from 'react-router-dom'
+import { URL_SERVER_SIMPLE } from '../../constants'
 
 function UserOption() {
     const { user, dispatch } = useContext(UserContext)
@@ -23,7 +24,7 @@ function UserOption() {
             onClick={() => setIsOpen((pre) => !pre)}
         >
             <Avatar
-                image="https://i.pravatar.cc/150?u=a042581f4e29026awsl"
+                image={`${URL_SERVER_SIMPLE}${user.avatar}`}
                 type="smallImage"
             />
             <div className="flex">

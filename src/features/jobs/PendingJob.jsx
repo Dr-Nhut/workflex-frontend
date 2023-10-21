@@ -1,7 +1,29 @@
+import { useQuery } from '@tanstack/react-query'
 import Table from '../../ui/Table'
-import { UilTimesCircle, UilEdit } from '@iconscout/react-unicons'
+import { getPendingJob } from '../../services/apiJob'
+import Spinner from '../../ui/Spinner'
+import DescriptionSection from '../../ui/Section/DescriptionSection'
+import EmployerPendingJobRow from '../../ui/EmployerPendingJobRow'
 
 function PendingJob() {
+    const {
+        isLoading,
+        data: pendingJobs,
+        error,
+    } = useQuery({
+        queryKey: ['jobs'],
+        queryFn: getPendingJob,
+    })
+
+    if (isLoading) return <Spinner />
+
+    if (pendingJobs.length === 0)
+        return (
+            <DescriptionSection>
+                Bạn hiện không có công việc nào đang chờ duyệt
+            </DescriptionSection>
+        )
+
     return (
         <Table columns="grid-cols-10">
             <Table.Header>
@@ -13,47 +35,9 @@ function PendingJob() {
             </Table.Header>
 
             <Table.Body>
-                <Table.Row>
-                    <td className="col-span-2">Lập trình web</td>
-                    <td className="col-span-4 line-clamp-1 text-left">
-                        Thiết kế website thương mại điện tử tích hợp tìm kiếm
-                        sản phẩm thông minh
-                    </td>
-                    <td className="col-span-2">14:52 05/10/23</td>
-                    <td className="col-span-1">15.000.000</td>
-                    <td className="col-span-1 flex justify-center gap-x-2 text-stone-500 ">
-                        <UilEdit className="hover:text-stone-800" />
-                        <UilTimesCircle className="hover:text-stone-800" />
-                    </td>
-                </Table.Row>
-
-                <Table.Row>
-                    <td className="col-span-2">Lập trình web</td>
-                    <td className="col-span-4 line-clamp-1 text-left">
-                        Thiết kế website thương mại điện tử tích hợp tìm kiếm
-                        sản phẩm thông minh
-                    </td>
-                    <td className="col-span-2">14:52 05/10/23</td>
-                    <td className="col-span-1">15.000.000</td>
-                    <td className="col-span-1 flex justify-center gap-x-2 text-stone-500 ">
-                        <UilEdit className="hover:text-stone-800" />
-                        <UilTimesCircle className="hover:text-stone-800" />
-                    </td>
-                </Table.Row>
-
-                <Table.Row>
-                    <td className="col-span-2">Lập trình web</td>
-                    <td className="col-span-4 line-clamp-1 text-left">
-                        Thiết kế website thương mại điện tử tích hợp tìm kiếm
-                        sản phẩm thông minh
-                    </td>
-                    <td className="col-span-2">14:52 05/10/23</td>
-                    <td className="col-span-1">15.000.000</td>
-                    <td className="col-span-1 flex justify-center gap-x-2 text-stone-500 ">
-                        <UilEdit className="hover:text-stone-800" />
-                        <UilTimesCircle className="hover:text-stone-800" />
-                    </td>
-                </Table.Row>
+                {pendingJobs.map((job) => (
+                    <EmployerPendingJobRow key={job.id} job={job} />
+                ))}
             </Table.Body>
         </Table>
     )

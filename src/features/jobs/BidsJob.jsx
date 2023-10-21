@@ -1,9 +1,24 @@
-import Button from '../../common/buttons/Button'
 import Table from '../../ui/Table'
-import { UilEdit, UilTimesSquare } from '@iconscout/react-unicons'
-import Rectangle from '../../ui/Rectangle'
+import { useQuery } from '@tanstack/react-query'
+import { useContext } from 'react'
+import { UserContext } from '../user/userSlice'
+import { getOffersByFreelancer } from '../../services/apiOffer'
+import Spinner from '../../ui/Spinner'
+import FreelancerBidsRow from '../../ui/FreelancerBidsRow'
 
 function BidsJob() {
+    const { user } = useContext(UserContext)
+    const {
+        isLoading,
+        data: offers,
+        // error,
+    } = useQuery({
+        queryKey: ['offersByFreelancer'],
+        queryFn: () => getOffersByFreelancer(user.id),
+    })
+
+    if (isLoading) return <Spinner />
+
     return (
         <Table columns="grid-cols-12">
             <Table.Header>
@@ -17,129 +32,9 @@ function BidsJob() {
             </Table.Header>
 
             <Table.Body>
-                <Table.Row>
-                    <td className="col-span-2">Lập trình web</td>
-                    <td className="col-span-5 line-clamp-1 text-left">
-                        Thiết kế website thương mại điện tử tích hợp tìm kiếm
-                        sản phẩm thông minh
-                    </td>
-                    <td className="col-span-1">12500000</td>
-                    <td className="col-span-1">15000000</td>
-                    <td className="col-span-2">
-                        <Rectangle background="bg-teal-500">
-                            Đang duyệt
-                        </Rectangle>
-                    </td>
-                    <td className="col-span-1 flex text-stone-500">
-                        <Button
-                            type="btn-text"
-                            className="rounded"
-                            size="small"
-                        >
-                            <UilEdit />
-                        </Button>
-                        <Button
-                            type="btn-text"
-                            className="rounded"
-                            size="small"
-                        >
-                            <UilTimesSquare />
-                        </Button>
-                    </td>
-                </Table.Row>
-
-                <Table.Row>
-                    <td className="col-span-2">Lập trình web</td>
-                    <td className="col-span-5 line-clamp-1 text-left">
-                        Thiết kế website thương mại điện tử tích hợp tìm kiếm
-                        sản phẩm thông minh
-                    </td>
-                    <td className="col-span-1">10.000.000</td>
-                    <td className="col-span-1">15.000.000</td>
-                    <td className="col-span-2">
-                        <Rectangle background="bg-red-500">
-                            Đã kết thúc
-                        </Rectangle>
-                    </td>
-                    <td className="col-span-1 flex text-stone-500">
-                        <Button
-                            type="btn-text"
-                            className="rounded"
-                            size="small"
-                        >
-                            <UilEdit />
-                        </Button>
-                        <Button
-                            type="btn-text"
-                            className="rounded"
-                            size="small"
-                        >
-                            <UilTimesSquare />
-                        </Button>
-                    </td>
-                </Table.Row>
-
-                <Table.Row>
-                    <td className="col-span-2">Lập trình web</td>
-                    <td className="col-span-5 line-clamp-1 text-left">
-                        Thiết kế website thương mại điện tử tích hợp tìm kiếm
-                        sản phẩm thông minh
-                    </td>
-                    <td className="col-span-1">11.000.000</td>
-                    <td className="col-span-1">15.000.000</td>
-                    <td className="col-span-2">
-                        <Rectangle background="bg-teal-500">
-                            Đang duyệt
-                        </Rectangle>
-                    </td>
-                    <td className="col-span-1 flex text-stone-500">
-                        <Button
-                            type="btn-text"
-                            className="rounded"
-                            size="small"
-                        >
-                            <UilEdit />
-                        </Button>
-                        <Button
-                            type="btn-text"
-                            className="rounded"
-                            size="small"
-                        >
-                            <UilTimesSquare />
-                        </Button>
-                    </td>
-                </Table.Row>
-
-                <Table.Row>
-                    <td className="col-span-2">Lập trình web</td>
-                    <td className="col-span-5 line-clamp-1 text-left">
-                        Thiết kế website thương mại điện tử tích hợp tìm kiếm
-                        sản phẩm thông minh
-                    </td>
-                    <td className="col-span-1">12.000.000</td>
-                    <td className="col-span-1">15.000.000</td>
-                    <td className="col-span-2">
-                        <Rectangle background="bg-teal-500">
-                            Đang duyệt
-                        </Rectangle>
-                    </td>
-                    <td className="col-span-1 flex text-stone-500">
-                        <Button
-                            type="btn-text"
-                            className="rounded"
-                            size="small"
-                        >
-                            <UilEdit />
-                        </Button>
-                        <Button
-                            type="btn-text"
-                            className="rounded"
-                            size="small"
-                        >
-                            <UilTimesSquare />
-                        </Button>
-                    </td>
-                </Table.Row>
+                {offers.map((offer) => (
+                    <FreelancerBidsRow key={offer.id} offer={offer} />
+                ))}
             </Table.Body>
         </Table>
     )

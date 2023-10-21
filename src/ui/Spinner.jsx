@@ -1,4 +1,4 @@
-function Spinner({ size = 'medium', absolute = false }) {
+function Spinner({ size = 'medium', absolute }) {
     return (
         <div
             role="status"

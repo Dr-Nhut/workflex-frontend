@@ -13,9 +13,15 @@ function Header() {
 
     return (
         <header className="fixed left-0 right-0 top-0 z-50 bg-sky-800">
-            <div className="flex h-header w-full items-center justify-around">
+            <div
+                className={`flex h-header w-full items-center ${
+                    user?.role === 'adm'
+                        ? 'justify-between px-10'
+                        : 'justify-around'
+                }`}
+            >
                 <Logo />
-                <Search />
+                {user?.role !== 'adm' && <Search />}
                 {!user.id && <Navbar items={DEFAULT_NAV} />}
                 {user.id ? <UserMenu role={user.role} /> : <Account />}
             </div>

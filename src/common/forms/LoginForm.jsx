@@ -27,7 +27,10 @@ function LoginForm() {
                 else {
                     dispatch({ type: 'users/login', payload: user })
                     Cookies.set('token', token, { expires: 365 })
-                    navigate('/dashboard')
+                    console.log(user.role)
+                    if (user.role === 'adm') {
+                        navigate('/admin')
+                    } else navigate('/dashboard')
                 }
             })
             .catch((err) => console.log(err))

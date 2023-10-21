@@ -23,14 +23,15 @@ export const SUBNAV = [
 ]
 
 export const EXP = [
-    { value: 1, label: 'Fresher' },
-    { value: 2, label: 'Từ 1 đến 3 năm' },
-    { value: 3, label: 'Từ 3 đến 6 năm' },
-    { value: 4, label: 'Trên 6 năm' },
+    { value: 'Fresher', label: 'Fresher' },
+    { value: 'Từ 1 đến 3 năm', label: 'Từ 1 đến 3 năm' },
+    { value: 'Từ 3 đến 6 năm', label: 'Từ 3 đến 6 năm' },
+    { value: 'Trên 6 năm', label: 'Trên 6 năm' },
 ]
 
 export const TypeProject = [
-    { value: 1, label: 'Online' },
-    { value: 2, label: 'Offline' },
+    { value: 'Online', label: 'Online' },
+    { value: 'Offline', label: 'Offline' },
 ]
 export const URL_SERVER = "http://localhost:3000/api";
+export const URL_SERVER_SIMPLE = "http://localhost:3000/"

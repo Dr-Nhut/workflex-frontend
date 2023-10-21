@@ -4,7 +4,13 @@ import { Navigate, Outlet } from 'react-router-dom'
 
 function ProtectComponent() {
     const { user } = useContext(UserContext)
-    if (user.id) return <Navigate to="/dashboard" replace />
+    if (user.id)
+        return (
+            <Navigate
+                to={`${user.role === 'adm' ? '/admin' : '/dashboard'}`}
+                replace
+            />
+        )
     return <Outlet />
 }
 

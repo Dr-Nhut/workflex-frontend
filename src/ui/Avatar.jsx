@@ -5,7 +5,7 @@ function Avatar({ image, type = 'mediumImage', center }) {
             alt="avt"
             className={`${
                 center ? 'mx-auto block' : 'inline-block'
-            } rounded-full p-2 ring-2 ${type}`}
+            } rounded-full ring-2 ${type}`}
         />
     )
 }

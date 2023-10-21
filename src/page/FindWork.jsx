@@ -9,12 +9,16 @@ import { UserContext } from '../features/user/userSlice'
 function FindWork() {
     const { user } = useContext(UserContext)
     return (
-        <div>
+        <div className="mx-8">
             <PageHeader
                 title="Việc làm Freelance"
                 description="Hàng trăm công việc khắp các lĩnh vực đang chờ đợi bạn"
             />
-            <SidebarLayout sidebar={<JobSidebar right={user} />} right={user}>
+            <SidebarLayout
+                fullWidth
+                sidebar={<JobSidebar right={user} />}
+                right={user}
+            >
                 <JobFilters />
                 <JobList />
             </SidebarLayout>

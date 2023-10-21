@@ -16,7 +16,7 @@ function UserMenu({ role }) {
                         </Button>
                     </Modal.Open>
                     <Modal.Window name="post-job" title="Đăng việc làm">
-                        <PostJob></PostJob>
+                        <PostJob />
                     </Modal.Window>
                 </Modal>
             )}

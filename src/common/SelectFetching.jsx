@@ -1,10 +1,16 @@
 import Select from 'react-select'
 import useOptions from '../hooks/useOptions'
 
-function SelectFetching({ value, onChange, placeholder, urlOptions }) {
+function SelectFetching({
+    value,
+    onChange,
+    placeholder,
+    urlOptions,
+    isMulti = false,
+    isSearchable = true,
+}) {
     const options = useOptions(urlOptions)
 
-    console.log(options)
     return (
         <Select
             className="mt-4"
@@ -13,7 +19,8 @@ function SelectFetching({ value, onChange, placeholder, urlOptions }) {
             onChange={onChange}
             placeholder={placeholder}
             options={options}
-            isMulti
+            isMulti={isMulti}
+            isSearchable={isSearchable}
         />
     )
 }

@@ -8,14 +8,19 @@ import {
 import Avatar from './Avatar'
 import ListItem from './ListItem'
 import UserName from './UserName'
+import { useContext } from 'react'
+import { UserContext } from '../features/user/userSlice'
+import { URL_SERVER_SIMPLE } from '../constants'
 
 function DashboardSidebar() {
-    const employer = true
+    const { user } = useContext(UserContext)
+
+    const employer = user.role === 'emp'
     return (
         <div className="col-span-2 mt-4">
             <header className="relative flex flex-col items-center gap-y-2">
-                <Avatar image="https://i.pravatar.cc/150?u=a042581f4e29026awsl" />
-                <UserName dark>Lê Minh Nhựt</UserName>
+                <Avatar image={`${URL_SERVER_SIMPLE}${user.avatar}`} />
+                <UserName dark>{user.fullname}</UserName>
                 <UilBars className="absolute right-0 cursor-pointer hover:text-stone-500" />
             </header>
 

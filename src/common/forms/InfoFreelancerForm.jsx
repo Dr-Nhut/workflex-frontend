@@ -8,9 +8,9 @@ import toast, { Toaster } from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 import useOptions from '../../hooks/useOptions'
 import SelectFetching from '../SelectFetching'
+import Select from 'react-select'
 
 function InfoFreelancerForm({ userInfor }) {
-    const categories = useOptions('categories/all')
     const navigate = useNavigate()
     const { role } = userInfor
     const {
@@ -23,6 +23,7 @@ function InfoFreelancerForm({ userInfor }) {
 
     const registerUser = (data) => {
         data.categories = data.categories.map((category) => category.value)
+        data.sex = data.sex.value
         data.skills = data.skills?.map((skill) => skill.value)
         axios
             .post(`${URL_SERVER}/auth/register`, { ...userInfor, ...data })
@@ -66,12 +67,36 @@ function InfoFreelancerForm({ userInfor }) {
                 })}
                 error={errors.confirmPassword}
             />
+
             <Input
                 label="Địa chỉ"
                 type="text"
                 register={register('address', { required: true })}
                 errors={errors.address}
             />
+
+            <Controller
+                control={control}
+                name="sex"
+                rules={{ required: true }}
+                render={({ field: { onChange, value } }) => (
+                    <Select
+                        className="mt-4"
+                        // defaultValue={selectedOption}
+                        value={value}
+                        onChange={onChange}
+                        placeholder="Giới tính"
+                        options={[
+                            { value: 'Nam', label: 'Nam' },
+                            { value: 'Nữ', label: 'Nữ' },
+                        ]}
+                        isSearchable={false}
+                    />
+                )}
+            />
+            {errors.sex && (
+                <p className="text-red-500">Vui lòng điền thông tin.</p>
+            )}
 
             <Controller
                 control={control}
@@ -84,7 +109,7 @@ function InfoFreelancerForm({ userInfor }) {
                         value={value}
                         onChange={onChange}
                         placeholder="Lĩnh vực"
-                        options={categories}
+                        urlOptions={'/category/all'}
                         isMulti
                     />
                 )}
@@ -92,13 +117,13 @@ function InfoFreelancerForm({ userInfor }) {
             {errors.categories && (
                 <p className="text-red-500">Vui lòng chọn lĩnh vực của bạn.</p>
             )}
+
             {role === 'fre' && (
                 <FreelancerInfor control={control} errors={errors} />
             )}
             <Button className="mx-auto mt-4 rounded-xl" type="btn-primary">
                 Xác nhận
             </Button>
-            <Toaster />
         </form>
     )
 }

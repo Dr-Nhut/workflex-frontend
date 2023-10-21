@@ -2,6 +2,7 @@ import Tab from '../ui/Tab'
 import { useState } from 'react'
 import CurrentJob from '../features/jobs/CurrentJob'
 import PendingJob from '../features/jobs/PendingJob'
+import RefusedJob from '../features/jobs/RefusedJob'
 import AcceptingBidsJob from '../features/jobs/AcceptingBidsJob'
 
 function EmployerJob() {
@@ -20,10 +21,14 @@ function EmployerJob() {
                     },
                     {
                         id: 2,
-                        name: 'Đang thực hiện',
+                        name: 'Đăng thất bại',
                     },
                     {
                         id: 3,
+                        name: 'Đang thực hiện',
+                    },
+                    {
+                        id: 4,
                         name: 'Đã hoàn thành',
                     },
                 ]}
@@ -33,7 +38,8 @@ function EmployerJob() {
                 <div className="mx-10 mt-6">
                     {isActive === 0 && <PendingJob />}
                     {isActive === 1 && <AcceptingBidsJob />}
-                    {isActive === 2 && <CurrentJob />}
+                    {isActive === 2 && <RefusedJob />}
+                    {isActive === 3 && <CurrentJob />}
                 </div>
             </Tab>
         </div>

@@ -57,8 +57,14 @@ function Window({ children, name, title }) {
                     </Button>
                 </div>
 
-                <h4 className="text-xl font-semibold capitalize">{title}</h4>
-                <div>{children}</div>
+                <h4 className="text-center text-2xl font-semibold capitalize">
+                    {title}
+                </h4>
+                <div>
+                    {cloneElement(children, {
+                        onCloseModal: close,
+                    })}
+                </div>
             </div>
         </Overlay>,
         document.body
