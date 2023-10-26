@@ -13,23 +13,13 @@ function TaskItemDetail() {
     const [isActive, setIsActive] = useState()
     return (
         <div className="w-[1200px]">
-            <header className="flex items-center justify-between">
-                <TitleSection>Nhiệm vụ</TitleSection>
+            <header className="my-2 flex items-center justify-between">
+                <Rectangle background="bg-sky-500">Đang thực hiện</Rectangle>
 
-                <div className="flex items-center gap-x-2">
-                    <Rectangle background="bg-sky-500">
-                        Đang thực hiện
-                    </Rectangle>
-
-                    <span>Thời hạn: 01/01/2023</span>
-
-                    <Button type="btn-text">
-                        <UilTimesCircle />
-                    </Button>
-                </div>
+                <span>Thời hạn: 01/01/2023</span>
             </header>
             <main className="grid grid-cols-2 gap-x-4">
-                <section className="col-span-1 border px-3 py-4">
+                <section className="col-span-1 border px-3 py-2">
                     <TitleSection>Thiết kế giao diện</TitleSection>
                     <DescriptionSection align="text-justify">
                         1. Thu thập thông tin: Tìm hiểu về mục tiêu của website,
@@ -52,7 +42,7 @@ function TaskItemDetail() {
                     </DescriptionSection>
                 </section>
 
-                <section className="col-span-1 border px-3 py-4">
+                <section className="col-span-1 border px-3 py-2">
                     <Tab
                         tabs={[
                             {

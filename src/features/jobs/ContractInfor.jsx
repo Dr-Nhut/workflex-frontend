@@ -6,18 +6,21 @@ import Tab from '../../ui/Tab'
 import { useState } from 'react'
 import TaskProject from './TaskProject'
 import PlanProject from './PlanProject'
+import formatTime from '../../utils/formatTime'
+import formatCurrency from '../../utils/formatCurrency'
 
-function ContractInfor() {
+function ContractInfor({ jobName, offer }) {
     const [isActive, setIsActive] = useState(1)
     return (
         <div>
             <Rectangle background="bg-green-500">
-                <UilClockThree className="inline-block" /> 01/11/2023
+                <UilClockThree className="inline-block" />{' '}
+                {formatTime(offer.dateEnd)}
             </Rectangle>
             <header className="mt-4 flex items-center justify-between">
-                <JobName>Cần thiết kế website bán hàng</JobName>
+                <JobName>{jobName}</JobName>
 
-                <span className="font-bold">12.5 triệu đồng</span>
+                <span className="font-bold">{formatCurrency(offer.price)}</span>
             </header>
 
             <main>
@@ -36,7 +39,7 @@ function ContractInfor() {
                     onClick={setIsActive}
                 >
                     {isActive === 1 && <TaskProject />}
-                    {isActive === 2 && <PlanProject />}
+                    {isActive === 2 && <PlanProject plan={offer.plan} />}
                 </Tab>
             </main>
         </div>

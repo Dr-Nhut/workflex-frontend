@@ -1,43 +1,47 @@
 import TitleSection from '../../ui/TitleSection'
 import DescriptionSection from '../../ui/Section/DescriptionSection'
-import Inbox from '../user/Inbox'
 import UserCard from '../user/UserCard'
 import Rectangle from '../../ui/Rectangle'
-function ContractSidebar() {
+import { URL_SERVER_SIMPLE } from '../../constants'
+import { useContext } from 'react'
+import { UserContext } from '../user/userSlice'
+function ContractSidebar({ job, offer }) {
+    const { user } = useContext(UserContext)
+
     return (
         <div className="col-span-3 ml-8">
             <section className="mb-8">
                 <TitleSection>Đối tác</TitleSection>
 
-                <div className="flex items-center justify-between rounded-xl bg-stone-100 px-4">
+                <div className="flex items-center justify-between overflow-hidden rounded-xl bg-stone-100 px-1">
                     <UserCard
-                        fullName="David"
-                        avatarUrl="https://i.pravatar.cc/150"
+                        fullName={
+                            user.role === 'emp' ? offer.fullname : job.fullname
+                        }
+                        avatarUrl={`${URL_SERVER_SIMPLE}${
+                            user.role === 'emp' ? offer.avatar : job.avatar
+                        }`}
                     >
-                        <span className="int italic text-stone-400 ">
-                            Online
+                        <span className="int italic text-stone-400">
+                            {user.role === 'emp' ? offer.email : job.email}
                         </span>
                     </UserCard>
-
-                    <Inbox />
                 </div>
             </section>
 
             <section>
                 <TitleSection>Chi tiết dự án</TitleSection>
                 <DescriptionSection align="text-justify">
-                    Tôi đang tìm người sửa bốn bức ảnh điện thoại di động kém
-                    chất lượng. Một cái đã được tải lên. Bạn có thể làm cho
-                    chúng trông bán chuyên nghiệp không?
+                    {job.description}
                 </DescriptionSection>
             </section>
 
             <section>
                 <TitleSection>Yêu cầu kỹ thuật</TitleSection>
                 <div className="flex flex-wrap gap-x-2">
-                    <Rectangle>HTML</Rectangle>
-                    <Rectangle>CSS</Rectangle>
-                    <Rectangle>React</Rectangle>
+                    {job.skills.map((skill) => (
+                        <Rectangle key={skill}>{skill}</Rectangle>
+                    ))}
                 </div>
             </section>
         </div>

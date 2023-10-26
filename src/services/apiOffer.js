@@ -30,3 +30,23 @@ export async function getOffersByFreelancer(freelancerId) {
         throw new Error('Đã xảy ra lỗi');
     }
 }
+
+export async function getOfferProcessing(jobId) {
+    try {
+        const response = await axios.get(`${URL_SERVER}/offer/processing-by-job?jobId=${jobId}`);
+        return response.data
+    } catch (error) {
+        console.error(error);
+        throw new Error('Đã xảy ra lỗi');
+    }
+}
+
+export async function updateOffer(data) {
+    try {
+        const response = await axios.patch(`${URL_SERVER}/offer/${data.id}`, data.payload);
+        return response
+    } catch (error) {
+        console.error(error);
+        throw new Error('Đã xảy ra lỗi');
+    }
+}

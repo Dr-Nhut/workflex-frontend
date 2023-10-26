@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import Label from '../../common/Label'
 import JobItemGrid from '../../ui/JobItemGrid'
 import UserCard from '../user/UserCard'
@@ -18,10 +18,67 @@ import formatCurrency from '../../utils/formatCurrency'
 import formatTime from '../../utils/formatTime'
 import formatFullTime from '../../utils/formatFullTime'
 import TextDescriptionEditor from '../../ui/TextDescriptionEditor'
+import { useMutation, useQuery } from '@tanstack/react-query'
+import { UserContext } from '../user/userSlice'
+import { createContract } from '../../services/apiContact'
+import { updateJob } from '../../services/apiJob'
+import { getOffersForJob, updateOffer } from '../../services/apiOffer'
+import { useNavigate, useParams } from 'react-router-dom'
+import toast from 'react-hot-toast'
 
 function OfferItemCard({ offer }) {
     const [isShowDetail, setIsShowDetail] = useState(false)
+    const { user } = useContext(UserContext)
+    const jobId = useParams().id
+    const navigate = useNavigate()
 
+    const { data: offers } = useQuery({
+        queryKey: ['offersForJob'],
+        queryFn: () => getOffersForJob(jobId),
+    })
+
+    const { mutateAsync: createContact } = useMutation({
+        mutationFn: createContract,
+    })
+
+    const { mutateAsync: changeStatusJob } = useMutation({
+        mutationFn: updateJob,
+    })
+
+    const { mutate: handleOffer } = useMutation({
+        mutationFn: updateOffer,
+    })
+
+    async function handleOnClick() {
+        try {
+            await createContact({
+                employerId: user.id,
+                offerId: offer.id,
+            })
+
+            await changeStatusJob({
+                id: jobId,
+                payload: { status: 'Đang thực hiện' },
+            })
+
+            await offers.forEach((offerOrigin) => {
+                handleOffer({
+                    id: offerOrigin.id,
+                    payload: {
+                        status:
+                            offer.id === offerOrigin.id
+                                ? 'Đang thực hiện'
+                                : 'Từ chối',
+                    },
+                })
+            })
+
+            toast.success('Bạn đã chọn freelancer cho công việc')
+            navigate('/employer-job')
+        } catch (err) {
+            toast.error(err.message)
+        }
+    }
     const {
         fullname,
         avatar,
@@ -100,6 +157,7 @@ function OfferItemCard({ offer }) {
                         <Button
                             type="btn-primary"
                             className="mx-auto mt-8 rounded-xl"
+                            onClick={handleOnClick}
                         >
                             Chấp nhận
                         </Button>
