@@ -4,20 +4,48 @@ import TitleSection from '../../ui/TitleSection'
 import { UserContext } from '../user/userSlice'
 import { useContext } from 'react'
 import TaskRow from '../tasks/TaskRow'
+import { useQuery } from '@tanstack/react-query'
+import { getContractTasks } from '../../services/apiTask'
+import Spinner from '../../ui/Spinner'
+import Modal from '../../ui/Modal-v1'
+import PostTask from '../tasks/PostTask'
 
-const task = 2
-
-function TaskProject() {
+function TaskProject({ contract }) {
     const { user } = useContext(UserContext)
+
+    const {
+        isLoading,
+        data: tasks,
+        // error,
+    } = useQuery({
+        queryKey: ['tasks'],
+        queryFn: () => getContractTasks(contract),
+    })
+
+    if (isLoading) return <Spinner />
+
     return (
         <div className="m-4">
-            {task === 0 ? (
+            {tasks.length === 0 ? (
                 <div className="flex flex-col items-center">
                     <span>Danh sách nhiệm vụ chưa được tạo</span>
                     {user.role === 'fre' && (
-                        <Button type="btn-primary" className="mt-2 rounded-xl">
-                            Tạo ngay
-                        </Button>
+                        <Modal>
+                            <Modal.Open opens="post-task">
+                                <Button
+                                    type="btn-primary"
+                                    className="mt-2 rounded-xl"
+                                >
+                                    Tạo ngay
+                                </Button>
+                            </Modal.Open>
+                            <Modal.Window
+                                name="post-task"
+                                title="Thêm nhiệm vụ"
+                            >
+                                <PostTask contractId={contract} />
+                            </Modal.Window>
+                        </Modal>
                     )}
                 </div>
             ) : (
@@ -25,13 +53,23 @@ function TaskProject() {
                     <header className="flex items-center justify-between">
                         <TitleSection>Danh sách nhiệm vụ</TitleSection>
                         {user.role === 'fre' && (
-                            <Button
-                                type="btn-primary"
-                                size="small"
-                                className="rounded"
-                            >
-                                Thêm nhiệm vụ
-                            </Button>
+                            <Modal>
+                                <Modal.Open opens="post-task">
+                                    <Button
+                                        type="btn-primary"
+                                        size="small"
+                                        className="rounded"
+                                    >
+                                        Thêm nhiệm vụ
+                                    </Button>
+                                </Modal.Open>
+                                <Modal.Window
+                                    name="post-task"
+                                    title="Thêm nhiệm vụ"
+                                >
+                                    <PostTask contractId={contract} />
+                                </Modal.Window>
+                            </Modal>
                         )}
                     </header>
 
@@ -46,7 +84,9 @@ function TaskProject() {
                         </Table.Header>
 
                         <Table.Body>
-                            <TaskRow />
+                            {tasks.map((task) => (
+                                <TaskRow key={task.id} task={task} />
+                            ))}
                         </Table.Body>
                     </Table>
                 </>

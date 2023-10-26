@@ -1,11 +1,11 @@
 import Avatar from '../ui/Avatar'
 
-function MessageItem({ host, message }) {
+function MessageItem({ host, children }) {
     return (
         <div className={`mb-4 flex w-full ${host && 'justify-end'}`}>
             {host && (
                 <span className="mr-2 rounded-xl bg-stone-300 p-2">
-                    {message}
+                    {children}
                 </span>
             )}
             <Avatar
@@ -18,7 +18,7 @@ function MessageItem({ host, message }) {
             />
             {!host && (
                 <span className="ml-2 rounded-xl bg-stone-300 p-2">
-                    {message}
+                    {children}
                 </span>
             )}
         </div>

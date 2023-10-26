@@ -1,18 +1,22 @@
 import { useQuery } from '@tanstack/react-query'
 import Table from '../../ui/Table'
 import Spinner from '../../ui/Spinner'
-import { getRefusedJob } from '../../services/apiJob'
+import { getEmployerCurrentJob } from '../../services/apiJob'
 import EmployerRefusedJobRow from '../../ui/EmployerRefusedJobRow'
 import DescriptionSection from '../../ui/Section/DescriptionSection'
+import { useContext } from 'react'
+import { UserContext } from '../user/userSlice'
 
 function RefusedJob() {
+    const { user } = useContext(UserContext)
     const {
         isLoading,
         data: refusedJobs,
-        error,
+        // error,
     } = useQuery({
-        queryKey: ['refusedJobs'],
-        queryFn: getRefusedJob,
+        queryKey: ['refused-jobs'],
+        queryFn: () =>
+            getEmployerCurrentJob({ id: user.id, status: 'Từ chối' }),
     })
 
     if (isLoading) return <Spinner />

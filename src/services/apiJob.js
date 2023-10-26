@@ -32,9 +32,9 @@ export async function getFreelancerCurrentJob(data) {
 }
 
 
-export async function getPendingJob() {
+export async function getPendingJob(employerId) {
     try {
-        const response = await axios.get(`${URL_SERVER}/job/pending-jobs`);
+        const response = await axios.get(`${URL_SERVER}/job/pending-jobs?employerId=${employerId}`);
         return response.data
     } catch (error) {
         console.error(error);

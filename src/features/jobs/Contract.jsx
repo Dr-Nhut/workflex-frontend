@@ -6,6 +6,7 @@ import { useQueries } from '@tanstack/react-query'
 import { getDetailJob } from '../../services/apiJob'
 import Spinner from '../../ui/Spinner'
 import { getOfferProcessing } from '../../services/apiOffer'
+import HeaderDetailPage from '../../ui/HeaderDetailPage'
 
 function Contract() {
     const [searchParams] = useSearchParams()
@@ -30,13 +31,14 @@ function Contract() {
     if (loadingJobDetail || loadingOfferProcessing) return <Spinner />
     return (
         <div className="m-8">
+            <HeaderDetailPage>Chi tiết hợp tác</HeaderDetailPage>
             <SidebarLayout
                 mainWidth="col-span-9"
                 fullWidth
                 right
                 sidebar={<ContractSidebar job={job} offer={offer} />}
             >
-                <ContractInfor jobName={job.name} offer={offer} />
+                <ContractInfor job={job} offer={offer} />
             </SidebarLayout>
         </div>
     )

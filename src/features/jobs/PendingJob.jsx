@@ -1,18 +1,22 @@
 import { useQuery } from '@tanstack/react-query'
 import Table from '../../ui/Table'
-import { getPendingJob } from '../../services/apiJob'
+import { getEmployerCurrentJob } from '../../services/apiJob'
 import Spinner from '../../ui/Spinner'
 import DescriptionSection from '../../ui/Section/DescriptionSection'
 import EmployerPendingJobRow from '../../ui/EmployerPendingJobRow'
+import { useContext } from 'react'
+import { UserContext } from '../user/userSlice'
 
 function PendingJob() {
+    const { user } = useContext(UserContext)
     const {
         isLoading,
         data: pendingJobs,
-        error,
+        // error,
     } = useQuery({
-        queryKey: ['jobs'],
-        queryFn: getPendingJob,
+        queryKey: ['pending-jobs'],
+        queryFn: () =>
+            getEmployerCurrentJob({ id: user.id, status: 'Đang duyệt' }),
     })
 
     if (isLoading) return <Spinner />

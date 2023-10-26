@@ -35,3 +35,4 @@ export const TypeProject = [
 ]
 export const URL_SERVER = "http://localhost:3000/api";
 export const URL_SERVER_SIMPLE = "http://localhost:3000/"
+export const URL_SERVER_DOCUMENT = "http://localhost:3000/uploads/tasks/"

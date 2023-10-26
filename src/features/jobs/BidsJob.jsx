@@ -13,7 +13,7 @@ function BidsJob() {
         data: offers,
         // error,
     } = useQuery({
-        queryKey: ['offersByFreelancer'],
+        queryKey: ['offersByFreelancer', user.id],
         queryFn: () => getOffersByFreelancer(user.id),
     })
 

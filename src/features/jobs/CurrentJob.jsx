@@ -12,7 +12,6 @@ import { UserContext } from '../user/userSlice'
 
 function CurrentJob() {
     const { user } = useContext(UserContext)
-    console.log(user)
     const {
         isLoading,
         data: jobs,

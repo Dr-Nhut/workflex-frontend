@@ -4,6 +4,7 @@ import CurrentJob from '../features/jobs/CurrentJob'
 import PendingJob from '../features/jobs/PendingJob'
 import RefusedJob from '../features/jobs/RefusedJob'
 import AcceptingBidsJob from '../features/jobs/AcceptingBidsJob'
+import EmployerCompleteJob from '../features/jobs/EmployerCompleteJob'
 
 function EmployerJob() {
     const [isActive, setIsActive] = useState(0)
@@ -40,6 +41,7 @@ function EmployerJob() {
                     {isActive === 1 && <AcceptingBidsJob />}
                     {isActive === 2 && <RefusedJob />}
                     {isActive === 3 && <CurrentJob />}
+                    {isActive === 4 && <EmployerCompleteJob />}
                 </div>
             </Tab>
         </div>

@@ -31,7 +31,7 @@ function PostJob({ onCloseModal }) {
     const { mutate, isLoading } = useMutation({
         mutationFn: createJob,
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['jobs'] })
+            queryClient.invalidateQueries({ queryKey: ['pending-jobs'] })
             reset()
             onCloseModal()
             toast.success('Công việc của bạn đã được tạo!')

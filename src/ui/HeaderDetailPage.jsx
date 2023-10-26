@@ -6,7 +6,7 @@ import { UilArrowRight } from '@iconscout/react-unicons'
 function HeaderDetailPage({ children }) {
     const navigate = useNavigate()
     return (
-        <div className="ml-8 mr-2 mt-2 flex items-center justify-between">
+        <div className=" mr-2 mt-2 flex items-center justify-between">
             <TitleSection>{children}</TitleSection>
             <Button
                 onClick={() => navigate(-1)}

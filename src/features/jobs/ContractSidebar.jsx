@@ -5,6 +5,7 @@ import Rectangle from '../../ui/Rectangle'
 import { URL_SERVER_SIMPLE } from '../../constants'
 import { useContext } from 'react'
 import { UserContext } from '../user/userSlice'
+import TextDescriptionEditor from '../../ui/TextDescriptionEditor'
 function ContractSidebar({ job, offer }) {
     const { user } = useContext(UserContext)
 
@@ -31,9 +32,7 @@ function ContractSidebar({ job, offer }) {
 
             <section>
                 <TitleSection>Chi tiết dự án</TitleSection>
-                <DescriptionSection align="text-justify">
-                    {job.description}
-                </DescriptionSection>
+                <TextDescriptionEditor>{job.description}</TextDescriptionEditor>
             </section>
 
             <section>

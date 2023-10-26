@@ -3,6 +3,7 @@ import FavouriteJob from '../features/jobs/FavouriteJob'
 import { useState } from 'react'
 import BidsJob from '../features/jobs/BidsJob'
 import CurrentJob from '../features/jobs/CurrentJob'
+import FreelancerCompleteJob from '../features/jobs/FreelancerCompleteJob'
 
 function FreelancerJob() {
     const [isActive, setIsActive] = useState(1)
@@ -31,6 +32,7 @@ function FreelancerJob() {
                     {isActive === 0 && <FavouriteJob />}
                     {isActive === 1 && <BidsJob />}
                     {isActive === 2 && <CurrentJob />}
+                    {isActive === 3 && <FreelancerCompleteJob />}
                 </div>
             </Tab>
         </div>
