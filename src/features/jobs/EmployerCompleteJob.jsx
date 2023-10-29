@@ -10,8 +10,8 @@ import CompleteJobRow from '../../ui/CompleteJobRow'
 function EmployerCompleteJob() {
     const { user } = useContext(UserContext)
     const {
-        isLoading,
-        data: jobs,
+        isLoading: loadingCompletedJobs,
+        data: completedJobs,
         // error,
     } = useQuery({
         queryKey: ['employer-complete-job'],
@@ -22,11 +22,24 @@ function EmployerCompleteJob() {
             }),
     })
 
-    if (isLoading) return <Spinner />
+    // const {
+    //     isLoading: loadingPaidJobs,
+    //     data: paidJobs,
+    //     // error,
+    // } = useQuery({
+    //     queryKey: ['employer-paid-job'],
+    //     queryFn: () =>
+    //         getEmployerCurrentJob({
+    //             id: user.id,
+    //             status: 'Đã hoàn thành thanh toán',
+    //         }),
+    // })
+
+    if (loadingCompletedJobs) return <Spinner />
 
     return (
         <>
-            {jobs?.length > 0 ? (
+            {completedJobs?.length > 0 ? (
                 <Table columns="grid-cols-12">
                     <Table.Header>
                         <th className="col-span-2">Lĩnh vực</th>
@@ -38,7 +51,7 @@ function EmployerCompleteJob() {
                     </Table.Header>
 
                     <Table.Body>
-                        {jobs.map((job) => (
+                        {completedJobs.map((job) => (
                             <CompleteJobRow key={job.id} job={job} />
                         ))}
                     </Table.Body>

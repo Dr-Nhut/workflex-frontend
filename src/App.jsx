@@ -30,6 +30,20 @@ import ManagerJobDetail from './page/ManagerJobDetail'
 import EmpRefusedJob from './page/EmpRefusedJob'
 import FreelancerBids from './page/FreelancerBids'
 import EmployerOffers from './page/EmployerOffers'
+import EmployerPayment from './page/EmployerPayment'
+import CheckoutSuccess from './page/CheckoutSuccess'
+import AdminPaymentDetailJob from './page/AdminPaymentDetailJob'
+import FavouriteJob from './features/jobs/FavouriteJob'
+import BidsJob from './features/jobs/BidsJob'
+import CurrentJob from './features/jobs/CurrentJob'
+import FreelancerCompleteJob from './features/jobs/FreelancerCompleteJob'
+import FreelancerPaidJob from './features/jobs/FreelancerPaidJob'
+import PendingJob from './features/jobs/PendingJob'
+import AcceptingBidsJob from './features/jobs/AcceptingBidsJob'
+import RefusedJob from './features/jobs/RefusedJob'
+import EmployerCompleteJob from './features/jobs/EmployerCompleteJob'
+import ManagerPendingJob from './admin/job/ManagerPendingJob'
+import ManagerPaidJob from './page/ManagerPaidJob'
 
 // const router = createBrowserRouter([
 //     {
@@ -150,11 +164,67 @@ function App() {
                                 <Route
                                     path="freelancer-jobs"
                                     element={<FreelancerJob />}
-                                />
+                                >
+                                    <Route
+                                        index
+                                        path="/freelancer-jobs/favarious"
+                                        element={<FavouriteJob />}
+                                    />
+
+                                    <Route
+                                        index
+                                        path="/freelancer-jobs/bids"
+                                        element={<BidsJob />}
+                                    />
+
+                                    <Route
+                                        index
+                                        path="/freelancer-jobs/current"
+                                        element={<CurrentJob />}
+                                    />
+
+                                    <Route
+                                        index
+                                        path="/freelancer-jobs/completed"
+                                        element={<FreelancerCompleteJob />}
+                                    />
+
+                                    <Route
+                                        index
+                                        path="/freelancer-jobs/paid"
+                                        element={<FreelancerPaidJob />}
+                                    />
+                                </Route>
                                 <Route
                                     path="employer-job"
                                     element={<EmployerJob />}
-                                />
+                                >
+                                    <Route
+                                        index
+                                        path="/employer-job/pending"
+                                        element={<PendingJob />}
+                                    />
+
+                                    <Route
+                                        path="/employer-job/accepting-bids"
+                                        element={<AcceptingBidsJob />}
+                                    />
+
+                                    <Route
+                                        path="/employer-job/refused"
+                                        element={<RefusedJob />}
+                                    />
+
+                                    <Route
+                                        path="/employer-job/current"
+                                        element={<CurrentJob />}
+                                    />
+
+                                    <Route
+                                        path="/employer-job/completed"
+                                        element={<EmployerCompleteJob />}
+                                    />
+                                </Route>
                                 <Route
                                     path="employer-job/refused/:id"
                                     element={<EmpRefusedJob />}
@@ -162,6 +232,10 @@ function App() {
                                 <Route
                                     path="employer-job/:id/offers"
                                     element={<EmployerOffers />}
+                                />
+                                <Route
+                                    path="employer-job/:id/payment"
+                                    element={<EmployerPayment />}
                                 />
                                 <Route path="contract" element={<Contract />} />
                                 <Route
@@ -176,6 +250,10 @@ function App() {
                                     path="find-freelancer"
                                     element={<Freelancer />}
                                 />
+                                <Route
+                                    path="checkout-success"
+                                    element={<CheckoutSuccess />}
+                                />
                             </Route>
 
                             <Route
@@ -189,6 +267,22 @@ function App() {
                                 <Route
                                     path="job-manager"
                                     element={<ManagerJob />}
+                                >
+                                    <Route
+                                        index
+                                        path="/admin/job-manager/pending"
+                                        element={<ManagerPendingJob />}
+                                    />
+
+                                    <Route
+                                        index
+                                        path="/admin/job-manager/payment"
+                                        element={<ManagerPaidJob />}
+                                    />
+                                </Route>
+                                <Route
+                                    path="job-manager/:jobId/payment"
+                                    element={<AdminPaymentDetailJob />}
                                 />
                             </Route>
                             <Route element={<ProtectComponent />}>

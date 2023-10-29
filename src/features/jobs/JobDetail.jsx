@@ -17,7 +17,7 @@ import TextDescriptionEditor from '../../ui/TextDescriptionEditor'
 
 function JobDetail({ jobDetail, simple }) {
     return (
-        <div className="mt-4 px-8">
+        <div className="">
             <Link to="" className="mb-4 cursor-pointer text-primary">
                 {jobDetail.category}
             </Link>

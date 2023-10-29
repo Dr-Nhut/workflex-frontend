@@ -1,49 +1,66 @@
-import Tab from '../ui/Tab'
-import { useState } from 'react'
-import CurrentJob from '../features/jobs/CurrentJob'
-import PendingJob from '../features/jobs/PendingJob'
-import RefusedJob from '../features/jobs/RefusedJob'
-import AcceptingBidsJob from '../features/jobs/AcceptingBidsJob'
-import EmployerCompleteJob from '../features/jobs/EmployerCompleteJob'
+import { NavLink, Outlet } from 'react-router-dom'
 
 function EmployerJob() {
-    const [isActive, setIsActive] = useState(0)
     return (
         <div className="h-[calc(100vh-194px)]">
-            <Tab
-                tabs={[
-                    {
-                        id: 0,
-                        name: 'Đang chờ duyệt',
-                    },
-                    {
-                        id: 1,
-                        name: 'Đang nhận chào giá',
-                    },
-                    {
-                        id: 2,
-                        name: 'Đăng thất bại',
-                    },
-                    {
-                        id: 3,
-                        name: 'Đang thực hiện',
-                    },
-                    {
-                        id: 4,
-                        name: 'Đã hoàn thành',
-                    },
-                ]}
-                active={isActive}
-                onClick={setIsActive}
-            >
-                <div className="mx-10 mt-6">
-                    {isActive === 0 && <PendingJob />}
-                    {isActive === 1 && <AcceptingBidsJob />}
-                    {isActive === 2 && <RefusedJob />}
-                    {isActive === 3 && <CurrentJob />}
-                    {isActive === 4 && <EmployerCompleteJob />}
-                </div>
-            </Tab>
+            <div className="flex border-b px-6 text-center text-lg font-semibold text-stone-400">
+                <NavLink
+                    to="/employer-job/pending"
+                    className={({ isActive }) =>
+                        isActive
+                            ? 'activeTab cursor-pointer p-4 hover:text-sky-500'
+                            : 'cursor-pointer p-4 hover:text-sky-500'
+                    }
+                >
+                    Đang chờ duyệt
+                </NavLink>
+
+                <NavLink
+                    to="/employer-job/accepting-bids"
+                    className={({ isActive }) =>
+                        isActive
+                            ? 'activeTab cursor-pointer p-4 hover:text-sky-500'
+                            : 'cursor-pointer p-4 hover:text-sky-500'
+                    }
+                >
+                    Đang nhận chào giá
+                </NavLink>
+
+                <NavLink
+                    to="/employer-job/refused"
+                    className={({ isActive }) =>
+                        isActive
+                            ? 'activeTab cursor-pointer p-4 hover:text-sky-500'
+                            : 'cursor-pointer p-4 hover:text-sky-500'
+                    }
+                >
+                    Đăng thất bại
+                </NavLink>
+
+                <NavLink
+                    to="/employer-job/current"
+                    className={({ isActive }) =>
+                        isActive
+                            ? 'activeTab cursor-pointer p-4 hover:text-sky-500'
+                            : 'cursor-pointer p-4 hover:text-sky-500'
+                    }
+                >
+                    Đang thực hiện
+                </NavLink>
+
+                <NavLink
+                    to="/employer-job/completed"
+                    className={({ isActive }) =>
+                        isActive
+                            ? 'activeTab cursor-pointer p-4 hover:text-sky-500'
+                            : 'cursor-pointer p-4 hover:text-sky-500'
+                    }
+                >
+                    Đã hoàn thành
+                </NavLink>
+            </div>
+
+            <Outlet />
         </div>
     )
 }

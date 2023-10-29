@@ -101,3 +101,13 @@ export async function updateJob(data) {
         throw new Error('Đã xảy ra lỗi');
     }
 }
+
+export async function getJobByStatus(status) {
+    try {
+        const response = await axios.get(`${URL_SERVER}/job/all?status=${status}`);
+        return response.data
+    } catch (error) {
+        console.error(error);
+        throw new Error('Đã xảy ra lỗi');
+    }
+}

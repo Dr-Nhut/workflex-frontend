@@ -1,25 +1,34 @@
 import { UisStar } from '@iconscout/react-unicons-solid'
 import { UilStar } from '@iconscout/react-unicons'
+import { useState } from 'react'
 
-function StarRating({ numStars = 1 }) {
+function StarRating({ value = 1, onChange }) {
+    const [numStar, setNumStar] = useState(value)
+
     return (
         <div>
-            {Array.apply(null, Array(numStars)).map((x, i) => {
+            {Array.apply(null, Array(numStar)).map((x, i) => {
                 return (
                     <UisStar
-                        size="16"
+                        size="24"
                         key={i}
                         className="inline-block text-yellow-400"
+                        onMouseOver={() => setNumStar(i + 1)}
+                        onMouseOut={() => setNumStar(value)}
+                        onClick={() => onChange(i + 1)}
                     />
                 )
             })}
 
-            {Array.apply(null, Array(5 - numStars)).map((i, y) => {
+            {Array.apply(null, Array(5 - numStar)).map((i, y) => {
                 return (
                     <UilStar
                         key={y}
                         className="inline-block text-yellow-500"
-                        size="16"
+                        size="24"
+                        onMouseOver={() => setNumStar(y + numStar + 1)}
+                        onMouseOut={() => setNumStar(value)}
+                        onClick={() => onChange((pre) => pre + y + 1)}
                     />
                 )
             })}

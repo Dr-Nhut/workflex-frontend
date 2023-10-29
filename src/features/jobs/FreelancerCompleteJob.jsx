@@ -39,7 +39,11 @@ function FreelancerCompleteJob() {
 
                     <Table.Body>
                         {jobs.map((job) => (
-                            <CompleteJobRow key={job.id} job={job} />
+                            <CompleteJobRow
+                                key={job.id}
+                                job={job}
+                                role={user.role}
+                            />
                         ))}
                     </Table.Body>
                 </Table>

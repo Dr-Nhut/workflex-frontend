@@ -1,36 +1,55 @@
-import { useState } from 'react'
-import Tab from '../ui/Tab'
-import ManagerPendingJob from '../admin/job/ManagerPendingJob'
+import { NavLink, Outlet } from 'react-router-dom'
 
 function ManagerJob() {
-    const [isActive, setIsActive] = useState(0)
     return (
         <div className="h-[calc(100vh-194px)]">
-            <Tab
-                tabs={[
-                    { id: 0, name: 'Duyệt công việc' },
-                    {
-                        id: 1,
-                        name: 'Đang thực hiện',
-                    },
-                    {
-                        id: 2,
-                        name: 'Thanh toán',
-                    },
-                    {
-                        id: 3,
-                        name: 'Đã hoàn thành',
-                    },
-                ]}
-                active={isActive}
-                onClick={setIsActive}
-            >
-                <div className="mx-10 mt-6">
-                    {isActive === 0 && <ManagerPendingJob />}
-                    {/* {isActive === 1 && <BidsJob />}
-                    {isActive === 2 && <CurrentJob />} */}
-                </div>
-            </Tab>
+            <div className="flex border-b px-6 text-center text-lg font-semibold text-stone-400">
+                <NavLink
+                    to="/admin/job-manager/pending"
+                    className={({ isActive }) =>
+                        isActive
+                            ? 'activeTab cursor-pointer p-4 hover:text-sky-500'
+                            : 'cursor-pointer p-4 hover:text-sky-500'
+                    }
+                >
+                    Duyệt công việc
+                </NavLink>
+
+                <NavLink
+                    to="/admin/job-manager/current"
+                    className={({ isActive }) =>
+                        isActive
+                            ? 'activeTab cursor-pointer p-4 hover:text-sky-500'
+                            : 'cursor-pointer p-4 hover:text-sky-500'
+                    }
+                >
+                    Đang thực hiện
+                </NavLink>
+
+                <NavLink
+                    to="/admin/job-manager/completed"
+                    className={({ isActive }) =>
+                        isActive
+                            ? 'activeTab cursor-pointer p-4 hover:text-sky-500'
+                            : 'cursor-pointer p-4 hover:text-sky-500'
+                    }
+                >
+                    Đang hoàn thành
+                </NavLink>
+
+                <NavLink
+                    to="/admin/job-manager/payment"
+                    className={({ isActive }) =>
+                        isActive
+                            ? 'activeTab cursor-pointer p-4 hover:text-sky-500'
+                            : 'cursor-pointer p-4 hover:text-sky-500'
+                    }
+                >
+                    Thanh toán
+                </NavLink>
+            </div>
+
+            <Outlet />
         </div>
     )
 }

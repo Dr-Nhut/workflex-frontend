@@ -1,40 +1,66 @@
-import Tab from '../ui/Tab'
-import FavouriteJob from '../features/jobs/FavouriteJob'
-import { useState } from 'react'
-import BidsJob from '../features/jobs/BidsJob'
-import CurrentJob from '../features/jobs/CurrentJob'
-import FreelancerCompleteJob from '../features/jobs/FreelancerCompleteJob'
+import { NavLink, Outlet } from 'react-router-dom'
 
 function FreelancerJob() {
-    const [isActive, setIsActive] = useState(1)
     return (
         <div className="h-[calc(100vh-194px)]">
-            <Tab
-                tabs={[
-                    { id: 0, name: 'Đang quan tâm' },
-                    {
-                        id: 1,
-                        name: 'Đang chào giá',
-                    },
-                    {
-                        id: 2,
-                        name: 'Đang thực hiện',
-                    },
-                    {
-                        id: 3,
-                        name: 'Đã hoàn thành',
-                    },
-                ]}
-                active={isActive}
-                onClick={setIsActive}
-            >
-                <div className="mx-10 mt-6">
-                    {isActive === 0 && <FavouriteJob />}
-                    {isActive === 1 && <BidsJob />}
-                    {isActive === 2 && <CurrentJob />}
-                    {isActive === 3 && <FreelancerCompleteJob />}
-                </div>
-            </Tab>
+            <div className="flex border-b px-6 text-center text-lg font-semibold text-stone-400">
+                <NavLink
+                    to="/freelancer-jobs/favarious"
+                    className={({ isActive }) =>
+                        isActive
+                            ? 'activeTab cursor-pointer p-4 hover:text-sky-500'
+                            : 'cursor-pointer p-4 hover:text-sky-500'
+                    }
+                >
+                    Đang quan tâm
+                </NavLink>
+
+                <NavLink
+                    to="/freelancer-jobs/bids"
+                    className={({ isActive }) =>
+                        isActive
+                            ? 'activeTab cursor-pointer p-4 hover:text-sky-500'
+                            : 'cursor-pointer p-4 hover:text-sky-500'
+                    }
+                >
+                    Đang chào giá
+                </NavLink>
+
+                <NavLink
+                    to="/freelancer-jobs/current"
+                    className={({ isActive }) =>
+                        isActive
+                            ? 'activeTab cursor-pointer p-4 hover:text-sky-500'
+                            : 'cursor-pointer p-4 hover:text-sky-500'
+                    }
+                >
+                    Đang thực hiện
+                </NavLink>
+
+                <NavLink
+                    to="/freelancer-jobs/completed"
+                    className={({ isActive }) =>
+                        isActive
+                            ? 'activeTab cursor-pointer p-4 hover:text-sky-500'
+                            : 'cursor-pointer p-4 hover:text-sky-500'
+                    }
+                >
+                    Đã hoàn thành
+                </NavLink>
+
+                <NavLink
+                    to="/freelancer-jobs/paid"
+                    className={({ isActive }) =>
+                        isActive
+                            ? 'activeTab cursor-pointer p-4 hover:text-sky-500'
+                            : 'cursor-pointer p-4 hover:text-sky-500'
+                    }
+                >
+                    Đã được thanh toán
+                </NavLink>
+            </div>
+
+            <Outlet />
         </div>
     )
 }

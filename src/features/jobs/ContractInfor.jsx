@@ -40,7 +40,7 @@ function ContractInfor({ job, offer }) {
                     {formatTime(offer.dateEnd)}
                 </Rectangle>
 
-                {user.role === 'emp' && (
+                {user.role === 'emp' && job.status === 'Đang thực hiện' && (
                     <Modal>
                         <Modal.Open opens="completeJob">
                             <Button
