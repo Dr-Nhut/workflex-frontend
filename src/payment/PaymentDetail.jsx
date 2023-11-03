@@ -70,7 +70,7 @@ function PaymentDetail({ job, offer, payment }) {
                         {offer.freelancerEmail}
                     </UserCard>
 
-                    {job.status === 'Đã thanh toán' && (
+                    {job.status === 7 && (
                         <Button
                             className="mx-auto mt-4"
                             type="btn-primary rounded-xl"
@@ -78,7 +78,7 @@ function PaymentDetail({ job, offer, payment }) {
                                 mutate({
                                     id: job.id,
                                     payload: {
-                                        status: 'Đã hoàn thành thanh toán',
+                                        status: 8,
                                     },
                                 })
                             }}
@@ -86,7 +86,7 @@ function PaymentDetail({ job, offer, payment }) {
                             Thanh toán
                         </Button>
                     )}
-                    {job.status === 'Đã hoàn thành thanh toán' && (
+                    {job.status === 8 && (
                         <div className="ml-16 mt-4">
                             <Rectangle background="bg-teal-500">
                                 Đã thanh toán

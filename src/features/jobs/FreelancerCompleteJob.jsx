@@ -18,7 +18,7 @@ function FreelancerCompleteJob() {
         queryFn: () =>
             getFreelancerCurrentJob({
                 id: user.id,
-                status: 'Đã hoàn thành',
+                status: 6,
             }),
     })
 

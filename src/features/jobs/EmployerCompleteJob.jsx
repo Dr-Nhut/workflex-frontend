@@ -18,22 +18,10 @@ function EmployerCompleteJob() {
         queryFn: () =>
             getEmployerCurrentJob({
                 id: user.id,
-                status: 'Đã hoàn thành',
+                status: 6,
+                comparison: '>='
             }),
     })
-
-    // const {
-    //     isLoading: loadingPaidJobs,
-    //     data: paidJobs,
-    //     // error,
-    // } = useQuery({
-    //     queryKey: ['employer-paid-job'],
-    //     queryFn: () =>
-    //         getEmployerCurrentJob({
-    //             id: user.id,
-    //             status: 'Đã hoàn thành thanh toán',
-    //         }),
-    // })
 
     if (loadingCompletedJobs) return <Spinner />
 
@@ -58,7 +46,7 @@ function EmployerCompleteJob() {
                 </Table>
             ) : (
                 <DescriptionSection>
-                    Không có công việc nào đang thực hiện
+                    Hiện chưa có công việc đã hoàn thành
                 </DescriptionSection>
             )}
         </>

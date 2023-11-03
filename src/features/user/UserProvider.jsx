@@ -1,12 +1,24 @@
-import { useEffect, useReducer } from 'react'
+import { useEffect, useReducer, useState } from 'react'
 import reducer, { UserContext, initialState } from './userSlice'
 import { Outlet } from 'react-router-dom'
 import { URL_SERVER } from '../../constants'
 import axios from 'axios'
 import Spinner from '../../ui/Spinner'
+import { io } from 'socket.io-client'
 
 function UserProvider() {
     const [state, dispatch] = useReducer(reducer, initialState)
+    const [socket, setSocket] = useState(null)
+
+    useEffect(() => {
+        setSocket(io('http://localhost:3001'))
+    }, [state.id])
+
+    useEffect(() => {
+        console.log('new User')
+        socket?.emit('newUser', state.id)
+    }, [state.id, socket])
+
     useEffect(() => {
         axios
             .get(`${URL_SERVER}/auth/userInfor`, { withCredentials: true })
@@ -25,7 +37,7 @@ function UserProvider() {
         )
 
     return (
-        <UserContext.Provider value={{ user: state, dispatch }}>
+        <UserContext.Provider value={{ user: state, dispatch, socket }}>
             <Outlet />
         </UserContext.Provider>
     )

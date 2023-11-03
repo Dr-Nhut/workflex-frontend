@@ -2,29 +2,69 @@ import Avatar from '../../ui/Avatar'
 import UserName from '../../ui/UserName'
 import StarRatingSimple from '../../ui/StarRatingSimple'
 import Progress from '../../ui/Progress'
-import {
-    UilEnvelopeCheck,
-    UilThumbsUp,
-    UilBriefcase,
-} from '@iconscout/react-unicons'
+import { UilThumbsUp, UilBriefcase } from '@iconscout/react-unicons'
 import Label from '../../ui/Label'
 import DescriptionSection from '../../ui/Section/DescriptionSection'
 import WorkSkill from '../../ui/WorkSkill'
+import { useQueries } from '@tanstack/react-query'
+import { getInfor } from '../../services/apiUser'
+import Spinner from '../../ui/Spinner'
+import { URL_SERVER_SIMPLE } from '../../constants'
+import { getAllEvaluationByUser } from '../../services/apiEvaluation'
+import OfferAcceptanceRate from '../offers/OfferAcceptanceRate'
+import { getAllOffersByFreelancer } from '../../services/apiOffer'
 
-function UserProfileCard({ user }) {
+function UserProfileCard({ userId }) {
+    const [
+        { isLoading: loadingUser, data: user },
+        { isLoading: loadingEvaluation, data: evaluations },
+        { isLoading: loadingAllOffers, data: allOffersOfFreelancers },
+    ] = useQueries({
+        queries: [
+            {
+                queryKey: ['user', userId],
+                queryFn: () => getInfor(userId),
+            },
+            {
+                queryKey: ['evaluations', userId],
+                queryFn: () => getAllEvaluationByUser(userId),
+            },
+            {
+                queryKey: ['allOffersOfFreelancer', userId],
+                queryFn: () => getAllOffersByFreelancer(userId),
+            },
+        ],
+    })
+
+    const averageStar = (evaluations) => {
+        if (evaluations.length === 0) return 0
+        return (
+            evaluations.reduce(
+                (accumulator, currentValue) => accumulator + currentValue.stars,
+                0
+            ) / evaluations.length
+        )
+    }
+
+    if (loadingUser || loadingEvaluation || loadingAllOffers) return <Spinner />
+
     return (
         <div className="col-span-3">
             <section className="flex flex-col items-center gap-y-2 border border-stone-300 py-6">
                 <Avatar
-                    image="https://i.pravatar.cc/150?u=a042581f4e29026awsl"
+                    image={`${URL_SERVER_SIMPLE}${user.avatar}`}
                     type="largeImage"
                 />
-                <UserName dark>John</UserName>
-                <DescriptionSection>john@gmail.com</DescriptionSection>
+                <UserName dark>{user.fullname}</UserName>
+                <DescriptionSection>{user.email}</DescriptionSection>
                 <div className="flex w-4/5 justify-around">
-                    <StarRatingSimple rating={4.6} />
+                    <StarRatingSimple rating={averageStar(evaluations)} />
                     <span className="cursor-pointer font-semibold text-sky-500/80">
-                        3 đang chào giá
+                        {`${
+                            allOffersOfFreelancers.filter(
+                                (item) => item.status === 'Đang duyệt'
+                            ).length
+                        } đang chào giá`}
                     </span>
                 </div>
             </section>
@@ -38,14 +78,7 @@ function UserProfileCard({ user }) {
                 </div>
 
                 <div className="flex items-center gap-x-2">
-                    <Progress
-                        percent={82}
-                        content="Tỉ lệ được chấp nhận chào giá"
-                    />
-                    <Label>
-                        <UilEnvelopeCheck />
-                        Chào giá
-                    </Label>
+                    <OfferAcceptanceRate userId={userId} />
                 </div>
 
                 <div className="flex items-center gap-x-2">
@@ -57,7 +90,7 @@ function UserProfileCard({ user }) {
                 </div>
             </section>
             <section className="border border-stone-300 px-2 py-4">
-                <WorkSkill />
+                <WorkSkill userId={userId} />
             </section>
         </div>
     )

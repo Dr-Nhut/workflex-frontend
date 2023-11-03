@@ -19,18 +19,18 @@ function CurrentJob() {
     } = useQuery({
         queryKey:
             user.role === 'emp'
-                ? ['employer-current-job']
-                : ['freelancer-current-job'],
+                ? ['employer-current-job', user.id]
+                : ['freelancer-current-job', user.id],
         queryFn: () => {
             if (user.role === 'emp')
                 return getEmployerCurrentJob({
                     id: user.id,
-                    status: 'Đang thực hiện',
+                    status: 5,
                 })
             else if (user.role === 'fre')
                 return getFreelancerCurrentJob({
                     id: user.id,
-                    status: 'Đang thực hiện',
+                    status: 5,
                 })
         },
     })

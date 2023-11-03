@@ -16,7 +16,7 @@ function FreelancerPaidJob() {
         queryFn: () =>
             getFreelancerCurrentJob({
                 id: user.id,
-                status: 'Đã hoàn thành thanh toán',
+                status: 8,
             }),
     })
 
@@ -28,7 +28,7 @@ function FreelancerPaidJob() {
         queryFn: () =>
             getFreelancerCurrentJob({
                 id: user.id,
-                status: 'Kết thúc',
+                status: 9,
             }),
     })
 

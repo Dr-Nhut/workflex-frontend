@@ -7,7 +7,7 @@ import PaidJobRow from '../ui/PaidJobRow'
 function ManagerPaidJob() {
     const { isLoading, data: paidJobs } = useQuery({
         queryKey: ['paid-jobs'],
-        queryFn: () => getJobByStatus('Đã thanh toán'),
+        queryFn: () => getJobByStatus(7),
     })
 
     if (isLoading) return <Spinner />

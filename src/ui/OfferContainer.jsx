@@ -12,9 +12,10 @@ function OfferContainer() {
         data: offers,
         error,
     } = useQuery({
-        queryKey: ['offersForJob'],
+        queryKey: ['offersForJob', id],
         queryFn: () => getOffersForJob(id),
     })
+
     if (isLoading) return <Spinner />
     return (
         <div className="mt-4 bg-stone-50 px-8 py-8">
@@ -25,7 +26,7 @@ function OfferContainer() {
                 </span>
             </TitleSection>
 
-            <OfferList />
+            <OfferList offers={offers} />
         </div>
     )
 }

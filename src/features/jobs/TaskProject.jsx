@@ -18,7 +18,7 @@ function TaskProject({ contract }) {
         data: tasks,
         // error,
     } = useQuery({
-        queryKey: ['tasks'],
+        queryKey: ['tasks', contract],
         queryFn: () => getContractTasks(contract),
     })
 

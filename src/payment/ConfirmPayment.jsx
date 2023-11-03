@@ -28,7 +28,7 @@ function ConfirmPayment({ job, onCloseModal }) {
                         mutate({
                             id: job.id,
                             payload: {
-                                status: 'Chưa nhận thanh toán',
+                                status: 10,
                             },
                         })
                     }}
@@ -40,7 +40,7 @@ function ConfirmPayment({ job, onCloseModal }) {
                     onClick={() => {
                         mutate({
                             id: job.id,
-                            payload: { status: 'Kết thúc' },
+                            payload: { status: 9 },
                         })
                     }}
                 >

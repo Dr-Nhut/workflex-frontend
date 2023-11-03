@@ -13,7 +13,7 @@ export async function createJob(newJob) {
 
 export async function getEmployerCurrentJob(data) {
     try {
-        const response = await axios.get(`${URL_SERVER}/job/employer-current-jobs?employerId=${data.id}&status='${data.status}'`);
+        const response = await axios.get(`${URL_SERVER}/job/employer-current-jobs?employerId=${data.id}&status=${data.status}&comparison=${data.comparison ? data.comparison : '='}`);
         return response.data
     } catch (error) {
         console.error(error);
@@ -31,10 +31,20 @@ export async function getFreelancerCurrentJob(data) {
     }
 }
 
+// export async function getFreelancerCurrentJob(data) {
+//     try {
+//         const response = await axios.get(`${URL_SERVER}/job/freelancer-current-jobs-v2?freelancerId=${data.id}&status='${data.status}'`);
+//         return response.data
+//     } catch (error) {
+//         console.error(error);
+//         throw new Error('Đã xảy ra lỗi khi tải công việc');
+//     }
+// }
+
 
 export async function getPendingJob(employerId) {
     try {
-        const response = await axios.get(`${URL_SERVER}/job/pending-jobs?employerId=${employerId}`);
+        const response = await axios.get(`${URL_SERVER}/job/pending-jobs?employerId=${employerId} `);
         return response.data
     } catch (error) {
         console.error(error);

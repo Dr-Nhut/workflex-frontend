@@ -2,19 +2,23 @@ import Button from '../../common/buttons/Button'
 import StarRating from '../../ui/StarRating'
 import Label from '../../common/Label'
 import { useState } from 'react'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { createEvaluation } from '../../services/apiEvaluation'
 import toast from 'react-hot-toast'
 import Spinner from '../../ui/Spinner'
 
 function Evaluation({ onCloseModal, jobId }) {
+    const queryClient = useQueryClient()
     const [numStars, setNumStars] = useState(1)
     const [cmt, setCmt] = useState('')
 
     const { isLoading, mutate } = useMutation({
         mutationFn: createEvaluation,
         onSuccess: () => {
-            toast.success('Gửi nhận xét thành công')
+            queryClient.invalidateQueries({
+                queryKey: ['check-completed', jobId],
+            })
+            toast.success('Gửi đánh giá thành công')
             onCloseModal()
         },
         onError: (err) => {
@@ -25,7 +29,6 @@ function Evaluation({ onCloseModal, jobId }) {
     const handleSubmit = (e) => {
         e.preventDefault()
         mutate({ id: jobId, payload: { stars: numStars, comment: cmt } })
-        console.log(numStars, cmt)
     }
 
     return (

@@ -15,8 +15,7 @@ function RefusedJob() {
         // error,
     } = useQuery({
         queryKey: ['refused-jobs'],
-        queryFn: () =>
-            getEmployerCurrentJob({ id: user.id, status: 'Từ chối' }),
+        queryFn: () => getEmployerCurrentJob({ id: user.id, status: 2 }),
     })
 
     if (isLoading) return <Spinner />

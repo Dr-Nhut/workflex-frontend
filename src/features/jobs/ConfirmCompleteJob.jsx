@@ -11,7 +11,7 @@ function ConfirmCompleteJob({ onCloseModal, jobId }) {
     const { isLoading: loadingUpdateJob, mutate } = useMutation({
         mutationFn: updateJob,
         onSuccess: () => {
-            navigate('/employer-job')
+            navigate('/employer-job/completed')
             toast.success('Thông tin dự án đã thay đổi')
         },
     })
@@ -31,7 +31,7 @@ function ConfirmCompleteJob({ onCloseModal, jobId }) {
                         mutate({
                             id: jobId,
                             payload: {
-                                status: 'Đã hoàn thành',
+                                status: 6,
                                 completedAt: new Date(),
                             },
                         })

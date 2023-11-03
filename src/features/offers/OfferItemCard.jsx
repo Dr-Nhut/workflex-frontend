@@ -6,8 +6,9 @@ import {
     UilAngleDown,
     UilUsdCircle,
     UilClockThree,
-    UilBriefcaseAlt,
     UilAngleUp,
+    UilCrosshairs,
+    UilCheckCircle,
 } from '@iconscout/react-unicons'
 import Button from '../../common/buttons/Button'
 import TitleSection from '../../ui/TitleSection'
@@ -18,24 +19,19 @@ import formatCurrency from '../../utils/formatCurrency'
 import formatTime from '../../utils/formatTime'
 import formatFullTime from '../../utils/formatFullTime'
 import TextDescriptionEditor from '../../ui/TextDescriptionEditor'
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 import { UserContext } from '../user/userSlice'
 import { createContract } from '../../services/apiContact'
 import { updateJob } from '../../services/apiJob'
-import { getOffersForJob, updateOffer } from '../../services/apiOffer'
+import { updateOffer } from '../../services/apiOffer'
 import { useNavigate, useParams } from 'react-router-dom'
 import toast from 'react-hot-toast'
 
-function OfferItemCard({ offer }) {
+function OfferItemCard({ offers, offer, dateStart }) {
     const [isShowDetail, setIsShowDetail] = useState(false)
     const { user } = useContext(UserContext)
     const jobId = useParams().id
     const navigate = useNavigate()
-
-    const { data: offers } = useQuery({
-        queryKey: ['offersForJob'],
-        queryFn: () => getOffersForJob(jobId),
-    })
 
     const { mutateAsync: createContact } = useMutation({
         mutationFn: createContract,
@@ -58,7 +54,7 @@ function OfferItemCard({ offer }) {
 
             await changeStatusJob({
                 id: jobId,
-                payload: { status: 'Đang thực hiện' },
+                payload: { status: 5 },
             })
 
             await offers.forEach((offerOrigin) => {
@@ -74,7 +70,7 @@ function OfferItemCard({ offer }) {
             })
 
             toast.success('Bạn đã chọn freelancer cho công việc')
-            navigate('/employer-job')
+            navigate('/employer-job/current')
         } catch (err) {
             toast.error(err.message)
         }
@@ -90,6 +86,7 @@ function OfferItemCard({ offer }) {
         description,
         plan,
     } = offer
+
     return (
         <div
             className={`mb-4 rounded-lg border border-stone-300 bg-stone-100 p-2 ${
@@ -98,11 +95,11 @@ function OfferItemCard({ offer }) {
         >
             <div
                 onClick={() => setIsShowDetail((pre) => !pre)}
-                className={`flex items-center justify-between gap-x-2 ${
+                className={`flex items-center gap-x-2 ${
                     isShowDetail ? 'hidden' : ''
                 }`}
             >
-                <div className="w-72">
+                <div className="w-80">
                     <UserCard
                         fullName={fullname}
                         avatarUrl={`${URL_SERVER_SIMPLE}${avatar}`}
@@ -118,14 +115,22 @@ function OfferItemCard({ offer }) {
                 />
 
                 <JobItemGrid
-                    iconElement={<UilClockThree size="24" />}
-                    title="Dự kiến hoàn thành"
+                    iconElement={<UilCheckCircle size="24" />}
+                    title="Ngày dự kiến hoàn thành"
                     description={formatTime(dateEnd)}
                 />
 
                 <JobItemGrid
-                    iconElement={<UilBriefcaseAlt size="24" />}
-                    title="Đã gửi lúc: "
+                    iconElement={<UilCrosshairs size="24" />}
+                    title="Thời gian dự kiến"
+                    description={`${
+                        (new Date(dateEnd) - new Date(dateStart)) / 86400000
+                    } ngày`}
+                />
+
+                <JobItemGrid
+                    iconElement={<UilClockThree size="24" />}
+                    title="Đã gửi"
                     description={formatFullTime(createAt)}
                 />
 
@@ -143,7 +148,7 @@ function OfferItemCard({ offer }) {
 
                 <SidebarLayout
                     fullWidth
-                    sidebar={<UserProfileCard user={freelancerId} />}
+                    sidebar={<UserProfileCard userId={freelancerId} />}
                 >
                     <div className="ml-8">
                         <Label>Tự giới thiệu từ Freelancer</Label>

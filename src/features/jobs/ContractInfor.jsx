@@ -26,7 +26,7 @@ function ContractInfor({ job, offer }) {
         data: contract,
         // error,
     } = useQuery({
-        queryKey: ['contract'],
+        queryKey: ['contract', offer.id],
         queryFn: () => getContractByOffer(offer.id),
     })
 
@@ -40,7 +40,7 @@ function ContractInfor({ job, offer }) {
                     {formatTime(offer.dateEnd)}
                 </Rectangle>
 
-                {user.role === 'emp' && job.status === 'Đang thực hiện' && (
+                {user.role === 'emp' && job.status === 5 && (
                     <Modal>
                         <Modal.Open opens="completeJob">
                             <Button

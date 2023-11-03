@@ -1,10 +1,11 @@
+import Tippy from '@tippyjs/react'
+
 function JobItemGrid({ iconElement, title, description }) {
     return (
-        <div className="mb-2 grid grid-cols-2 gap-x-1">
-            <span className="flex items-center gap-x-1 font-semibold">
-                {iconElement}
-                {title}
-            </span>
+        <div className="mb-2 flex w-52 gap-x-2">
+            <Tippy content={title}>
+                <span className="font-semibold">{iconElement}</span>
+            </Tippy>
             <span>{description}</span>
         </div>
     )

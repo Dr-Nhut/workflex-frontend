@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import Table from '../../ui/Table'
-import { getPendingJob } from '../../services/apiJob'
+import { getJobByStatus, getPendingJob } from '../../services/apiJob'
 import Spinner from '../../ui/Spinner'
 import PendingJobRow from './PendingJobRow'
 import DescriptionSection from '../../ui/Section/DescriptionSection'
@@ -13,7 +13,7 @@ function ManagerPendingJob() {
         error,
     } = useQuery({
         queryKey: ['job'],
-        queryFn: getPendingJob,
+        queryFn: () => getJobByStatus(1),
     })
 
     if (isLoading) return <Spinner />

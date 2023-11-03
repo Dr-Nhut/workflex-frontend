@@ -12,7 +12,7 @@ function EmployerRefusedJobRow({ job }) {
             <td className="col-span-2">{formatTime(createAt)}</td>
             <td className="col-span-1">{formatCurrency(maxBudget)}</td>
             <td className="col-span-1 flex justify-center gap-x-2 text-stone-500 ">
-                <Link to={`refused/${job.id}`}>Xem chi tiết</Link>
+                <Link to={`${job.id}`}>Xem chi tiết</Link>
             </td>
         </Table.Row>
     )

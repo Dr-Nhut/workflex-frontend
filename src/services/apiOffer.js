@@ -21,9 +21,19 @@ export async function getOffersForJob(jobId) {
     }
 }
 
-export async function getOffersByFreelancer(freelancerId) {
+export async function getOffersByFreelancer(freelancerId, status) {
     try {
-        const response = await axios.get(`${URL_SERVER}/offer/by-freelancer?id=${freelancerId}`);
+        const response = await axios.get(`${URL_SERVER}/offer/by-freelancer?id=${freelancerId}&status=${status}`);
+        return response.data
+    } catch (error) {
+        console.error(error);
+        throw new Error('Đã xảy ra lỗi');
+    }
+}
+
+export async function getAllOffersByFreelancer(freelancerId) {
+    try {
+        const response = await axios.get(`${URL_SERVER}/offer/all/by-freelancer?id=${freelancerId}`);
         return response.data
     } catch (error) {
         console.error(error);

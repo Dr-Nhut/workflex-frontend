@@ -1,10 +1,8 @@
 import {
-    UilBriefcase,
     UilUserSquare,
     UilCommentAltChartLines,
 } from '@iconscout/react-unicons'
 
-import Rectangle from '../../ui/Rectangle'
 import TitleSection from '../../ui/TitleSection'
 import DescriptionSection from '../../ui/Section/DescriptionSection'
 import Feedback from '../../ui/Feedback'
@@ -12,14 +10,6 @@ import Feedback from '../../ui/Feedback'
 function Overview() {
     return (
         <>
-            <section className="border-b p-4">
-                <TitleSection icon={UilBriefcase}>Chuyên môn</TitleSection>
-                <div className="flex gap-x-4">
-                    <Rectangle primary>Lập trình web</Rectangle>
-                    <Rectangle primary>Lập trình ứng dụng di động</Rectangle>
-                </div>
-            </section>
-
             <section className="border-b p-4">
                 <TitleSection icon={UilUserSquare}>
                     Giới thiệu về tôi

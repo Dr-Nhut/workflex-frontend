@@ -1,19 +1,26 @@
-import { useParams } from 'react-router-dom'
-import { getOffersForJob } from '../../services/apiOffer'
 import { useQuery } from '@tanstack/react-query'
 import OfferItemCard from './OfferItemCard'
+import { getDetailJob } from '../../services/apiJob'
+import { useParams } from 'react-router-dom'
 
-function OfferList() {
-    const id = useParams().id
-    const { data: offers, error } = useQuery({
-        queryKey: ['offersForJob'],
-        queryFn: () => getOffersForJob(id),
+function OfferList({ offers }) {
+    const jobId = useParams().id
+    const { isLoading, data: jobDetail } = useQuery({
+        queryKey: ['jobDetail', jobId],
+        queryFn: () => getDetailJob(jobId),
     })
+
+    if (isLoading) return null
 
     return (
         <div>
             {offers.map((offer) => (
-                <OfferItemCard key={offer.id} offer={offer} />
+                <OfferItemCard
+                    key={offer.id}
+                    offers={offers}
+                    offer={offer}
+                    dateStart={jobDetail.dateStart}
+                />
             ))}
         </div>
     )

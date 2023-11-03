@@ -24,7 +24,11 @@ function ManagerJobDetail() {
             <HeaderDetailPage>
                 Chi tiết công việc đang chờ duyệt
             </HeaderDetailPage>
-            <SidebarLayout fullWidth right sidebar={<JobApprove />}>
+            <SidebarLayout
+                fullWidth
+                right
+                sidebar={<JobApprove jobDetail={jobDetail} />}
+            >
                 <JobDetail jobDetail={jobDetail} />
             </SidebarLayout>
         </>

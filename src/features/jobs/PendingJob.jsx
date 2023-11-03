@@ -15,8 +15,7 @@ function PendingJob() {
         // error,
     } = useQuery({
         queryKey: ['pending-jobs'],
-        queryFn: () =>
-            getEmployerCurrentJob({ id: user.id, status: 'Đang duyệt' }),
+        queryFn: () => getEmployerCurrentJob({ id: user.id, status: 1 }),
     })
 
     if (isLoading) return <Spinner />

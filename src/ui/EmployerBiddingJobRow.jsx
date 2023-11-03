@@ -13,10 +13,7 @@ function EmployerBiddingJobRow({ job, onClick }) {
     const { id, category, name, bidDeadline, duration, maxBudget, status } = job
 
     return (
-        <Table.Row
-            onClick={onClick}
-            disabled={status !== 'Đang chào giá' ? true : false}
-        >
+        <Table.Row onClick={onClick} disabled={status !== 3 ? true : false}>
             <td className="col-span-2">{category}</td>
             <td className="col-span-4 line-clamp-1 text-left">{name}</td>
             <td className="col-span-2">{formatTime(bidDeadline)}</td>

@@ -32,7 +32,7 @@ function FreelancerBids() {
             >
                 <JobDetail jobDetail={jobDetail} simple />
             </SidebarLayout>
-            <SendBid />
+            <SendBid jobDetail={jobDetail} />
         </div>
     )
 }

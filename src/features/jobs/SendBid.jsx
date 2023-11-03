@@ -14,11 +14,12 @@ import { getOffersForJob, postOffer } from '../../services/apiOffer'
 import toast from 'react-hot-toast'
 import Spinner from '../../ui/Spinner'
 import checkBid from '../../utils/checkBidded'
+import { createNotification } from '../../services/apiNotification'
 
-function SendBid() {
+function SendBid({ jobDetail }) {
     const queryClient = useQueryClient()
     const jobId = useParams().id
-    const { user } = useContext(UserContext)
+    const { user, socket } = useContext(UserContext)
     const [description, setDescription] = useState()
     const [plan, setPlan] = useState()
 
@@ -30,6 +31,8 @@ function SendBid() {
         formState: { errors },
     } = useForm()
 
+    console.log(errors)
+
     const {
         isLoading: isLoadingOffer,
         data: offers,
@@ -39,11 +42,30 @@ function SendBid() {
         queryFn: () => getOffersForJob(jobId),
     })
 
+    const { mutate: mutateCreateNotification } = useMutation({
+        mutationFn: createNotification,
+        onError: (err) => {
+            toast.error(err.message)
+        },
+    })
+
     const { mutate, isLoading } = useMutation({
         mutationFn: postOffer,
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['offersForJob'] })
             toast.success('Gửi báo giá thành công!')
+            socket.emit('sendFromFreelancerToEmployer', {
+                senderId: user.id,
+                receiverId: jobDetail.employerId,
+                description: jobDetail.name,
+                type: 3,
+            })
+            mutateCreateNotification({
+                senderId: user.id,
+                receiverId: jobDetail.employerId,
+                description: jobDetail.name,
+                type: 3,
+            })
         },
         onError: (err) => toast.error(err.message),
     })
@@ -90,7 +112,7 @@ function SendBid() {
                                 />
                             )}
                         />
-                        {errors.dataEnd && (
+                        {errors.dateEnd && (
                             <p className="text-red-500">
                                 Bạn chưa điền thông tin.
                             </p>
