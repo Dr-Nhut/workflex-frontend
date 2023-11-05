@@ -12,8 +12,12 @@ import { useState } from 'react'
 
 import { CKEditor } from '@ckeditor/ckeditor5-react'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
+import { createNotification } from '../../services/apiNotification'
+import { useContext } from 'react'
+import { UserContext } from '../user/userSlice'
 
-function PostTask({ onCloseModal, contractId }) {
+function PostTask({ onCloseModal, contractId, employerId }) {
+    const { user, socket } = useContext(UserContext)
     const queryClient = useQueryClient()
     const [description, setDescription] = useState()
     const {
@@ -24,12 +28,31 @@ function PostTask({ onCloseModal, contractId }) {
         formState: { errors },
     } = useForm()
 
+    const { mutate: mutateCreateNotification } = useMutation({
+        mutationFn: createNotification,
+        onError: (err) => {
+            toast.error(err.message)
+        },
+    })
+
     const { mutate, isLoading } = useMutation({
         mutationFn: createTask,
-        onSuccess: () => {
+        onSuccess: (response) => {
             queryClient.invalidateQueries({ queryKey: ['tasks'] })
             reset()
             onCloseModal()
+            socket.emit('sendFromFreelancerToEmployer', {
+                senderId: user.id,
+                receiverId: employerId,
+                description: response.name,
+                type: 7,
+            })
+            mutateCreateNotification({
+                senderId: user.id,
+                receiverId: employerId,
+                description: response.name,
+                type: 7,
+            })
             toast.success('Nhiệm vụ đã được tạo!')
         },
         onError: (err) => toast.error(err.message),

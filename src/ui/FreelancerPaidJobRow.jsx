@@ -31,7 +31,7 @@ function FreelancerPaidJobRow({ job }) {
             <td className="col-span-1">{formatTime(offer.dateEnd)}</td>
             <td className="col-span-1">{formatCurrency(offer.price)}</td>
             <td className="col-span-2">
-                {job.status === 'Đã hoàn thành thanh toán' ? (
+                {job.status === 8 ? (
                     <Modal>
                         <Modal.Open opens="confirm-payment">
                             <Button type="btn-text">Xác nhận</Button>
@@ -54,7 +54,11 @@ function FreelancerPaidJobRow({ job }) {
                             name="rating-payment"
                             title="Đánh giá nhà tuyển dụng"
                         >
-                            <Evaluation jobId={job.id} />
+                            <Evaluation
+                                jobId={job.id}
+                                freelancerId={offer.freelancerId}
+                                employerId={job.employerId}
+                            />
                         </Modal.Window>
                     </Modal>
                 )}

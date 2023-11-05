@@ -9,7 +9,7 @@ import PaymentDetail from '../payment/PaymentDetail'
 function AdminPaymentDetailJob() {
     const jobId = useParams().jobId
 
-    const { data: job } = useQuery({
+    const { isLoading, data: job } = useQuery({
         queryKey: ['jobDetail', jobId],
         queryFn: () => getDetailJob(jobId),
     })
@@ -25,7 +25,7 @@ function AdminPaymentDetailJob() {
         enabled: !!offer?.id,
     })
 
-    if (status === 'loading') return null
+    if (isLoading || status === 'loading') return null
 
     return (
         <div className="m-8">

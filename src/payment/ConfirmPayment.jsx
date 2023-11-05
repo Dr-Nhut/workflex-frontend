@@ -11,6 +11,9 @@ function ConfirmPayment({ job, onCloseModal }) {
         mutationFn: updateJob,
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['freelancer-paid-job'] })
+            queryClient.invalidateQueries({
+                queryKey: ['freelancer-finished-job'],
+            })
             toast.success('Đã xác nhận thành công')
             onCloseModal()
         },

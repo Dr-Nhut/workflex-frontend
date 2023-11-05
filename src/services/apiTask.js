@@ -40,3 +40,13 @@ export async function completeTask(data) {
         throw new Error('Đã xảy ra lỗi');
     }
 }
+
+export async function delelteTask(id) {
+    try {
+        const response = await axios.delete(`${URL_SERVER}/task/${id}`);
+        return response.data
+    } catch (error) {
+        console.error(error);
+        throw new Error('Đã xảy ra lỗi');
+    }
+}

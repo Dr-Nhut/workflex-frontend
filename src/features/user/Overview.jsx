@@ -6,8 +6,16 @@ import {
 import TitleSection from '../../ui/TitleSection'
 import DescriptionSection from '../../ui/Section/DescriptionSection'
 import Feedback from '../../ui/Feedback'
+import { useQuery } from '@tanstack/react-query'
+import { getAllEvaluationByUser } from '../../services/apiEvaluation'
+import Spinner from '../../ui/Spinner'
 
-function Overview() {
+function Overview({ userId }) {
+    const { isLoading, data } = useQuery({
+        queryKey: ['evaluations', userId],
+        queryFn: () => getAllEvaluationByUser(userId),
+    })
+
     return (
         <>
             <section className="border-b p-4">
@@ -33,9 +41,20 @@ function Overview() {
                 <TitleSection icon={UilCommentAltChartLines}>
                     Đánh giá nổi bật
                 </TitleSection>
-                <Feedback />
-                <Feedback />
-                <Feedback />
+                {isLoading ? (
+                    <Spinner />
+                ) : (
+                    data.map((evaluation) => (
+                        <Feedback
+                            key={evaluation.id}
+                            fullname={evaluation.fullname}
+                            avatar={evaluation.avatar}
+                            stars={evaluation.stars}
+                            comment={evaluation.comment}
+                            createAt={evaluation.createAt}
+                        />
+                    ))
+                )}
             </section>
         </>
     )

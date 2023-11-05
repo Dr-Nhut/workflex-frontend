@@ -4,7 +4,7 @@ import Label from './Label'
 import Rectangle from './Rectangle'
 import { getSkillByUser } from '../services/apiSkill'
 
-function WorkSkill({ userId }) {
+function WorkSkill({ userId, role }) {
     const [
         { isLoading: loadingCategory, data: category },
         { isLoading: loadingSkills, data: skills },
@@ -30,15 +30,16 @@ function WorkSkill({ userId }) {
                 <Rectangle primary>{category.name}</Rectangle>
             </div>
 
-            <Label>Kỹ năng</Label>
-            {/* <Rectangle>JavaScript</Rectangle>
-            <Rectangle>ReactJS</Rectangle>
-            <Rectangle>NextJs</Rectangle> */}
-            <div className="my-4 flex gap-x-2">
-                {skills.map((skill) => (
-                    <Rectangle key={skill.id}>{skill.name}</Rectangle>
-                ))}
-            </div>
+            {role === 'fre' && (
+                <>
+                    <Label>Kỹ năng</Label>
+                    <div className="my-4 flex gap-x-2">
+                        {skills.map((skill) => (
+                            <Rectangle key={skill.id}>{skill.name}</Rectangle>
+                        ))}
+                    </div>
+                </>
+            )}
         </>
     )
 }

@@ -19,6 +19,7 @@ function OfferList({ offers }) {
                     key={offer.id}
                     offers={offers}
                     offer={offer}
+                    jobName={jobDetail.name}
                     dateStart={jobDetail.dateStart}
                 />
             ))}

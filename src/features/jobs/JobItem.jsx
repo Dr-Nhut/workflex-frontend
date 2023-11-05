@@ -67,12 +67,14 @@ function JobItem({ job }) {
             </div>
 
             <div className="flex items-center justify-between rounded-lg  px-2">
-                <UserCard
-                    fullName={job.fullname}
-                    avatarUrl={`${URL_SERVER_SIMPLE}${job.avatar}`}
-                >
-                    <p>{job.email}</p>
-                </UserCard>
+                <Link to={`/profile/${job.employerId}`}>
+                    <UserCard
+                        fullName={job.fullname}
+                        avatarUrl={`${URL_SERVER_SIMPLE}${job.avatar}`}
+                    >
+                        <p>{job.email}</p>
+                    </UserCard>
+                </Link>
 
                 <span className="font-semibold text-sky-600">
                     {job.numberBid || 0} chào giá

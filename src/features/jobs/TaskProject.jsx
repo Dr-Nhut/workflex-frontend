@@ -10,7 +10,7 @@ import Spinner from '../../ui/Spinner'
 import Modal from '../../ui/Modal-v1'
 import PostTask from '../tasks/PostTask'
 
-function TaskProject({ contract }) {
+function TaskProject({ contract, employerId }) {
     const { user } = useContext(UserContext)
 
     const {
@@ -43,7 +43,10 @@ function TaskProject({ contract }) {
                                 name="post-task"
                                 title="Thêm nhiệm vụ"
                             >
-                                <PostTask contractId={contract} />
+                                <PostTask
+                                    employerId={employerId}
+                                    contractId={contract}
+                                />
                             </Modal.Window>
                         </Modal>
                     )}
@@ -67,7 +70,10 @@ function TaskProject({ contract }) {
                                     name="post-task"
                                     title="Thêm nhiệm vụ"
                                 >
-                                    <PostTask contractId={contract} />
+                                    <PostTask
+                                        contractId={contract}
+                                        employerId={employerId}
+                                    />
                                 </Modal.Window>
                             </Modal>
                         )}
@@ -85,7 +91,11 @@ function TaskProject({ contract }) {
 
                         <Table.Body>
                             {tasks.map((task) => (
-                                <TaskRow key={task.id} task={task} />
+                                <TaskRow
+                                    key={task.id}
+                                    task={task}
+                                    contractId={contract}
+                                />
                             ))}
                         </Table.Body>
                     </Table>

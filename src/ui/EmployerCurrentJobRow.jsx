@@ -10,18 +10,18 @@ function EmployerCurrentJobRow({ job }) {
     const navigate = useNavigate()
 
     const { data: offer } = useQuery({
-        queryKey: ['offerDetail'],
+        queryKey: ['offerDetail', job.id],
         queryFn: () => getOfferProcessing(job.id),
     })
 
     const { data: contract } = useQuery({
-        queryKey: ['contract'],
+        queryKey: ['contract', offer?.id],
         queryFn: () => getContractByOffer(offer.id),
         enabled: !!offer?.id,
     })
 
     const { isSuccess, data: tasks } = useQuery({
-        queryKey: ['tasks'],
+        queryKey: ['tasks', contract?.id],
         queryFn: () => getContractTasks(contract.id),
         enabled: !!contract?.id,
     })
@@ -36,11 +36,16 @@ function EmployerCurrentJobRow({ job }) {
         })
     }
 
+    if (!isSuccess) return null
+
     return (
         <Table.Row onClick={() => navigate(`/contract?job=${job.id}`)}>
             <td className="col-span-2">{job.category}</td>
             <td className="col-span-6 line-clamp-1 text-left">{job.name}</td>
-            <td className="col-span-2">{job.duration} ngày</td>
+            <td className="col-span-2">
+                {(new Date(offer.dateEnd) - new Date(job.dateStart)) / 86400000}
+                ngày
+            </td>
             <td className="col-span-1">
                 {isSuccess && (
                     <Rectangle background="bg-green-500">{`${numberOfCompletedTasks}/${tasks?.length}`}</Rectangle>

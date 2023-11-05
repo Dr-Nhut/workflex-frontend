@@ -121,3 +121,23 @@ export async function getJobByStatus(status) {
         throw new Error('Đã xảy ra lỗi');
     }
 }
+
+export async function getFreelancerCompletedAndFailJobs(freelancerId) {
+    try {
+        const response = await axios.get(`${URL_SERVER}/job/freelancer-completed-and-fail-jobs?freelancerId=${freelancerId}`);
+        return response.data
+    } catch (error) {
+        console.error(error);
+        throw new Error('Đã xảy ra lỗi khi tải công việc');
+    }
+}
+
+export async function getFreelancerCurrentAndFailJobs(freelancerId) {
+    try {
+        const response = await axios.get(`${URL_SERVER}/job/freelancer-current-and-fail-jobs?freelancerId=${freelancerId}`);
+        return response.data
+    } catch (error) {
+        console.error(error);
+        throw new Error('Đã xảy ra lỗi khi tải công việc');
+    }
+}

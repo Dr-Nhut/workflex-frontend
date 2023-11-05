@@ -5,10 +5,10 @@ import {
     getFreelancerCurrentJob,
 } from '../../services/apiJob'
 import EmployerCurrentJobRow from '../../ui/EmployerCurrentJobRow'
-import Spinner from '../../ui/Spinner'
 import DescriptionSection from '../../ui/Section/DescriptionSection'
 import { useContext } from 'react'
 import { UserContext } from '../user/userSlice'
+import Spinner from '../../ui/Spinner'
 
 function CurrentJob() {
     const { user } = useContext(UserContext)

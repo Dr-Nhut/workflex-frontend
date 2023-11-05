@@ -82,7 +82,12 @@ function ContractInfor({ job, offer }) {
                     active={isActive}
                     onClick={setIsActive}
                 >
-                    {isActive === 1 && <TaskProject contract={contract.id} />}
+                    {isActive === 1 && (
+                        <TaskProject
+                            employerId={job.employerId}
+                            contract={contract.id}
+                        />
+                    )}
                     {isActive === 2 && <PlanProject plan={offer.plan} />}
                 </Tab>
             </main>

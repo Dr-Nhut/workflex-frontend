@@ -44,6 +44,8 @@ import RefusedJob from './features/jobs/RefusedJob'
 import EmployerCompleteJob from './features/jobs/EmployerCompleteJob'
 import ManagerPendingJob from './admin/job/ManagerPendingJob'
 import ManagerPaidJob from './page/ManagerPaidJob'
+import Profile from './page/Profile'
+import Notification from './page/Notification'
 
 // const router = createBrowserRouter([
 //     {
@@ -154,6 +156,11 @@ function App() {
 
                         <Route element={<AppLayout />}>
                             <Route path="my-profile" element={<MyProfile />} />
+                            <Route path="profile/:id" element={<Profile />} />
+                            <Route
+                                path="/notifications"
+                                element={<Notification />}
+                            />
                             <Route element={<DashboardLayout />}>
                                 <Route
                                     index
@@ -172,25 +179,21 @@ function App() {
                                     />
 
                                     <Route
-                                        index
                                         path="/freelancer-jobs/bids"
                                         element={<BidsJob />}
                                     />
 
                                     <Route
-                                        index
                                         path="/freelancer-jobs/current"
                                         element={<CurrentJob />}
                                     />
 
                                     <Route
-                                        index
                                         path="/freelancer-jobs/completed"
                                         element={<FreelancerCompleteJob />}
                                     />
 
                                     <Route
-                                        index
                                         path="/freelancer-jobs/paid"
                                         element={<FreelancerPaidJob />}
                                     />

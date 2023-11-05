@@ -40,7 +40,7 @@ function FreelancerPaidJob() {
         queryFn: () =>
             getFreelancerCurrentJob({
                 id: user.id,
-                status: 'Chưa nhận thanh toán',
+                status: 10,
             }),
     })
 

@@ -8,8 +8,11 @@ import Button from '../common/buttons/Button'
 import Modal from './Modal-v1'
 import Evaluation from '../features/evaluation/Evaluation'
 import { getEvaluation } from '../services/apiEvaluation'
+import { useContext } from 'react'
+import { UserContext } from '../features/user/userSlice'
 
 function CompleteJobRow({ job }) {
+    const { user } = useContext(UserContext)
     const { isLoading, data: offer } = useQuery({
         queryKey: ['offer', job.id],
         queryFn: () => getOfferProcessing(job.id),
@@ -20,8 +23,6 @@ function CompleteJobRow({ job }) {
         queryFn: () => getEvaluation(job.id),
     })
 
-    console.log(isCompletedComment)
-
     if (isLoading) return null
     return (
         <Table.Row>
@@ -30,27 +31,33 @@ function CompleteJobRow({ job }) {
             <td className="col-span-2">{formatTime(job.completedAt)}</td>
             <td className="col-span-1">{formatTime(offer.dateEnd)}</td>
             <td className="col-span-1">{formatCurrency(offer.price)}</td>
-            <td className="col-span-2">
-                {job.status === 6 ? (
-                    <Link to={`/employer-job/${job.id}/payment`}>
-                        Thanh toán
-                    </Link>
-                ) : isCompletedComment ? (
-                    <span>Đã đánh giá</span>
-                ) : (
-                    <Modal>
-                        <Modal.Open opens="evaluation">
-                            <Button type="btn-text">Đánh giá</Button>
-                        </Modal.Open>
-                        <Modal.Window
-                            name="evaluation"
-                            title="Đánh giá freelancer"
-                        >
-                            <Evaluation jobId={job.id} />
-                        </Modal.Window>
-                    </Modal>
-                )}
-            </td>
+            {user.role === 'emp' && (
+                <td className="col-span-2">
+                    {job.status === 6 ? (
+                        <Link to={`/employer-job/${job.id}/payment`}>
+                            Thanh toán
+                        </Link>
+                    ) : isCompletedComment ? (
+                        <span>Đã đánh giá</span>
+                    ) : (
+                        <Modal>
+                            <Modal.Open opens="evaluation">
+                                <Button type="btn-text">Đánh giá</Button>
+                            </Modal.Open>
+                            <Modal.Window
+                                name="evaluation"
+                                title="Đánh giá freelancer"
+                            >
+                                <Evaluation
+                                    jobId={job.id}
+                                    employerId={job.employerId}
+                                    freelancerId={offer.freelancerId}
+                                />
+                            </Modal.Window>
+                        </Modal>
+                    )}
+                </td>
+            )}
         </Table.Row>
     )
 }

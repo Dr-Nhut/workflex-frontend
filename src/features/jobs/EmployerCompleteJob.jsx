@@ -14,12 +14,12 @@ function EmployerCompleteJob() {
         data: completedJobs,
         // error,
     } = useQuery({
-        queryKey: ['employer-complete-job'],
+        queryKey: ['employer-complete-job', user.id],
         queryFn: () =>
             getEmployerCurrentJob({
                 id: user.id,
                 status: 6,
-                comparison: '>='
+                comparison: '>=',
             }),
     })
 

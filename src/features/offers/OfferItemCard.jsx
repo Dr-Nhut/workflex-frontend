@@ -26,10 +26,11 @@ import { updateJob } from '../../services/apiJob'
 import { updateOffer } from '../../services/apiOffer'
 import { useNavigate, useParams } from 'react-router-dom'
 import toast from 'react-hot-toast'
+import { createNotification } from '../../services/apiNotification'
 
-function OfferItemCard({ offers, offer, dateStart }) {
+function OfferItemCard({ offers, offer, dateStart, jobName }) {
     const [isShowDetail, setIsShowDetail] = useState(false)
-    const { user } = useContext(UserContext)
+    const { user, socket } = useContext(UserContext)
     const jobId = useParams().id
     const navigate = useNavigate()
 
@@ -39,6 +40,13 @@ function OfferItemCard({ offers, offer, dateStart }) {
 
     const { mutateAsync: changeStatusJob } = useMutation({
         mutationFn: updateJob,
+    })
+
+    const { mutate: mutateCreateNotification } = useMutation({
+        mutationFn: createNotification,
+        onError: (err) => {
+            toast.error(err.message)
+        },
     })
 
     const { mutate: handleOffer } = useMutation({
@@ -65,7 +73,22 @@ function OfferItemCard({ offers, offer, dateStart }) {
                             offer.id === offerOrigin.id
                                 ? 'Đang thực hiện'
                                 : 'Từ chối',
+                        dateEnd: offerOrigin.dateEnd,
+                        jobId,
                     },
+                })
+
+                socket.emit('sendFromFreelancerToEmployer', {
+                    senderId: user.id,
+                    receiverId: offerOrigin.freelancerId,
+                    description: jobName,
+                    type: offer.id === offerOrigin.id ? 5 : 6,
+                })
+                mutateCreateNotification({
+                    senderId: user.id,
+                    receiverId: offerOrigin.freelancerId,
+                    description: jobName,
+                    type: offer.id === offerOrigin.id ? 5 : 6,
                 })
             })
 

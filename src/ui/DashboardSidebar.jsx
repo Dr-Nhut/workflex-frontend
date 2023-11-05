@@ -30,7 +30,7 @@ function DashboardSidebar() {
                 </ListItem>
 
                 <ListItem
-                    to={employer ? 'employer-job' : '/freelancer-jobs'}
+                    to={employer ? 'employer-job' : '/freelancer-jobs/bids'}
                     icon={<UilBriefcase />}
                 >
                     {employer ? 'Quản lý công việc' : 'Công việc của bạn'}

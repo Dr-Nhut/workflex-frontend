@@ -10,14 +10,38 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { updateJob } from '../services/apiJob'
 import toast from 'react-hot-toast'
 import Spinner from '../ui/Spinner'
+import { createNotification } from '../services/apiNotification'
+import { useContext } from 'react'
+import { UserContext } from '../features/user/userSlice'
 
 function PaymentDetail({ job, offer, payment }) {
+    const { user, socket } = useContext(UserContext)
     const queryClient = useQueryClient()
+
+    const { mutate: mutateCreateNotification } = useMutation({
+        mutationFn: createNotification,
+        onError: (err) => {
+            toast.error(err.message)
+        },
+    })
+
     const { isLoading, mutate } = useMutation({
         mutationFn: updateJob,
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['jobDetail', job.id] })
             toast.success('Đã hoàn thành thanh toán cho freelancer')
+            socket.emit('sendFromFreelancerToEmployer', {
+                senderId: user.id,
+                receiverId: offer.freelancerId,
+                description: job.name,
+                type: 9,
+            })
+            mutateCreateNotification({
+                senderId: user.id,
+                receiverId: offer.freelancerId,
+                description: job.name,
+                type: 9,
+            })
         },
         onError: (err) => {
             toast.error(err.message)

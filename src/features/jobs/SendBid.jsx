@@ -31,8 +31,6 @@ function SendBid({ jobDetail }) {
         formState: { errors },
     } = useForm()
 
-    console.log(errors)
-
     const {
         isLoading: isLoadingOffer,
         data: offers,
@@ -103,7 +101,21 @@ function SendBid({ jobDetail }) {
                         <Controller
                             control={control}
                             name="dateEnd"
-                            rules={{ required: true }}
+                            rules={{
+                                required: true,
+                                validate: (value) => {
+                                    return (
+                                        (new Date(value) -
+                                            new Date(jobDetail.dateStart)) /
+                                            86400000 <=
+                                            jobDetail.duration &&
+                                        (new Date(value) -
+                                            new Date(jobDetail.dateStart)) /
+                                            86400000 >
+                                            0
+                                    )
+                                },
+                            }}
                             render={({ field: { onChange, value } }) => (
                                 <DatePicker
                                     wrapperClassName="border-none mt-4"
@@ -114,7 +126,7 @@ function SendBid({ jobDetail }) {
                         />
                         {errors.dateEnd && (
                             <p className="text-red-500">
-                                Bạn chưa điền thông tin.
+                                Thông tin không hợp lệ.
                             </p>
                         )}
                     </div>

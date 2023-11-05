@@ -51,7 +51,7 @@ function NotificationItem({
     return (
         <li
             className={`my-2 cursor-pointer rounded-xl p-2 hover:bg-stone-200 ${
-                seen ? 'bg-stone-50' : ''
+                seen ? 'bg-stone-50' : 'bg-stone-300'
             }`}
             onClick={handleOnClick}
         >

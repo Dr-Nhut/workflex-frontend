@@ -5,6 +5,7 @@ import { useQuery } from '@tanstack/react-query'
 import { getNotifications } from '../../services/apiNotification'
 import { PortalWithState } from 'react-portal'
 import NotificationItem from '../../ui/NotificationItem'
+import { Link } from 'react-router-dom'
 
 function Notification() {
     const { user, socket } = useContext(UserContext)
@@ -50,28 +51,38 @@ function Notification() {
                         </span>
                     </div>
                     {portal(
-                        <div className="absolute right-[295px] top-14 z-50 w-[480px] rounded-lg bg-stone-100 p-4 shadow-lg">
+                        <div className="absolute right-[295px] top-14 z-50 w-[480px] rounded-lg bg-stone-50 p-4 shadow-lg">
                             <h4 className="border-b-2 border-stone-500 pb-2 font-semibold text-stone-800">
                                 Thông báo mới
                             </h4>
 
                             {notifications.length > 0 ? (
-                                <ul>
-                                    {[...notifications]
-                                        ?.slice(0, 5)
-                                        .map((item, index) => (
-                                            <NotificationItem
-                                                key={index}
-                                                id={item.id}
-                                                senderId={item.senderId}
-                                                description={item.description}
-                                                createdAt={item.createdAt}
-                                                type={item.type}
-                                                seen={item.seen}
-                                                onClick={closePortal}
-                                            />
-                                        ))}
-                                </ul>
+                                <>
+                                    <ul>
+                                        {[...notifications]
+                                            ?.slice(0, 5)
+                                            .map((item, index) => (
+                                                <NotificationItem
+                                                    key={index}
+                                                    id={item.id}
+                                                    senderId={item.senderId}
+                                                    description={
+                                                        item.description
+                                                    }
+                                                    createdAt={item.createdAt}
+                                                    type={item.type}
+                                                    seen={item.seen}
+                                                    onClick={closePortal}
+                                                />
+                                            ))}
+                                    </ul>
+                                    <Link
+                                        to="/notifications"
+                                        className="font-semibold text-blue-500"
+                                    >
+                                        Xem tất cả
+                                    </Link>
+                                </>
                             ) : (
                                 <span>Không có thông báo mới.</span>
                             )}

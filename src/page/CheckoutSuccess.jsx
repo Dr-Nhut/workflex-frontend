@@ -1,8 +1,14 @@
 import { Link } from 'react-router-dom'
 import { UilCheckCircle } from '@iconscout/react-unicons'
 import Button from '../common/buttons/Button'
+import { useEffect, useContext } from 'react'
+import { createNotification } from '../services/apiNotification'
+import { useMutation } from '@tanstack/react-query'
+import toast from 'react-hot-toast'
+import { UserContext } from '../features/user/userSlice'
 
 function CheckoutSuccess() {
+    const { user, socket } = useContext(UserContext)
     // const { state, pathname } = useLocation()
     // const navigate = useNavigate()
 
@@ -19,6 +25,27 @@ function CheckoutSuccess() {
     // if (!state) {
     //     return null
     // }
+    const { mutate: mutateCreateNotification } = useMutation({
+        mutationFn: createNotification,
+        onError: (err) => {
+            toast.error(err.message)
+        },
+    })
+
+    useEffect(() => {
+        socket.emit('sendFromFreelancerToEmployer', {
+            senderId: user.id,
+            receiverId: 'a68af9ff-7835-426e-b9e1-3c3dd081a40b',
+            description: '',
+            type: 8,
+        })
+        mutateCreateNotification({
+            senderId: user.id,
+            receiverId: 'a68af9ff-7835-426e-b9e1-3c3dd081a40b',
+            description: '',
+            type: 8,
+        })
+    }, [])
 
     return (
         <div className="relative h-full">

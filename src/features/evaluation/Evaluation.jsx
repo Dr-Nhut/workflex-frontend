@@ -6,17 +6,40 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { createEvaluation } from '../../services/apiEvaluation'
 import toast from 'react-hot-toast'
 import Spinner from '../../ui/Spinner'
+import { createNotification } from '../../services/apiNotification'
+import { useContext } from 'react'
+import { UserContext } from '../user/userSlice'
 
-function Evaluation({ onCloseModal, jobId }) {
+function Evaluation({ onCloseModal, jobId, freelancerId, employerId }) {
+    const { user, socket } = useContext(UserContext)
     const queryClient = useQueryClient()
     const [numStars, setNumStars] = useState(1)
     const [cmt, setCmt] = useState('')
+
+    const { mutate: mutateCreateNotification } = useMutation({
+        mutationFn: createNotification,
+        onError: (err) => {
+            toast.error(err.message)
+        },
+    })
 
     const { isLoading, mutate } = useMutation({
         mutationFn: createEvaluation,
         onSuccess: () => {
             queryClient.invalidateQueries({
                 queryKey: ['check-completed', jobId],
+            })
+            socket.emit('sendFromFreelancerToEmployer', {
+                senderId: user.id,
+                receiverId: user.role === 'emp' ? freelancerId : employerId,
+                description: '',
+                type: 10,
+            })
+            mutateCreateNotification({
+                senderId: user.id,
+                receiverId: user.role === 'emp' ? freelancerId : employerId,
+                description: '',
+                type: 10,
             })
             toast.success('Gửi đánh giá thành công')
             onCloseModal()
@@ -28,7 +51,14 @@ function Evaluation({ onCloseModal, jobId }) {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        mutate({ id: jobId, payload: { stars: numStars, comment: cmt } })
+        mutate({
+            id: jobId,
+            payload: {
+                stars: numStars,
+                comment: cmt,
+                receiverId: user.role === 'emp' ? freelancerId : employerId,
+            },
+        })
     }
 
     return (

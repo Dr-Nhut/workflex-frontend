@@ -1,23 +1,27 @@
+import { URL_SERVER_SIMPLE } from '../constants'
 import UserCard from '../features/user/UserCard'
+import formatFullTime from '../utils/formatFullTime'
 import CardContainer from './CardContainer'
 import DescriptionSection from './Section/DescriptionSection'
-import StarRating from './StarRating'
+import StarRatingStatic from './StarRatingStatic'
 
-function Feedback() {
+function Feedback({ fullname, avatar, stars, comment, createAt }) {
     return (
         <CardContainer>
             <UserCard
-                fullName="Saka"
-                avatarUrl="https://i.pravatar.cc/150?u=a042581f4e29026awsl"
+                fullName={fullname}
+                avatarUrl={`${URL_SERVER_SIMPLE}${avatar}`}
             >
                 <div className="-mt-2 flex items-center gap-x-2">
-                    <StarRating numStars={4} />
-                    <span className="text-sm text-stone-400">3 tuần trước</span>
+                    <StarRatingStatic numStars={stars} />
+                    <span className="text-sm text-stone-400">
+                        {createAt ? formatFullTime(createAt) : '3 tuần trước'}
+                    </span>
                 </div>
             </UserCard>
 
             <DescriptionSection align="text-justify">
-                Quickly helped my website problem efficiently!
+                {comment}
             </DescriptionSection>
         </CardContainer>
     )
