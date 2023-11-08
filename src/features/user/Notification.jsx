@@ -51,7 +51,7 @@ function Notification() {
                         </span>
                     </div>
                     {portal(
-                        <div className="absolute right-[295px] top-14 z-50 w-[480px] rounded-lg bg-stone-50 p-4 shadow-lg">
+                        <div className="fixed right-[295px] top-14 z-50 w-[480px] rounded-lg bg-stone-50 p-4 shadow-lg">
                             <h4 className="border-b-2 border-stone-500 pb-2 font-semibold text-stone-800">
                                 Thông báo mới
                             </h4>

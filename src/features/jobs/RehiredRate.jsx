@@ -36,7 +36,7 @@ function RehiredRate({ userId }) {
 
     return (
         <>
-            <Progress percent={percent || 0} content="Tỉ lệ được thuê lại" />
+            <Progress percent={percent > 100 ? 100 : percent || 0} content="Tỉ lệ được thuê lại" />
             <Label>
                 <UilThumbsUp />
                 Thuê lại

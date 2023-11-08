@@ -15,7 +15,7 @@ function FreelancerBids() {
         data: jobDetail,
         error,
     } = useQuery({
-        queryKey: ['jobDetail'],
+        queryKey: ['jobDetail', id],
         queryFn: () => getDetailJob(id),
     })
 

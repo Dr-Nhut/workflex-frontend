@@ -60,3 +60,13 @@ export async function updateOffer(data) {
         throw new Error('Đã xảy ra lỗi');
     }
 }
+
+export async function deleteOffer(offerId) {
+    try {
+        const response = await axios.delete(`${URL_SERVER}/offer/${offerId}`);
+        return response
+    } catch (error) {
+        console.error(error);
+        throw new Error('Đã xảy ra lỗi');
+    }
+}

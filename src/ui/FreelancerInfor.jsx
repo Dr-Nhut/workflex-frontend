@@ -76,11 +76,14 @@ function FreelancerInfor({ control, errors }) {
                 name="dateOfBirth"
                 rules={{ required: true }}
                 render={({ field: { onChange, value } }) => (
-                    <DatePicker
-                        wrapperClassName="border-none mt-4"
-                        selected={value}
-                        onChange={onChange}
-                    />
+                    <span className="rounded border-2 border-stone-500 p-1 focus-within:border-none">
+                        <DatePicker
+                            dateFormat="dd/MM/yyyy"
+                            wrapperClassName="border-none mt-4"
+                            selected={value}
+                            onChange={onChange}
+                        />
+                    </span>
                 )}
             />
             {errors.dateOfBirth && (

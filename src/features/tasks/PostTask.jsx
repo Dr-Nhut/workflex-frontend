@@ -91,11 +91,14 @@ function PostTask({ onCloseModal, contractId, employerId }) {
                     name="dateStart"
                     rules={{ required: true }}
                     render={({ field: { onChange, value } }) => (
-                        <DatePicker
-                            wrapperClassName="border-none mt-4"
-                            selected={value}
-                            onChange={onChange}
-                        />
+                        <span className="rounded border-2 border-stone-500 p-1 focus-within:border-none">
+                            <DatePicker
+                                dateFormat="dd/MM/yyyy"
+                                wrapperClassName="border-none mt-4"
+                                selected={value}
+                                onChange={onChange}
+                            />
+                        </span>
                     )}
                 />
                 {errors.categories && (
@@ -104,17 +107,22 @@ function PostTask({ onCloseModal, contractId, employerId }) {
             </div>
 
             <div>
-                <Label>Thời hạn</Label>
+                <div className="inline pr-9">
+                    <Label>Thời hạn</Label>
+                </div>
                 <Controller
                     control={control}
                     name="dateEnd"
                     rules={{ required: true }}
                     render={({ field: { onChange, value } }) => (
-                        <DatePicker
-                            wrapperClassName="border-none mt-4"
-                            selected={value}
-                            onChange={onChange}
-                        />
+                        <span className="rounded border-2 border-stone-500 p-1 focus-within:border-none">
+                            <DatePicker
+                                dateFormat="dd/MM/yyyy"
+                                wrapperClassName="border-none mt-4"
+                                selected={value}
+                                onChange={onChange}
+                            />
+                        </span>
                     )}
                 />
                 {errors.categories && (
