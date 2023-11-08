@@ -52,9 +52,9 @@ export async function getPendingJob(employerId) {
     }
 }
 
-export async function getBiddingJob() {
+export async function getBiddingJob(query) {
     try {
-        const response = await axios.get(`${URL_SERVER}/job/bidding-jobs`);
+        const response = await axios.get(`${URL_SERVER}/job/bidding-jobs?${query}`);
         return response.data
     } catch (error) {
         console.error(error);
@@ -139,5 +139,15 @@ export async function getFreelancerCurrentAndFailJobs(freelancerId) {
     } catch (error) {
         console.error(error);
         throw new Error('Đã xảy ra lỗi khi tải công việc');
+    }
+}
+
+export async function deleteJob(jobId) {
+    try {
+        const response = await axios.delete(`${URL_SERVER}/job/${jobId}`);
+        return response
+    } catch (error) {
+        console.error(error);
+        throw new Error('Đã xảy ra lỗi');
     }
 }

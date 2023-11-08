@@ -10,3 +10,13 @@ export async function getSkillByUser(userId) {
         throw new Error('Đã xảy ra lỗi');
     }
 }
+
+export async function getAllSkills() {
+    try {
+        const response = await axios.get(`${URL_SERVER}/skill/all`);
+        return response.data
+    } catch (error) {
+        console.error(error);
+        throw new Error('Đã xảy ra lỗi');
+    }
+}

@@ -14,7 +14,7 @@ function OfferAcceptanceRate({ userId }) {
         const numAccept = offers.filter(
             (offer) => offer.status === 'Đang thực hiện'
         ).length
-        return Math.round((numAccept / offers.length) * 100)
+        return Math.round((numAccept / offers.length) * 100) || 0
     }
 
     if (isLoading) return null

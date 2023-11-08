@@ -40,7 +40,11 @@ function Row({ children, onClick, disabled }) {
 }
 
 function Body({ children }) {
-    return <tbody>{children}</tbody>
+    return (
+        <tbody className="block max-h-[480px] overflow-y-auto">
+            {children}
+        </tbody>
+    )
 }
 
 Table.Header = Header

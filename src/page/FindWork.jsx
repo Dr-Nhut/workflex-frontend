@@ -1,13 +1,14 @@
 import SidebarLayout from '../layouts/SidebarLayout'
 import PageHeader from '../ui/PageHeader'
 import JobSidebar from '../features/jobs/JobSidebar'
-import JobFilters from '../features/jobs/JobFilters'
+// import JobFilters from '../features/jobs/JobFilters'
 import JobList from '../features/jobs/JobList'
 import { useContext } from 'react'
 import { UserContext } from '../features/user/userSlice'
 
 function FindWork() {
     const { user } = useContext(UserContext)
+
     return (
         <div className="mx-8">
             <PageHeader
@@ -19,7 +20,7 @@ function FindWork() {
                 sidebar={<JobSidebar right={user} />}
                 right={user}
             >
-                <JobFilters />
+                {/* <JobFilters /> */}
                 <JobList />
             </SidebarLayout>
         </div>

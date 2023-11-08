@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import Table from '../../ui/Table'
-import { getJobByStatus, getPendingJob } from '../../services/apiJob'
+import { getJobByStatus } from '../../services/apiJob'
 import Spinner from '../../ui/Spinner'
 import PendingJobRow from './PendingJobRow'
 import DescriptionSection from '../../ui/Section/DescriptionSection'

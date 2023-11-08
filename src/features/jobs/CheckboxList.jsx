@@ -1,13 +1,10 @@
+import Checkbox from './Checkbox'
+
 function CheckboxList({ items }) {
     return (
         <div>
             {items.map((item) => (
-                <div key={item.id} className="p-2">
-                    <input id={item.name} type="checkbox" />
-                    <label htmlFor={item.name} className="px-2">
-                        {item.name}
-                    </label>
-                </div>
+                <Checkbox key={item.id} item={item} />
             ))}
         </div>
     )

@@ -10,18 +10,18 @@ function JobCompletionRate({ userId }) {
         queryFn: () => getFreelancerCompletedAndFailJobs(userId),
     })
 
-    console.log(jobs)
-
     if (isLoading) return null
 
     return (
         <>
             <Progress
-                percent={Math.round(
-                    (jobs.filter((job) => job.status >= 6).length /
-                        jobs.length) *
-                        100
-                )}
+                percent={
+                    Math.round(
+                        (jobs.filter((job) => job.status >= 6).length /
+                            jobs.length) *
+                            100
+                    ) || 0
+                }
                 content="Tỉ lệ dự án hoàn thành"
             />
             <Label>

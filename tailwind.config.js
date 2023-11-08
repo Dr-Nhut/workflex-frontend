@@ -6,7 +6,7 @@ export default {
   ],
   theme: {
     fontFamily: {
-      sans: ['Raleway', 'sans-serif'],
+      sans: ['Work Sans', 'sans-serif'],
     },
     extend: {
       height: {

@@ -11,3 +11,13 @@ export async function getCategoryByUser(userId) {
     }
 }
 
+
+export async function getAllCategories() {
+    try {
+        const response = await axios.get(`${URL_SERVER}/category/all/`);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        throw new Error('Đã xảy ra lỗi khi tạo thông báo');
+    }
+}

@@ -13,15 +13,26 @@ import TextDescriptionEditor from '../../ui/TextDescriptionEditor'
 import { Link } from 'react-router-dom'
 import { useContext } from 'react'
 import { UserContext } from '../user/userSlice'
+import Tippy from '@tippyjs/react'
+import { useQuery } from '@tanstack/react-query'
+import { getOffersForJob } from '../../services/apiOffer'
 
 function JobItem({ job }) {
     const { user } = useContext(UserContext)
+
+    const { isLoading, data: offers } = useQuery({
+        queryKey: ['offers', job.id],
+        queryFn: () => getOffersForJob(job.id),
+    })
+
     return (
         <li className="relative w-full cursor-pointer overflow-hidden rounded-xl border border-gray-300 bg-slate-50 px-8 py-5 transition-all ease-in-out hover:-translate-y-2">
-            <span className=" text-stone-400">
-                <UilClockThree className="mr-2 inline-block" />
-                {formatTime(job.createAt)}
-            </span>
+            <Tippy content="Hạn chào giá">
+                <span className="text-stone-500">
+                    <UilClockThree className="mr-2 inline-block" />
+                    {formatTime(job.bidDeadline)}
+                </span>
+            </Tippy>
 
             <div className="flex items-center justify-between">
                 <div>
@@ -54,16 +65,15 @@ function JobItem({ job }) {
                 </div>
             </div>
 
-            <TextDescriptionEditor>{job.description}</TextDescriptionEditor>
+            <TextDescriptionEditor lineClamp>
+                {job.description}
+            </TextDescriptionEditor>
 
             <div className="my-2 flex items-center gap-4">
                 <Rectangle primary>
                     <UilBookmark className="mr-2 inline-block" />
                     {job.category}
                 </Rectangle>
-                {/* {job.skills.map((skill) => (
-                    <Rectangle key={skill}>{skill}</Rectangle>
-                ))} */}
             </div>
 
             <div className="flex items-center justify-between rounded-lg  px-2">
@@ -77,7 +87,7 @@ function JobItem({ job }) {
                 </Link>
 
                 <span className="font-semibold text-sky-600">
-                    {job.numberBid || 0} chào giá
+                    {isLoading ? '' : offers.length} chào giá
                 </span>
             </div>
         </li>

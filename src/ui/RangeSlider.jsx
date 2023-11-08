@@ -1,7 +1,21 @@
+import { useSearchParams } from 'react-router-dom'
+import formatCurrency from '../utils/formatCurrency'
 import { useState } from 'react'
 
 function RangeSlider() {
-    const [value, setValue] = useState('1000000')
+    const [searchParams, setSearchParams] = useSearchParams()
+    const [value, setValue] = useState('50000000')
+
+    const handleOnMouseUp = (e) => {
+        searchParams.delete('budget')
+        const query = searchParams.toString()
+        setSearchParams(
+            query
+                ? `${query}&budget=${e.target.value}`
+                : `budget=${e.target.value}`
+        )
+    }
+
     return (
         <div className="relative mt-10">
             <input
@@ -12,9 +26,10 @@ function RangeSlider() {
                 step="1000000"
                 value={value}
                 onChange={(e) => setValue(e.target.value)}
+                onMouseUp={handleOnMouseUp}
             />
-            <span className="absolute -top-8 left-0 rounded px-2 text-stone-500">
-                Ngân sách cao nhất: {value}đ
+            <span className="absolute -top-8 left-1/2 -translate-x-1/2 rounded px-2 text-stone-500">
+                {formatCurrency(+value)}
             </span>
         </div>
     )

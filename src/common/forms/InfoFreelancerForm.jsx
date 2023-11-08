@@ -28,9 +28,7 @@ function InfoFreelancerForm({ userInfor }) {
             .post(`${URL_SERVER}/auth/register`, { ...userInfor, ...data })
             .then((response) => {
                 toast.success(response.data.message)
-                setTimeout(() => {
-                    navigate('/login')
-                }, 1000)
+                navigate('/login')
             })
             .catch((err) => console.log(err))
     }
@@ -72,6 +70,16 @@ function InfoFreelancerForm({ userInfor }) {
                 type="text"
                 register={register('address', { required: true })}
                 errors={errors.address}
+            />
+
+            <Input
+                label="Số tài khoản"
+                type="bank_account"
+                register={register('bank_account', {
+                    required: true,
+                    pattern: /^[0-9]+$/,
+                })}
+                error={errors.bank_account}
             />
 
             <Controller
@@ -118,7 +126,9 @@ function InfoFreelancerForm({ userInfor }) {
             )}
 
             {role === 'fre' && (
-                <FreelancerInfor control={control} errors={errors} />
+                <>
+                    <FreelancerInfor control={control} errors={errors} />
+                </>
             )}
             <Button className="mx-auto mt-4 rounded-xl" type="btn-primary">
                 Xác nhận

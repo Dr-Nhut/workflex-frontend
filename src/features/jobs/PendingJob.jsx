@@ -14,7 +14,7 @@ function PendingJob() {
         data: pendingJobs,
         // error,
     } = useQuery({
-        queryKey: ['pending-jobs'],
+        queryKey: ['pending-jobs', user.id],
         queryFn: () => getEmployerCurrentJob({ id: user.id, status: 1 }),
     })
 
