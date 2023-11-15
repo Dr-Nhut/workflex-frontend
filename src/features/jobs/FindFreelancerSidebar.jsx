@@ -1,10 +1,9 @@
 import FilterContainer from '../../ui/FilterContainer'
-import RangeSlider from '../../ui/RangeSlider'
-import CheckboxList from './CheckboxList'
 import { useQuery } from '@tanstack/react-query'
 import { getAllCategories } from '../../services/apiCategory'
+import RadioList from './RadioList'
 
-function JobSidebar({ right }) {
+function FindFreelancerSidebar({ right }) {
     const { isLoading: loadingCategories, data: categories } = useQuery({
         queryKey: ['categories'],
         queryFn: getAllCategories,
@@ -14,14 +13,11 @@ function JobSidebar({ right }) {
 
     return (
         <div className={`col-span-3 mt-3 ${right ? 'ml-8' : 'mr-8'}`}>
-            <FilterContainer title="Ngân sách">
-                <RangeSlider />
-            </FilterContainer>
             <FilterContainer title="Lĩnh vực">
-                <CheckboxList items={categories} />
+                <RadioList items={categories} />
             </FilterContainer>
         </div>
     )
 }
 
-export default JobSidebar
+export default FindFreelancerSidebar

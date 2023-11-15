@@ -6,7 +6,7 @@ import { getSkillByUser } from '../services/apiSkill'
 
 function WorkSkill({ userId, role }) {
     const [
-        { isLoading: loadingCategory, data: category },
+        { isLoading: loadingCategory, data: categories },
         { isLoading: loadingSkills, data: skills },
     ] = useQueries({
         queries: [
@@ -26,14 +26,18 @@ function WorkSkill({ userId, role }) {
     return (
         <>
             <Label>Lĩnh vực chuyên môn</Label>
-            <div className="my-4">
-                <Rectangle primary>{category.name}</Rectangle>
+            <div className="my-4 flex flex-wrap gap-2">
+                {categories.map((category) => (
+                    <Rectangle key={category.id} primary>
+                        {category.name}
+                    </Rectangle>
+                ))}
             </div>
 
             {role === 'fre' && (
                 <>
                     <Label>Kỹ năng</Label>
-                    <div className="my-4 flex gap-x-2">
+                    <div className="my-4 flex flex-wrap gap-2">
                         {skills.map((skill) => (
                             <Rectangle key={skill.id}>{skill.name}</Rectangle>
                         ))}

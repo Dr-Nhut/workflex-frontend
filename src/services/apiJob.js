@@ -23,7 +23,7 @@ export async function getEmployerCurrentJob(data) {
 
 export async function getFreelancerCurrentJob(data) {
     try {
-        const response = await axios.get(`${URL_SERVER}/job/freelancer-current-jobs?freelancerId=${data.id}&status='${data.status}'`);
+        const response = await axios.get(`${URL_SERVER}/job/freelancer-current-jobs?freelancerId=${data.id}&status='${data.status}'&comparison=${data.comparison ? data.comparison : '='}`);
         return response.data
     } catch (error) {
         console.error(error);

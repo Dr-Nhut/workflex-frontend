@@ -10,11 +10,11 @@ import CompleteJobRow from '../../ui/CompleteJobRow'
 function FreelancerCompleteJob() {
     const { user } = useContext(UserContext)
     const {
-        isLoading,
-        data: jobs,
+        isLoading: loadingSix,
+        data: jobsStatusSix,
         // error,
     } = useQuery({
-        queryKey: ['freelancer-complete-job'],
+        queryKey: ['freelancer-complete-jobs-6', user.id],
         queryFn: () =>
             getFreelancerCurrentJob({
                 id: user.id,
@@ -22,11 +22,24 @@ function FreelancerCompleteJob() {
             }),
     })
 
-    if (isLoading) return <Spinner />
+    const {
+        isLoading: loadingSeven,
+        data: jobsStatusSeven,
+        // error,
+    } = useQuery({
+        queryKey: ['freelancer-complete-job-7', user.id],
+        queryFn: () =>
+            getFreelancerCurrentJob({
+                id: user.id,
+                status: 7,
+            }),
+    })
+
+    if (loadingSix || loadingSeven) return <Spinner />
 
     return (
         <>
-            {jobs?.length > 0 ? (
+            {jobsStatusSix?.length > 0 || jobsStatusSeven > 0 ? (
                 <Table columns="grid-cols-12">
                     <Table.Header>
                         <th className="col-span-2">Lĩnh vực</th>
@@ -38,7 +51,15 @@ function FreelancerCompleteJob() {
                     </Table.Header>
 
                     <Table.Body>
-                        {jobs.map((job) => (
+                        {jobsStatusSix.map((job) => (
+                            <CompleteJobRow
+                                key={job.id}
+                                job={job}
+                                role={user.role}
+                            />
+                        ))}
+
+                        {jobsStatusSeven.map((job) => (
                             <CompleteJobRow
                                 key={job.id}
                                 job={job}

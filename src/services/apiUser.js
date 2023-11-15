@@ -16,3 +16,35 @@ export async function getInfor(userId) {
         throw new Error('Đã xảy ra lỗi');
     }
 }
+
+export async function getFreelancerInfor(userId) {
+    try {
+        const response = await axios.get(`${URL_SERVER}/user/freelancer?freelancerId=${userId}`);
+        return response.data
+    } catch (error) {
+        console.error(error);
+        throw new Error('Đã xảy ra lỗi');
+    }
+}
+
+export async function updateAvatar(avatar) {
+    const form = new FormData();
+    form.append('avatar', avatar);
+    try {
+        const response = await axios.patch(`${URL_SERVER}/user/update-avatar`, form, { headers: { 'Content-Type': 'multipart/form-data' }, withCredentials: true });
+        return response.data
+    } catch (error) {
+        console.error(error);
+        throw new Error('Đã xảy ra lỗi');
+    }
+}
+
+export async function updateInfor(payload) {
+    try {
+        const response = await axios.patch(`${URL_SERVER}/user/update-infor`, payload, { withCredentials: true });
+        return response.data
+    } catch (error) {
+        console.error(error);
+        throw new Error('Đã xảy ra lỗi');
+    }
+}

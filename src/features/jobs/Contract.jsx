@@ -7,9 +7,12 @@ import { getDetailJob } from '../../services/apiJob'
 import Spinner from '../../ui/Spinner'
 import { getOfferProcessing } from '../../services/apiOffer'
 import HeaderDetailPage from '../../ui/HeaderDetailPage'
+import { useContext, useEffect } from 'react'
+import { UserContext } from '../user/userSlice'
 
 function Contract() {
-    const [searchParams] = useSearchParams()
+    const { user } = useContext(UserContext)
+    const [searchParams, setSearchParams] = useSearchParams()
     const jobId = searchParams.get('job')
 
     const [
@@ -28,10 +31,20 @@ function Contract() {
         ],
     })
 
+    useEffect(() => {
+        setSearchParams({
+            job: jobId,
+            partner:
+                user.role === 'emp' ? offer?.freelancerId : job?.employerId,
+        })
+    }, [user?.role, offer?.freelancerId, job?.employerId])
+
     if (loadingJobDetail || loadingOfferProcessing) return <Spinner />
     return (
         <div className="m-8">
-            <HeaderDetailPage>Chi tiết hợp tác</HeaderDetailPage>
+            <HeaderDetailPage nav="/freelancer-jobs/current">
+                Chi tiết hợp tác
+            </HeaderDetailPage>
             <SidebarLayout
                 mainWidth="col-span-9"
                 fullWidth

@@ -17,6 +17,9 @@ function ConfirmCompleteJob({ onCloseModal, jobId }) {
             queryClient.invalidateQueries({
                 queryKey: ['pending-jobs', user.id],
             })
+            queryClient.invalidateQueries({
+                queryKey: ['acceptingBidsJob', user.id],
+            })
             onCloseModal()
         },
     })

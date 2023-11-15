@@ -8,6 +8,7 @@ import {
 } from '@iconscout/react-unicons'
 import Modal from './Modal-v1'
 import LockBiddingJob from '../features/jobs/LockBiddingJob'
+import ConfirmDeleteJob from '../features/jobs/ConfirmDeleteJob'
 
 function EmployerBiddingJobRow({ job, onClick }) {
     const { id, category, name, bidDeadline, duration, maxBudget, status } = job
@@ -45,7 +46,21 @@ function EmployerBiddingJobRow({ job, onClick }) {
                         </Modal.Window>
                     </Modal>
                 </div>
-                <UilTimesCircle className="hover:text-stone-800" />
+
+                <div
+                    onClick={(e) => {
+                        e.stopPropagation()
+                    }}
+                >
+                    <Modal>
+                        <Modal.Open opens="delete-job">
+                            <UilTimesCircle className="hover:text-stone-800" />
+                        </Modal.Open>
+                        <Modal.Window name="delete-job" title="Xóa công việc">
+                            <ConfirmDeleteJob jobId={id} />
+                        </Modal.Window>
+                    </Modal>
+                </div>
             </td>
         </Table.Row>
     )

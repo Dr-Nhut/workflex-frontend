@@ -14,7 +14,9 @@ const reducer = (state, action) => {
             Cookies.remove('token')
             return { status: 'active' }
         case 'users/active': return { ...state, status: 'active' }
+        case 'users/update': return { ...state, ...action.payload }
         default: throw new Error(`Invalid action ${action.type}`);
+
     }
 }
 

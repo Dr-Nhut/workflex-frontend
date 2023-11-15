@@ -16,7 +16,7 @@ function AcceptingBidsJob() {
         data: biddingJobs,
         // error,
     } = useQuery({
-        queryKey: ['acceptingBidsJob'],
+        queryKey: ['acceptingBidsJob', user.id],
         queryFn: () => getBiddingAndLockingJob(user.id),
     })
 

@@ -1,5 +1,4 @@
 import TitleSection from '../../ui/TitleSection'
-import DescriptionSection from '../../ui/Section/DescriptionSection'
 import UserCard from '../user/UserCard'
 import Rectangle from '../../ui/Rectangle'
 import { URL_SERVER_SIMPLE } from '../../constants'

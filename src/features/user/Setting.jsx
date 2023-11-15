@@ -6,14 +6,19 @@ import Select from '../../common/Select'
 import UpdateAvatar from './UpdateAvatar'
 import DatePicker from 'react-datepicker'
 import Label from '../../common/Label'
+import { useContext } from 'react'
+import { UserContext } from './userSlice'
+import { URL_SERVER_SIMPLE } from '../../constants'
 
 function UpdateProfile() {
+    const { user } = useContext(UserContext)
+
     return (
         <div className="bg-stone-100 p-4">
             <TitleSection icon={UilUserSquare}>Thiết lập hồ sơ</TitleSection>
 
             <form>
-                <UpdateAvatar avatar="https://i.pravatar.cc/150?u=a042581f4e29026awsl" />
+                <UpdateAvatar avatar={`${URL_SERVER_SIMPLE}${user.avatar}`} />
 
                 <section>
                     <TitleSection>Thông tin cá nhân</TitleSection>

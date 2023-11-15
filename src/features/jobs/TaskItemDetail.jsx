@@ -14,7 +14,7 @@ import toast from 'react-hot-toast'
 
 function TaskItemDetail({ onCloseModal, task }) {
     const queryClient = useQueryClient()
-    const [isActive, setIsActive] = useState()
+    const [isActive, setIsActive] = useState(1)
     const { name, description, dateEnd, status } = task
 
     const { isLoading, mutate } = useMutation({

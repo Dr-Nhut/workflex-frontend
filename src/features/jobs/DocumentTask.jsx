@@ -4,11 +4,11 @@ import { uploadDocumentImage } from '../../services/apiUpload'
 import Spinner from '../../ui/Spinner'
 import { useContext } from 'react'
 import { UserContext } from '../user/userSlice'
-import MessageItem from '../../ui/MessageItem'
 import FileMessage from '../../ui/FileMessage'
 import { getDocuments } from '../../services/apiTask'
 import formatFullTime from '../../utils/formatFullTime'
 import toast from 'react-hot-toast'
+import FileMessageItem from '../../ui/FileMessageItem'
 
 function DocumentTask({ taskId }) {
     const { user } = useContext(UserContext)
@@ -65,8 +65,9 @@ function DocumentTask({ taskId }) {
                         </p>
                     ) : (
                         documents.map((document, index) => (
-                            <MessageItem
+                            <FileMessageItem
                                 key={index}
+                                senderId={document.userId}
                                 host={document.userId === user.id}
                             >
                                 <FileMessage
@@ -74,7 +75,7 @@ function DocumentTask({ taskId }) {
                                 >
                                     {document.filename}
                                 </FileMessage>
-                            </MessageItem>
+                            </FileMessageItem>
                         ))
                     )}
                 </div>

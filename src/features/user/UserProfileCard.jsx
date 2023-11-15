@@ -12,6 +12,7 @@ import OfferAcceptanceRate from '../offers/OfferAcceptanceRate'
 import { getAllOffersByFreelancer } from '../../services/apiOffer'
 import JobCompletionRate from '../jobs/JobCompletionRate'
 import RehiredRate from '../jobs/RehiredRate'
+import averageStar from '../../utils/avarageStar'
 
 function UserProfileCard({ userId }) {
     const [
@@ -34,16 +35,6 @@ function UserProfileCard({ userId }) {
             },
         ],
     })
-
-    const averageStar = (evaluations) => {
-        if (evaluations.length === 0) return 0
-        return (
-            evaluations.reduce(
-                (accumulator, currentValue) => accumulator + currentValue.stars,
-                0
-            ) / evaluations.length
-        )
-    }
 
     if (loadingUser || loadingEvaluation || loadingAllOffers) return <Spinner />
 

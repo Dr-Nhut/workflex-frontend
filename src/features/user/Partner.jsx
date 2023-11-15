@@ -1,12 +1,21 @@
 import Button from '../../common/buttons/Button'
-import CardContainer from '../../ui/CardContainer'
-import Rectangle from '../../ui/Rectangle'
-import StarRating from '../../ui/StarRating'
-import UserCard from './UserCard'
+import Feedback from '../../ui/Feedback'
 
-function Partner() {
+function Partner({ partner }) {
+    const result = partner
+        .map((evaluation, index) => {
+            const prePartner = [...partner]
+                .slice(0, index)
+                .filter((item) => item.fullname === evaluation.fullname)
+
+            if (prePartner.length) return null
+            return evaluation
+        })
+        .filter((item) => item !== null)
+        .slice(0, 3)
+
     return (
-        <section className="col-span-6 mx-12">
+        <section>
             <header className="mb-4 flex items-center justify-between">
                 <h4 className="text-xl font-semibold capitalize text-stone-700">
                     Hợp tác gần đây
@@ -15,42 +24,18 @@ function Partner() {
                     Xem tất cả
                 </Button>
             </header>
-
-            <CardContainer row>
-                <UserCard fullName="John" avatarUrl="https://i.pravatar.cc/300">
-                    <span>john@gmail.com</span>
-                </UserCard>
-
-                <Rectangle background="bg-green-500">Hoàn thành</Rectangle>
-
-                <StarRating numStars={5} />
-
-                <span className="p-2 font-semibold">4000000đ</span>
-            </CardContainer>
-
-            <CardContainer row>
-                <UserCard fullName="John" avatarUrl="https://i.pravatar.cc/300">
-                    <span>john@gmail.com</span>
-                </UserCard>
-
-                <Rectangle background="bg-green-500">Hoàn thành</Rectangle>
-
-                <StarRating numStars={5} />
-
-                <span className="p-2 font-semibold">4000000đ</span>
-            </CardContainer>
-
-            <CardContainer row>
-                <UserCard fullName="John" avatarUrl="https://i.pravatar.cc/300">
-                    <span>john@gmail.com</span>
-                </UserCard>
-
-                <Rectangle background="bg-green-500">Hoàn thành</Rectangle>
-
-                <StarRating numStars={5} />
-
-                <span className="p-2 font-semibold">4000000đ</span>
-            </CardContainer>
+            <div>
+                {result.map((evaluation) => (
+                    <Feedback
+                        key={evaluation.id}
+                        fullname={evaluation.fullname}
+                        avatar={evaluation.avatar}
+                        stars={evaluation.stars}
+                        comment={evaluation.comment}
+                        createAt={evaluation.createAt}
+                    />
+                ))}
+            </div>
         </section>
     )
 }
