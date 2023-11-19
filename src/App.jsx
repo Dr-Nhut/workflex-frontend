@@ -46,6 +46,7 @@ import ManagerPendingJob from './admin/job/ManagerPendingJob'
 import ManagerPaidJob from './page/ManagerPaidJob'
 import Profile from './page/Profile'
 import Notification from './page/Notification'
+import ManagerAccount from './page/ManagerAccount'
 
 // const router = createBrowserRouter([
 //     {
@@ -263,6 +264,10 @@ function App() {
                                 path="/admin"
                                 element={<AdminDashboardLayout />}
                             >
+                                <Route
+                                    path="account-manager"
+                                    element={<ManagerAccount />}
+                                />
                                 <Route
                                     path="job-manager/:id"
                                     element={<ManagerJobDetail />}

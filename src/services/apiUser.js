@@ -7,6 +7,16 @@ export const fakeAuth = () => {
     })
 }
 
+export async function getAllAccount() {
+    try {
+        const response = await axios.get(`${URL_SERVER}/user/all`);
+        return response.data
+    } catch (error) {
+        console.error(error);
+        throw new Error('Đã xảy ra lỗi');
+    }
+}
+
 export async function getInfor(userId) {
     try {
         const response = await axios.get(`${URL_SERVER}/user/${userId}`);

@@ -3,6 +3,7 @@ import {
     // UilFileSearchAlt,
     UilBriefcase,
     UilBars,
+    UilUsersAlt,
 } from '@iconscout/react-unicons'
 
 import Avatar from './Avatar'
@@ -23,19 +24,9 @@ function DashboardSidebar() {
                     Quản lý việc làm
                 </ListItem>
 
-                {/* <ListItem
-                    to={employer ? 'employer-job' : '/freelancer-jobs'}
-                    icon={<UilBriefcase />}
-                >
-                    {employer ? 'Quản lý công việc' : 'Công việc của bạn'}
+                <ListItem to="/admin/account-manager" icon={<UilUsersAlt />}>
+                    Quản lý tài khoản
                 </ListItem>
-
-                <ListItem
-                    to={employer ? '/find-freelancer' : '/freelancer-findwork'}
-                    icon={<UilFileSearchAlt />}
-                >
-                    {employer ? 'Tìm freelancer' : 'Tìm việc'}
-                </ListItem> */}
             </main>
         </div>
     )
