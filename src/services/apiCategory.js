@@ -11,6 +11,16 @@ export async function getCategoryByUser(userId) {
     }
 }
 
+export async function createCategory(data) {
+    try {
+        const response = await axios.post(`${URL_SERVER}/category/`, data);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        throw new Error('Đã xảy ra lỗi khi tạo thông báo');
+    }
+}
+
 
 export async function getAllCategories() {
     try {

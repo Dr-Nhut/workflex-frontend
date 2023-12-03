@@ -44,79 +44,11 @@ import RefusedJob from './features/jobs/RefusedJob'
 import EmployerCompleteJob from './features/jobs/EmployerCompleteJob'
 import ManagerPendingJob from './admin/job/ManagerPendingJob'
 import ManagerPaidJob from './page/ManagerPaidJob'
+import ManagerCategory from './page/ManagerCategory'
 import Profile from './page/Profile'
 import Notification from './page/Notification'
 import ManagerAccount from './page/ManagerAccount'
-
-// const router = createBrowserRouter([
-//     {
-//         path: '/',
-//         element: <HomePage />,
-//     },
-//     {
-//         path: '/login',
-//         element: <Login />,
-//     },
-//     {
-//         element: <RegisterAccount />,
-//         children: [
-//             {
-//                 path: '/register',
-//                 element: <Register />,
-//             },
-//             {
-//                 path: '/verify-email',
-//                 element: <VerifyEmail />,
-//             },
-//         ],
-//     },
-//     {
-//         element: <AppLayout />,
-//         children: [
-//             {
-//                 path: '/findwork',
-//                 element: <FindWork />,
-//             },
-//             {
-//                 path: '/freelancers',
-//                 element: <Freelancer />,
-//             },
-//             {
-//                 path: '/my-profile',
-//                 element: <MyProfile />,
-//             },
-//             {
-//                 element: <DashboardLayout />,
-//                 children: [
-//                     {
-//                         path: '/dashboard',
-//                         element: <FreelancerDashboard />,
-//                     },
-//                     {
-//                         path: '/freelancer-jobs',
-//                         element: <FreelancerJob />,
-//                     },
-//                     {
-//                         path: 'employer-job',
-//                         element: <EmployerJob />,
-//                     },
-//                     {
-//                         path: '/contract',
-//                         element: <Contract />,
-//                     },
-//                     {
-//                         path: '/freelancer-findwork',
-//                         element: <FindWork />,
-//                     },
-//                     {
-//                         path: '/find-freelancer',
-//                         element: <Freelancer />,
-//                     },
-//                 ],
-//             },
-//         ],
-//     },
-// ])
+import FreelancerResult from './page/FreelancerResult'
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -127,11 +59,6 @@ const queryClient = new QueryClient({
 })
 
 function App() {
-    // return (
-    //     <UserContext.Provider value={{ state, dispatch }}>
-    //         <RouterProvider router={router} />
-    //     </UserContext.Provider>
-    // )
     return (
         <QueryClientProvider client={queryClient}>
             <Toaster />
@@ -255,6 +182,10 @@ function App() {
                                     element={<Freelancer />}
                                 />
                                 <Route
+                                    path="result-freelancer"
+                                    element={<FreelancerResult />}
+                                />
+                                <Route
                                     path="checkout-success"
                                     element={<CheckoutSuccess />}
                                 />
@@ -267,6 +198,10 @@ function App() {
                                 <Route
                                     path="account-manager"
                                     element={<ManagerAccount />}
+                                />
+                                <Route
+                                    path="category-manager"
+                                    element={<ManagerCategory />}
                                 />
                                 <Route
                                     path="job-manager/:id"

@@ -1,10 +1,8 @@
-import 'react-datepicker/dist/react-datepicker.css'
+import { useQuery } from '@tanstack/react-query'
+import { getDetailJob } from '../../services/apiJob'
 import { Controller, useForm } from 'react-hook-form'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { createJob } from '../../services/apiJob'
-import toast from 'react-hot-toast'
-import { useContext, useState } from 'react'
-import { UserContext } from '../user/userSlice'
+import Spinner from '../../ui/Spinner'
+import { useState } from 'react'
 import Input from '../../common/Input'
 import Label from '../../common/Label'
 import { CKEditor } from '@ckeditor/ckeditor5-react'
@@ -14,11 +12,9 @@ import SelectFetching from '../../common/SelectFetching'
 import Select from 'react-select'
 import { EXP, TypeProject } from '../../constants'
 import Button from '../../common/buttons/Button'
-import Spinner from '../../ui/Spinner'
+import formatDatePicker from '../../utils/formatDatePicker'
 
-function PostJob({ onCloseModal }) {
-    const queryClient = useQueryClient()
-    const { user } = useContext(UserContext)
+function UpdatePendingJob({ onCloseModal, jobId }) {
     const [description, setDescription] = useState()
     const {
         register,
@@ -28,30 +24,33 @@ function PostJob({ onCloseModal }) {
         formState: { errors },
     } = useForm()
 
-    const { mutate, isLoading } = useMutation({
-        mutationFn: createJob,
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['pending-jobs'] })
-            reset()
-            onCloseModal()
-            toast.success('Công việc của bạn đã được tạo!')
+    const { isLoading } = useQuery({
+        queryKey: ['get-edit-pending-job', jobId],
+        queryFn: () => getDetailJob(jobId),
+        onSuccess: (data) => {
+            const date = new Date(data.dateStart).setDate(
+                new Date(data.dateStart).getDate() + data.duration
+            )
+
+            reset({
+                name: data.name,
+                maxBudget: data.maxBudget,
+                bidDeadline: formatDatePicker(data.bidDeadline),
+                dateStart: formatDatePicker(data.dateStart),
+                dateEnd: formatDatePicker(date),
+                // category: data.category,
+                // skills: data.skills,
+                // experience: data.experience,
+                // type: data.type,
+            })
+            setDescription(data.description)
         },
-        onError: (err) => toast.error(err.message),
     })
 
-    const onSubmit = (data) => {
-        data.employerId = user.id
-        data.description = description
-        data.categoryId = data.category.value
-        data.duration = (data.dateEnd - data.dateStart) / 86400000
-        data.skills = data.skills?.map((skill) => skill.value)
-        data.type = data.type?.label
-        data.experience = data.experience?.label
-        mutate(data)
-    }
+    if (isLoading) return <Spinner />
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit((data) => console.log(data))}>
             <Input
                 label="Tên công việc"
                 register={register('name', { required: true })}
@@ -218,4 +217,4 @@ function PostJob({ onCloseModal }) {
     )
 }
 
-export default PostJob
+export default UpdatePendingJob

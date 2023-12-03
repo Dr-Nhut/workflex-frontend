@@ -14,6 +14,7 @@ import { getFreelancerCurrentJob } from '../services/apiJob'
 import { getOffersByFreelancer } from '../services/apiOffer'
 import EmployerInformation from '../features/user/EmployerInformation'
 import JobRecommendation from '../features/recommendation/JobRecommendation'
+import DemandJob from '../features/jobs/DemandJob'
 
 function FreelancerDashboard() {
     const { user } = useContext(UserContext)
@@ -61,7 +62,7 @@ function FreelancerDashboard() {
         return <Spinner />
 
     return (
-        <div className="bg-slate-100 pl-10 pt-4">
+        <div className="bg-slate-200 pl-10 pt-4">
             <SidebarLayout
                 right
                 fullWidth
@@ -97,42 +98,46 @@ function FreelancerDashboard() {
                     </div>
                 )}
 
-                <section>
-                    <header className="flex items-center justify-between py-4">
-                        <h4 className="text-xl font-semibold capitalize text-stone-700">
-                            Dự án đang thực hiện
-                        </h4>
-                        <Link
-                            to={
-                                user.role === 'emp'
-                                    ? '/employer-job/current'
-                                    : '/freelancer-jobs/current'
-                            }
-                            className="rounded-xl bg-primary p-2 font-semibold text-stone-50 hover:bg-blue-600"
-                        >
-                            Xem tất cả
-                        </Link>
-                    </header>
+                {currentJobs.length === 0 ? (
+                    <DemandJob />
+                ) : (
+                    <section>
+                        <header className="flex items-center justify-between py-4">
+                            <h4 className="text-xl font-semibold capitalize text-stone-700">
+                                Dự án đang thực hiện
+                            </h4>
+                            <Link
+                                to={
+                                    user.role === 'emp'
+                                        ? '/employer-job/current'
+                                        : '/freelancer-jobs/current'
+                                }
+                                className="rounded-xl bg-primary p-2 font-semibold text-stone-50 hover:bg-blue-600"
+                            >
+                                Xem tất cả
+                            </Link>
+                        </header>
 
-                    {currentJobs.slice(0, 3).map((currentJob) => (
-                        <CardContainer
-                            key={currentJob.id}
-                            jobId={currentJob.id}
-                        >
-                            <Rectangle background="bg-teal-500">
-                                {currentJob.category}
-                            </Rectangle>
-                            <div className="my-2 flex items-center justify-between">
-                                <h2 className="font-semibold text-stone-900">
-                                    {currentJob.name}
-                                </h2>
-                            </div>
-                            <EmployerInformation
-                                employerId={currentJob.employerId}
-                            />
-                        </CardContainer>
-                    ))}
-                </section>
+                        {currentJobs.slice(0, 3).map((currentJob) => (
+                            <CardContainer
+                                key={currentJob.id}
+                                jobId={currentJob.id}
+                            >
+                                <Rectangle background="bg-teal-500">
+                                    {currentJob.category}
+                                </Rectangle>
+                                <div className="my-2 flex items-center justify-between">
+                                    <h2 className="font-semibold text-stone-900">
+                                        {currentJob.name}
+                                    </h2>
+                                </div>
+                                <EmployerInformation
+                                    employerId={currentJob.employerId}
+                                />
+                            </CardContainer>
+                        ))}
+                    </section>
+                )}
             </SidebarLayout>
         </div>
     )

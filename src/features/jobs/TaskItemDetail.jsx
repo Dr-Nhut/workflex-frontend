@@ -2,7 +2,7 @@ import Rectangle from '../../ui/Rectangle'
 import TitleSection from '../../ui/TitleSection'
 import TextDescriptionEditor from '../../ui/TextDescriptionEditor'
 import Tab from '../../ui/Tab'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import MessageTask from './MessageTask'
 import DocumentTask from './DocumentTask'
 import formatTime from '../../utils/formatTime'
@@ -11,8 +11,10 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { completeTask } from '../../services/apiTask'
 import Spinner from '../../ui/Spinner'
 import toast from 'react-hot-toast'
+import { UserContext } from '../user/userSlice'
 
 function TaskItemDetail({ onCloseModal, task }) {
+    const { user } = useContext(UserContext)
     const queryClient = useQueryClient()
     const [isActive, setIsActive] = useState(1)
     const { name, description, dateEnd, status } = task
@@ -76,13 +78,15 @@ function TaskItemDetail({ onCloseModal, task }) {
 
             {status === 0 && (
                 <footer className="mt-4">
-                    <Button
-                        onClick={handleOnClick}
-                        className="mx-auto rounded-lg"
-                        type="btn-primary"
-                    >
-                        {isLoading ? <Spinner /> : 'Hoàn thành'}
-                    </Button>
+                    {user.role === 'fre' && (
+                        <Button
+                            onClick={handleOnClick}
+                            className="mx-auto rounded-lg"
+                            type="btn-primary"
+                        >
+                            {isLoading ? <Spinner /> : 'Hoàn thành'}
+                        </Button>
+                    )}
                 </footer>
             )}
         </div>

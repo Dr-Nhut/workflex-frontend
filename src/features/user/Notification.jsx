@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom'
 
 function Notification() {
     const { user, socket } = useContext(UserContext)
+
     const [notifications, setNotifications] = useState([])
 
     const { isLoading } = useQuery({
@@ -21,12 +22,13 @@ function Notification() {
 
     useEffect(() => {
         function handler(data) {
+            console.log(data)
             setNotifications((pre) => [...pre, data])
         }
-        socket.on('getNotification', handler)
+        socket?.on('getNotification', handler)
 
         return () => {
-            socket.off('getNotification', handler)
+            socket?.off('getNotification', handler)
         }
     }, [socket])
 

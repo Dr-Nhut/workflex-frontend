@@ -1,7 +1,15 @@
 import { Link } from 'react-router-dom'
 import LoginForm from '../common/forms/LoginForm'
+import { useContext, useEffect } from 'react'
+import { UserContext } from '../features/user/userSlice'
 
 function Login() {
+    const { socket } = useContext(UserContext)
+
+    useEffect(() => {
+        socket?.close()
+    }, [socket])
+
     return (
         <div className="h-screen bg-slate-100 py-20">
             <div className="mx-auto w-1/3 rounded-xl bg-slate-50 px-10 py-8 shadow-xl shadow-stone-400">

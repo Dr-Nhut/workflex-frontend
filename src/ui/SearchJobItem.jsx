@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 
-function SearchItem({ name, id, onClosePortal, onChange }) {
+function SearchJobItem({ name, id, onClosePortal, onChange, focus }) {
     const navigate = useNavigate()
     const handleOnClick = () => {
         navigate(`/freelancer-bids/${id}`)
@@ -10,7 +10,9 @@ function SearchItem({ name, id, onClosePortal, onChange }) {
 
     return (
         <li
-            className="my-2 cursor-pointer rounded-xl bg-stone-50 p-2 hover:bg-stone-200"
+            className={`my-2 cursor-pointer rounded-xl p-2  hover:bg-stone-200 ${
+                focus ? 'bg-stone-200' : 'bg-stone-50'
+            }`}
             onClick={handleOnClick}
         >
             {name}
@@ -18,4 +20,4 @@ function SearchItem({ name, id, onClosePortal, onChange }) {
     )
 }
 
-export default SearchItem
+export default SearchJobItem

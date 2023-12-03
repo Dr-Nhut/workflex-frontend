@@ -57,7 +57,7 @@ function EmployerPayment() {
                 <ContractInfor job={job} offer={offer} />
                 <form onSubmit={handleSubmit}>
                     <Button type="btn-primary" className="mx-auto rounded-lg">
-                        Thanh toán
+                        Thanh toán qua Stripe
                     </Button>
                 </form>
             </SidebarLayout>

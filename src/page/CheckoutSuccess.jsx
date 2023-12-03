@@ -19,7 +19,7 @@ function CheckoutSuccess() {
 
     //     return function cleanup() {
     //         navigate(pathname, { replace: true })
-    //     }
+    //     }7z
     // }, [state, pathname, navigate])
 
     // if (!state) {
@@ -33,7 +33,7 @@ function CheckoutSuccess() {
     })
 
     useEffect(() => {
-        socket.emit('sendFromFreelancerToEmployer', {
+        socket?.emit('sendFromFreelancerToEmployer', {
             senderId: user.id,
             receiverId: 'a68af9ff-7835-426e-b9e1-3c3dd081a40b',
             description: '',

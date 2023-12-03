@@ -4,6 +4,7 @@ import {
     UilBriefcase,
     UilBars,
     UilUsersAlt,
+    UilGameStructure,
 } from '@iconscout/react-unicons'
 
 import Avatar from './Avatar'
@@ -26,6 +27,13 @@ function DashboardSidebar() {
 
                 <ListItem to="/admin/account-manager" icon={<UilUsersAlt />}>
                     Quản lý tài khoản
+                </ListItem>
+
+                <ListItem
+                    to="/admin/category-manager"
+                    icon={<UilGameStructure />}
+                >
+                    Quản lý lĩnh vực
                 </ListItem>
             </main>
         </div>

@@ -7,7 +7,6 @@ import Spinner from '../../ui/Spinner'
 
 function Verify() {
     const [userInfor, step, handleContinue] = useOutletContext()
-    console.log(userInfor)
     const [isLoading, setIsLoading] = useState()
     const handleOnClick = () => {
         setIsLoading('loading')

@@ -10,12 +10,13 @@ function UserProvider() {
     const [state, dispatch] = useReducer(reducer, initialState)
     const [socket, setSocket] = useState(null)
 
+    console.log(state)
+
     useEffect(() => {
-        setSocket(io('http://localhost:3001'))
+        if (state.id) setSocket(io('http://localhost:3001'))
     }, [state.id])
 
     useEffect(() => {
-        console.log('new User')
         socket?.emit('newUser', state.id)
     }, [state.id, socket])
 

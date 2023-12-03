@@ -11,6 +11,16 @@ export async function addMessage(data) {
     }
 }
 
+export async function getMessagesByUser(userId) {
+    try {
+        const response = await axios.get(`${URL_SOCKET_SERVER}/api/socket/messages/${userId}`);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        throw new Error('Đã xảy ra lỗi');
+    }
+}
+
 export async function getAllMessages(data) {
     try {
         const response = await axios.post(`${URL_SOCKET_SERVER}/api/socket/get-all-messages`, data);

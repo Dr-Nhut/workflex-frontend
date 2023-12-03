@@ -139,13 +139,13 @@ function OfferItemCard({ offers, offer, dateStart, jobName }) {
 
                 <JobItemGrid
                     iconElement={<UilCheckCircle size="24" />}
-                    title="Ngày dự kiến hoàn thành"
+                    title="Dự kiến hoàn thành"
                     description={formatTime(dateEnd)}
                 />
 
                 <JobItemGrid
                     iconElement={<UilCrosshairs size="24" />}
-                    title="Thời gian dự kiến"
+                    title="Tổng thời gian"
                     description={`${
                         (new Date(dateEnd) - new Date(dateStart)) / 86400000
                     } ngày`}

@@ -161,7 +161,7 @@ function SendBid({ jobDetail }) {
                         />
                     </div>
 
-                    <Button type="btn-primary">
+                    <Button type="btn-primary" className="rounded-xl">
                         {isLoading ? <Spinner /> : 'Gửi chào giá'}
                     </Button>
                 </form>

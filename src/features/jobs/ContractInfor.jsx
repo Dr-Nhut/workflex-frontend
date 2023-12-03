@@ -48,7 +48,7 @@ function ContractInfor({ job, offer }) {
                                 type="btn-primary rounded"
                                 size="small"
                             >
-                                Hoàn thành dự án
+                                Hoàn thành công việc
                             </Button>
                         </Modal.Open>
                         <Modal.Window

@@ -34,7 +34,10 @@ function InfoFreelancerForm({ userInfor }) {
     }
 
     return (
-        <form onSubmit={handleSubmit(registerUser)}>
+        <form
+            onSubmit={handleSubmit(registerUser)}
+            className="h-[400px] w-full overflow-auto px-2"
+        >
             <Input
                 label="Họ và tên"
                 type="text"
@@ -70,6 +73,16 @@ function InfoFreelancerForm({ userInfor }) {
                 type="text"
                 register={register('address', { required: true })}
                 errors={errors.address}
+            />
+
+            <Input
+                label="Số điện thoại"
+                type="phone"
+                register={register('phone', {
+                    required: true,
+                    pattern: /^[0-9]+$/,
+                })}
+                error={errors.phone}
             />
 
             <Input

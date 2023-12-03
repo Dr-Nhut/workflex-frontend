@@ -5,6 +5,7 @@ import Input from '../Input'
 import { useForm } from 'react-hook-form'
 import { URL_SERVER } from '../../constants'
 import { useOutletContext } from 'react-router-dom'
+import toast from 'react-hot-toast'
 
 function RegisterForm() {
     const [userInfor, step, handleContinue] = useOutletContext()
@@ -18,10 +19,10 @@ function RegisterForm() {
         axios
             .post(`${URL_SERVER}/auth/send-email-verify`, data)
             .then((response) => {
+                console.log(response)
                 if (response.status === 200) handleContinue(data)
-                // else display error
             })
-            .catch((err) => console.error(err))
+            .catch((err) => toast.error(err.response.data.message))
     }
 
     return (

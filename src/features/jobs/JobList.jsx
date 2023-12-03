@@ -33,7 +33,7 @@ function JobList() {
                             ))}
                     </ul>
                     <Pagination
-                        length={Math.ceil(jobs.length / 10)}
+                        length={jobs.length}
                         currentPage={page}
                         onClick={setPage}
                     />
