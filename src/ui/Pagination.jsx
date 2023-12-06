@@ -7,7 +7,7 @@ function Pagination({ length, onClick, currentPage }) {
     return (
         <>
             <div className="mx-auto my-2 text-center text-stone-500">
-                {(currentPage - 1) * 10}-
+                {(currentPage - 1) * 10 + 1}-
                 {currentPage * 10 > length ? length : currentPage * 10}/{length}
             </div>
             <div className="flex items-center justify-center gap-4">

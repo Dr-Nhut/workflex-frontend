@@ -25,7 +25,6 @@ import VerifyEmail from './page/VerifyEmail'
 import RegisterAccount from './features/auth/RegisterAccount'
 import UserProvider from './features/user/UserProvider'
 import { Toaster } from 'react-hot-toast'
-import ManagerJob from './page/ManagerJob'
 import ManagerJobDetail from './page/ManagerJobDetail'
 import EmpRefusedJob from './page/EmpRefusedJob'
 import FreelancerBids from './page/FreelancerBids'
@@ -208,21 +207,16 @@ function App() {
                                     element={<ManagerJobDetail />}
                                 />
                                 <Route
-                                    path="job-manager"
-                                    element={<ManagerJob />}
-                                >
-                                    <Route
-                                        index
-                                        path="/admin/job-manager/pending"
-                                        element={<ManagerPendingJob />}
-                                    />
+                                    index
+                                    path="/admin/job-pending"
+                                    element={<ManagerPendingJob />}
+                                />
 
-                                    <Route
-                                        index
-                                        path="/admin/job-manager/payment"
-                                        element={<ManagerPaidJob />}
-                                    />
-                                </Route>
+                                <Route
+                                    index
+                                    path="/admin/job-payment"
+                                    element={<ManagerPaidJob />}
+                                />
                                 <Route
                                     path="job-manager/:jobId/payment"
                                     element={<AdminPaymentDetailJob />}

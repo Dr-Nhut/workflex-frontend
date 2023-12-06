@@ -5,7 +5,7 @@ function CardContainer({ children, row, jobId }) {
         <div
             className={`mb-4 ${
                 row && 'flex items-center justify-between'
-            } rounded-lg bg-stone-200 p-4`}
+            } rounded-lg bg-stone-50 p-4`}
         >
             {jobId ? (
                 <Link to={`/contract?job=${jobId}`}>{children}</Link>

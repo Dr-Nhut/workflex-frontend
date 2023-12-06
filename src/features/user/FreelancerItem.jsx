@@ -37,7 +37,7 @@ function FreelancerItem({ freelancerId }) {
     if (isLoading || loadingCategory || loadingEvaluation) return null
 
     return (
-        <li className="cursor-pointer border border-stone-300 px-8 py-4 hover:bg-stone-100">
+        <li className="mb-4 cursor-pointer rounded-lg border border-stone-300 px-8 py-4 hover:bg-stone-100">
             <div className="flex items-center justify-between ">
                 <UserCard
                     fullName={freelancer.fullname}

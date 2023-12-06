@@ -13,7 +13,9 @@ function DashboardLayout() {
             mainWidth="col-span-10"
             sidebar={<DashboardSidebar />}
         >
-            <Outlet />
+            <div className="min-h-[600px]">
+                <Outlet />
+            </div>
         </SidebarLayout>
     )
 }

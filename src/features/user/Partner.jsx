@@ -1,4 +1,3 @@
-import Button from '../../common/buttons/Button'
 import Feedback from '../../ui/Feedback'
 
 function Partner({ partner }) {
@@ -16,13 +15,10 @@ function Partner({ partner }) {
 
     return (
         <section>
-            <header className="mb-4 flex items-center justify-between">
+            <header className="mb-4">
                 <h4 className="text-xl font-semibold capitalize text-stone-700">
                     Hợp tác gần đây
                 </h4>
-                <Button type="btn-primary" size="small" className="rounded-xl">
-                    Xem tất cả
-                </Button>
             </header>
             <div>
                 {result.map((evaluation) => (

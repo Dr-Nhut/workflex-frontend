@@ -86,6 +86,8 @@ function ContractInfor({ job, offer }) {
                         <TaskProject
                             employerId={job.employerId}
                             contract={contract.id}
+                            dateStartProject={job.dateStart}
+                            dateEndProject={offer.dateEnd}
                         />
                     )}
                     {isActive === 2 && <PlanProject plan={offer.plan} />}

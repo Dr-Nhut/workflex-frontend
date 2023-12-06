@@ -16,7 +16,13 @@ import { createNotification } from '../../services/apiNotification'
 import { useContext } from 'react'
 import { UserContext } from '../user/userSlice'
 
-function PostTask({ onCloseModal, contractId, employerId }) {
+function PostTask({
+    onCloseModal,
+    contractId,
+    employerId,
+    dateStartProject,
+    dateEndProject,
+}) {
     const { user, socket } = useContext(UserContext)
     const queryClient = useQueryClient()
     const [description, setDescription] = useState()
@@ -89,7 +95,10 @@ function PostTask({ onCloseModal, contractId, employerId }) {
                 <Controller
                     control={control}
                     name="dateStart"
-                    rules={{ required: true }}
+                    rules={{
+                        required: true,
+                        validate: (v) => v >= new Date(dateStartProject),
+                    }}
                     render={({ field: { onChange, value } }) => (
                         <span className="rounded border-2 border-stone-500 p-1 focus-within:border-none">
                             <DatePicker
@@ -101,8 +110,8 @@ function PostTask({ onCloseModal, contractId, employerId }) {
                         </span>
                     )}
                 />
-                {errors.categories && (
-                    <p className="text-red-500">Bạn chưa điền thông tin.</p>
+                {errors.dateStart && (
+                    <p className="text-red-500">Vui lòng chọn ngày hợp lệ.</p>
                 )}
             </div>
 
@@ -113,7 +122,10 @@ function PostTask({ onCloseModal, contractId, employerId }) {
                 <Controller
                     control={control}
                     name="dateEnd"
-                    rules={{ required: true }}
+                    rules={{
+                        required: true,
+                        validate: (v) => v <= new Date(dateEndProject),
+                    }}
                     render={({ field: { onChange, value } }) => (
                         <span className="rounded border-2 border-stone-500 p-1 focus-within:border-none">
                             <DatePicker

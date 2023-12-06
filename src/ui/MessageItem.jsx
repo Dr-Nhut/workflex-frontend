@@ -11,7 +11,7 @@ function MessageItem({ host, children, createdAt, senderId }) {
     })
 
     return (
-        <div className={`mb-4 flex w-full ${host && 'justify-end'}`}>
+        <div className={`mb-4 flex w-full p-2 ${host && 'justify-end'}`}>
             {host && (
                 <div className="mr-2 rounded-xl bg-stone-300 p-2">
                     <div>{children}</div>

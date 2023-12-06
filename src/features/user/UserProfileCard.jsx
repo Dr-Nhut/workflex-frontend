@@ -13,12 +13,14 @@ import { getAllOffersByFreelancer } from '../../services/apiOffer'
 import JobCompletionRate from '../jobs/JobCompletionRate'
 import RehiredRate from '../jobs/RehiredRate'
 import averageStar from '../../utils/avarageStar'
+import { getFreelancerCurrentJob } from '../../services/apiJob'
 
 function UserProfileCard({ userId }) {
     const [
         { isLoading: loadingUser, data: user },
         { isLoading: loadingEvaluation, data: evaluations },
         { isLoading: loadingAllOffers, data: allOffersOfFreelancers },
+        { isLoading: loadingAllCurrentJob, data: allCurrentJobsFreelancer },
     ] = useQueries({
         queries: [
             {
@@ -33,10 +35,21 @@ function UserProfileCard({ userId }) {
                 queryKey: ['allOffersOfFreelancer', userId],
                 queryFn: () => getAllOffersByFreelancer(userId),
             },
+            {
+                queryKey: ['allCurrentJobsOfFreelancer', userId],
+                queryFn: () =>
+                    getFreelancerCurrentJob({ id: userId, status: 5 }),
+            },
         ],
     })
 
-    if (loadingUser || loadingEvaluation || loadingAllOffers) return <Spinner />
+    if (
+        loadingUser ||
+        loadingEvaluation ||
+        loadingAllOffers ||
+        loadingAllCurrentJob
+    )
+        return <Spinner />
 
     return (
         <div className="col-span-3">
@@ -47,10 +60,15 @@ function UserProfileCard({ userId }) {
                 />
                 <UserName dark>{user.fullname}</UserName>
                 <DescriptionSection>{user.email}</DescriptionSection>
+                {user.role === 'fre' && (
+                    <span className="cursor-pointer font-semibold text-red-500/80">
+                        {`${allCurrentJobsFreelancer.length} đang thực hiện`}
+                    </span>
+                )}
                 <div className="flex w-4/5 justify-around">
                     <StarRatingSimple rating={averageStar(evaluations)} />
                     {user.role === 'fre' && (
-                        <span className="cursor-pointer font-semibold text-sky-500/80">
+                        <span className="cursor-pointer font-semibold text-sky-500/60">
                             {`${
                                 allOffersOfFreelancers.filter(
                                     (item) => item.status === 'Đang duyệt'

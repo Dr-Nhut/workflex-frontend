@@ -20,7 +20,7 @@ function ManagerJobDetail() {
 
     if (isLoading) return <Spinner />
     return (
-        <>
+        <div className="p-4">
             <HeaderDetailPage>
                 Chi tiết công việc đang chờ duyệt
             </HeaderDetailPage>
@@ -31,7 +31,7 @@ function ManagerJobDetail() {
             >
                 <JobDetail jobDetail={jobDetail} />
             </SidebarLayout>
-        </>
+        </div>
     )
 }
 

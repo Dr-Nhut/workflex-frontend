@@ -81,7 +81,13 @@ function PostJob({ onCloseModal }) {
                 <Controller
                     control={control}
                     name="bidDeadline"
-                    rules={{ required: true }}
+                    rules={{
+                        required: true,
+                        validate: (v) => {
+                            console.log(v)
+                            return v >= new Date()
+                        },
+                    }}
                     render={({ field: { onChange, value } }) => (
                         <span className="rounded border-2 border-stone-500 p-1 focus-within:border-none">
                             <DatePicker
@@ -93,8 +99,8 @@ function PostJob({ onCloseModal }) {
                         </span>
                     )}
                 />
-                {errors.categories && (
-                    <p className="text-red-500">Bạn chưa điền thông tin.</p>
+                {errors.bidDeadline && (
+                    <p className="text-red-500">Vui lòng chọn ngày phù hợp.</p>
                 )}
             </div>
             <div>
@@ -102,7 +108,10 @@ function PostJob({ onCloseModal }) {
                 <Controller
                     control={control}
                     name="dateStart"
-                    rules={{ required: true }}
+                    rules={{
+                        required: true,
+                        validate: (v, values) => v >= values.bidDeadline,
+                    }}
                     render={({ field: { onChange, value } }) => (
                         <span className="rounded border-2 border-stone-500 p-1 focus-within:border-none">
                             <DatePicker
@@ -115,9 +124,7 @@ function PostJob({ onCloseModal }) {
                     )}
                 />
                 {errors.dateStart && (
-                    <p className="text-red-500">
-                        Vui lòng chọn ngày bắt đầu dự án.
-                    </p>
+                    <p className="text-red-500">Vui lòng chọn ngày phù hợp.</p>
                 )}
             </div>
 
@@ -126,7 +133,10 @@ function PostJob({ onCloseModal }) {
                 <Controller
                     control={control}
                     name="dateEnd"
-                    rules={{ required: true }}
+                    rules={{
+                        required: true,
+                        validate: (v, values) => v >= values.dateStart,
+                    }}
                     render={({ field: { onChange, value } }) => (
                         <span className="rounded border-2 border-stone-500 p-1 focus-within:border-none">
                             <DatePicker
@@ -138,10 +148,8 @@ function PostJob({ onCloseModal }) {
                         </span>
                     )}
                 />
-                {errors.endStart && (
-                    <p className="text-red-500">
-                        Vui lòng chọn ngày dự kiến kết thúc dự án.
-                    </p>
+                {errors.dateEnd && (
+                    <p className="text-red-500">Vui lòng chọn ngày phù hợp.</p>
                 )}
             </div>
 

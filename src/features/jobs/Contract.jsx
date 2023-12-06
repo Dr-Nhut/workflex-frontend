@@ -21,11 +21,11 @@ function Contract() {
     ] = useQueries({
         queries: [
             {
-                queryKey: ['jobDetail'],
+                queryKey: ['jobDetail', jobId],
                 queryFn: () => getDetailJob(jobId),
             },
             {
-                queryKey: ['offerDetail'],
+                queryKey: ['offerDetail', jobId],
                 queryFn: () => getOfferProcessing(jobId),
             },
         ],

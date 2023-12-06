@@ -2,7 +2,7 @@ import { NavLink, Outlet } from 'react-router-dom'
 
 function EmployerJob() {
     return (
-        <div className="h-[calc(100vh-194px)]">
+        <div className="min-h-[600px]">
             <div className="flex border-b px-6 text-center text-lg font-semibold text-stone-400">
                 <NavLink
                     to="/employer-job/pending"

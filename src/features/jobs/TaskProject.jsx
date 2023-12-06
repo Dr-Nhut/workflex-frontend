@@ -10,7 +10,12 @@ import Spinner from '../../ui/Spinner'
 import Modal from '../../ui/Modal-v1'
 import PostTask from '../tasks/PostTask'
 
-function TaskProject({ contract, employerId }) {
+function TaskProject({
+    contract,
+    employerId,
+    dateStartProject,
+    dateEndProject,
+}) {
     const { user } = useContext(UserContext)
 
     const {
@@ -46,6 +51,8 @@ function TaskProject({ contract, employerId }) {
                                 <PostTask
                                     employerId={employerId}
                                     contractId={contract}
+                                    dateStartProject={dateStartProject}
+                                    dateEndProject={dateEndProject}
                                 />
                             </Modal.Window>
                         </Modal>

@@ -29,7 +29,7 @@ function LoginForm() {
                     Cookies.set('token', token, { expires: 365 })
 
                     if (user.role === 'adm') {
-                        navigate('/admin')
+                        navigate('/admin/job-pending')
                     } else navigate('/dashboard')
                 }
             })

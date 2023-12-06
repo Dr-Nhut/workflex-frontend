@@ -27,6 +27,16 @@ export async function getAllFreelancers() {
     }
 }
 
+export async function getAllFreelancersByCategory(categoryId) {
+    try {
+        const response = await axios.get(`${URL_SERVER}/user/allFreelancersByCategory?categoryId=${categoryId}`);
+        return response.data
+    } catch (error) {
+        console.error(error);
+        throw new Error('Đã xảy ra lỗi');
+    }
+}
+
 export async function getInfor(userId) {
     try {
         const response = await axios.get(`${URL_SERVER}/user/${userId}`);

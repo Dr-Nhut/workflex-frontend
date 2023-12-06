@@ -8,69 +8,89 @@ import { useContext } from 'react'
 import { UserContext } from '../features/user/userSlice'
 import { Link } from 'react-router-dom'
 import { getAllEvaluationByUser } from '../services/apiEvaluation'
-import { useQuery } from '@tanstack/react-query'
+import { useQueries } from '@tanstack/react-query'
 import Spinner from '../ui/Spinner'
-import { getFreelancerCurrentJob } from '../services/apiJob'
+import {
+    getEmployerCurrentJob,
+    getFreelancerCurrentJob,
+} from '../services/apiJob'
 import { getOffersByFreelancer } from '../services/apiOffer'
 import EmployerInformation from '../features/user/EmployerInformation'
 import JobRecommendation from '../features/recommendation/JobRecommendation'
 import DemandJob from '../features/jobs/DemandJob'
+import FreelancerRecommendation from '../features/recommendation/FreelancerRecommendation'
 
 function FreelancerDashboard() {
     const { user } = useContext(UserContext)
 
-    const { isLoading, data } = useQuery({
-        queryKey: ['evaluations', user.id],
-        queryFn: () => getAllEvaluationByUser(user.id),
-    })
-
-    const { isLoading: loadingFreelancerJobs, data: currentJobs } = useQuery({
-        queryKey: ['freelancer-current-job', user.id],
-        queryFn: () =>
-            getFreelancerCurrentJob({
-                id: user.id,
-                status: 5,
-            }),
-    })
-
-    const { isLoading: loadingFreelancerCompletedJobs, data: completedJobs } =
-        useQuery({
-            queryKey: ['freelancer-completed-jobs', user.id],
-            queryFn: () =>
-                getFreelancerCurrentJob({
-                    id: user.id,
-                    status: 6,
-                    comparison: '>=',
-                }),
-        })
-
-    const {
-        isLoading: loadingOffers,
-        data: offers,
-        // error,
-    } = useQuery({
-        queryKey: ['offersByFreelancer', user.id],
-        queryFn: () => getOffersByFreelancer(user.id),
+    const [
+        { isLoading: loadingEva, data: allEva },
+        { isLoading: loadingFreelancerJobs, data: currentJobs },
+        { isLoading: loadingFreelancerCompletedJobs, data: completedJobs },
+        { isLoading: loadingOffers, data: offers },
+        { isLoading: loadingEmployerJobs, data: employerJobs },
+    ] = useQueries({
+        queries: [
+            {
+                queryKey: ['evaluations', user.id],
+                queryFn: () => getAllEvaluationByUser(user.id),
+            },
+            {
+                queryKey: ['freelancer-current-job', user.id],
+                queryFn: () =>
+                    getFreelancerCurrentJob({
+                        id: user.id,
+                        status: 5,
+                    }),
+            },
+            {
+                queryKey: ['freelancer-completed-jobs', user.id],
+                queryFn: () =>
+                    getFreelancerCurrentJob({
+                        id: user.id,
+                        status: 6,
+                        comparison: '>=',
+                    }),
+            },
+            {
+                queryKey: ['offersByFreelancer', user.id],
+                queryFn: () => getOffersByFreelancer(user.id),
+            },
+            {
+                queryKey: ['employerJobs', user.id],
+                queryFn: () =>
+                    getEmployerCurrentJob({
+                        id: user.id,
+                        status: 0,
+                        comparison: '>=',
+                    }),
+            },
+        ],
     })
 
     if (
-        isLoading ||
+        loadingEva ||
         loadingFreelancerJobs ||
         loadingOffers ||
-        loadingFreelancerCompletedJobs
+        loadingFreelancerCompletedJobs ||
+        loadingEmployerJobs
     )
         return <Spinner />
 
     return (
-        <div className="bg-slate-200 pl-10 pt-4">
+        <div className="min-h-[600px] bg-slate-200 pl-10 pt-4">
             <SidebarLayout
                 right
                 fullWidth
                 mainWidth="col-span-6"
                 sidebar={
                     <div className="col-span-6 mx-12">
-                        <JobRecommendation />
-                        <Partner partner={data} />
+                        {user.role === 'fre' ? (
+                            <JobRecommendation />
+                        ) : (
+                            <FreelancerRecommendation />
+                        )}
+                        <Partner partner={allEva} />
                     </div>
                 }
             >
@@ -93,6 +113,34 @@ function FreelancerDashboard() {
                         <StatOverview
                             title="Đã hoàn thành"
                             number={completedJobs.length}
+                            className="bg-green-500"
+                        />
+                    </div>
+                )}
+
+                {user.role === 'emp' && (
+                    <div className="mt-2 flex justify-between">
+                        <StatOverview
+                            title="Công việc đã đăng"
+                            number={employerJobs.length}
+                            className="bg-orange-500"
+                        />
+
+                        <StatOverview
+                            title="Đang chào giá"
+                            number={
+                                employerJobs.filter((job) => job.status === 3)
+                                    .length
+                            }
+                            className="bg-blue-500"
+                        />
+
+                        <StatOverview
+                            title="Đang thực hiện"
+                            number={
+                                employerJobs.filter((job) => job.status === 5)
+                                    .length
+                            }
                             className="bg-green-500"
                         />
                     </div>
