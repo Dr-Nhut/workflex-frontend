@@ -3,6 +3,7 @@ import { URL_SERVER_SIMPLE } from '../constants'
 import formatFullTime from '../utils/formatFullTime'
 import Avatar from './Avatar'
 import { getInfor } from '../services/apiUser'
+import UserCard from '../features/user/UserCard'
 
 function MessagerItem({ msg, onClosePortal, onClick, setPartner }) {
     console.log(msg)
@@ -33,7 +34,7 @@ function MessagerItem({ msg, onClosePortal, onClick, setPartner }) {
                 >
                     {!isLoading && (
                         <div className="flex items-center gap-x-2">
-                            <Avatar
+                            {/* <Avatar
                                 image={`${URL_SERVER_SIMPLE}${conversationPartner.avatar}`}
                                 type="smallImage"
                             />
@@ -42,7 +43,13 @@ function MessagerItem({ msg, onClosePortal, onClick, setPartner }) {
                                 <span className="text-stone-500">
                                     {formatFullTime(createdAt)}
                                 </span>
-                            </div>
+                            </div> */}
+                            <UserCard
+                                fullName={conversationPartner.fullname}
+                                avatarUrl={`${URL_SERVER_SIMPLE}${conversationPartner.avatar}`}
+                            >
+                                {message} - {formatFullTime(createdAt)}
+                            </UserCard>
                         </div>
                     )}
                 </li>

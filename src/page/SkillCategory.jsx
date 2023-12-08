@@ -2,42 +2,42 @@ import { useQuery } from '@tanstack/react-query'
 import Table from '../ui/Table'
 import Spinner from '../ui/Spinner'
 import PageHeader from '../ui/PageHeader'
-import { getAllCategories } from '../services/apiCategory'
 import Pagination from '../ui/Pagination'
 import { useEffect, useState } from 'react'
 import SearchBar from '../common/SearchBar'
-import CategoryRow from '../admin/category/CategoryRow'
 import Button from '../common/buttons/Button'
 import Modal from '../ui/Modal-v1'
-import AddCategoryForm from '../admin/category/AddCategoryForm'
+import { getAllSkills } from '../services/apiSkill'
+import AddSkillForm from '../admin/skill/AddSkillForm'
+import SkillRow from '../admin/skill/SkillRow'
 
-function ManagerCategory() {
+function SkillCategory() {
     const [page, setPage] = useState(1)
     const [value, setValue] = useState('')
-    const [categoriesSearch, setCategoriesSearch] = useState([])
+    const [skillsSearch, setSkillsSearch] = useState([])
 
     const {
         isLoading,
-        data: categories,
+        data: skills,
         // error,
     } = useQuery({
-        queryKey: ['all-categories'],
-        queryFn: () => getAllCategories(),
-        onSuccess: (data) => setCategoriesSearch(data),
+        queryKey: ['all-skills'],
+        queryFn: () => getAllSkills(),
+        onSuccess: (data) => setSkillsSearch(data),
     })
 
     useEffect(() => {
         if (isLoading) return
-        if (!value) return setCategoriesSearch(categories)
-        const result = categories.filter((item) => item.name.includes(value))
-        setCategoriesSearch(result)
+        if (!value) return setSkillsSearch(skills)
+        const result = skills.filter((item) => item.name.includes(value))
+        setSkillsSearch(result)
     }, [value])
 
     if (isLoading) return <Spinner />
 
     return (
         <>
-            <PageHeader title="Quản lý lĩnh vực" />
+            <PageHeader title="Quản lý ngôn ngữ lập trình" />
             <div className="mb-2 flex items-center justify-between">
                 <Modal>
                     <Modal.Open opens="add-category">
@@ -46,11 +46,14 @@ function ManagerCategory() {
                             size="small"
                             className="rounded-lg"
                         >
-                            + Thêm lĩnh vực
+                            + Thêm ngôn ngữ lập trình
                         </Button>
                     </Modal.Open>
-                    <Modal.Window name="add-category" title="Thêm lĩnh vực">
-                        <AddCategoryForm />
+                    <Modal.Window
+                        name="add-category"
+                        title="Thêm ngôn ngữ lập trình"
+                    >
+                        <AddSkillForm />
                     </Modal.Window>
                 </Modal>
                 <SearchBar
@@ -63,21 +66,21 @@ function ManagerCategory() {
             <Table columns="grid-cols-12">
                 <Table.Header>
                     <th className="col-span-4">Id</th>
-                    <th className="col-span-6">Tên lĩnh vực</th>
+                    <th className="col-span-6">Tên ngôn ngữ lập trình</th>
                     <th className="col-span-2"></th>
                 </Table.Header>
 
                 <Table.Body>
-                    {[...categoriesSearch]
+                    {[...skillsSearch]
                         .slice(0 + 10 * (page - 1), 10 * page)
                         .map((item) => (
-                            <CategoryRow key={item.id} category={item} />
+                            <SkillRow key={item.id} skill={item} />
                         ))}
                 </Table.Body>
             </Table>
 
             <Pagination
-                length={categoriesSearch.length}
+                length={skillsSearch.length}
                 currentPage={page}
                 onClick={setPage}
             />
@@ -85,4 +88,4 @@ function ManagerCategory() {
     )
 }
 
-export default ManagerCategory
+export default SkillCategory

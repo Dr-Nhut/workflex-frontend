@@ -28,7 +28,7 @@ function EmployerBiddingJobRow({ job, onClick }) {
                 >
                     <Modal>
                         <Modal.Open opens="lock">
-                            {status !== 'Đang chào giá' ? (
+                            {status !== 3 ? (
                                 <UilUnlockAlt className="hover:text-stone-800" />
                             ) : (
                                 <UilPadlock className="hover:text-stone-800" />
@@ -37,7 +37,7 @@ function EmployerBiddingJobRow({ job, onClick }) {
                         <Modal.Window
                             name="lock"
                             title={
-                                status === 'Đang chào giá'
+                                status === 3
                                     ? 'Khóa chào giá việc làm tạm thời'
                                     : 'Mở chào giá việc làm'
                             }

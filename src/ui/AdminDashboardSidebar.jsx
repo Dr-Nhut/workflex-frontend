@@ -40,6 +40,10 @@ function DashboardSidebar() {
                 >
                     Quản lý lĩnh vực
                 </ListItem>
+
+                <ListItem to="/admin/skill-manager" icon={<UilGameStructure />}>
+                    Ngôn ngữ lập trình
+                </ListItem>
             </main>
         </div>
     )

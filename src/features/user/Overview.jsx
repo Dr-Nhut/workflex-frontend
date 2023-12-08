@@ -23,6 +23,7 @@ function Overview({ userId }) {
     const [bio, setBio] = useState('')
     const [description, setDescription] = useState('')
     const [isEdit, setIsEdit] = useState(false)
+    const [showMore, setShowMore] = useState(false)
     const queryClient = useQueryClient()
 
     const { isLoading, data } = useQuery({
@@ -99,13 +100,32 @@ function Overview({ userId }) {
             </section>
 
             <section className="border-b p-4">
-                <TitleSection icon={UilCommentAltChartLines}>
-                    Đánh giá nổi bật
-                </TitleSection>
+                <div className="flex items-center justify-between">
+                    <TitleSection icon={UilCommentAltChartLines}>
+                        Đánh giá nổi bật
+                    </TitleSection>
+                    <Button
+                        type="btn-text"
+                        onClick={() => setShowMore((pre) => !pre)}
+                    >
+                        Xem thêm
+                    </Button>
+                </div>
                 {isLoading ? (
                     <Spinner />
-                ) : (
+                ) : showMore ? (
                     data.map((evaluation) => (
+                        <Feedback
+                            key={evaluation.id}
+                            fullname={evaluation.fullname}
+                            avatar={evaluation.avatar}
+                            stars={evaluation.stars}
+                            comment={evaluation.comment}
+                            createAt={evaluation.createAt}
+                        />
+                    ))
+                ) : (
+                    [...data.slice(0, 3)].map((evaluation) => (
                         <Feedback
                             key={evaluation.id}
                             fullname={evaluation.fullname}

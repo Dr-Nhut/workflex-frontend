@@ -31,3 +31,13 @@ export async function getAllCategories() {
         throw new Error('Đã xảy ra lỗi khi tạo thông báo');
     }
 }
+
+export async function deleteCategory(id) {
+    try {
+        const response = await axios.delete(`${URL_SERVER}/category?id=${id}`);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        throw new Error('Đã xảy ra lỗi khi tạo thông báo');
+    }
+}

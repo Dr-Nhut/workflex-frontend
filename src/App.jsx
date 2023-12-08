@@ -44,6 +44,7 @@ import EmployerCompleteJob from './features/jobs/EmployerCompleteJob'
 import ManagerPendingJob from './admin/job/ManagerPendingJob'
 import ManagerPaidJob from './page/ManagerPaidJob'
 import ManagerCategory from './page/ManagerCategory'
+import SkillCategory from './page/SkillCategory'
 import Profile from './page/Profile'
 import Notification from './page/Notification'
 import ManagerAccount from './page/ManagerAccount'
@@ -201,6 +202,10 @@ function App() {
                                 <Route
                                     path="category-manager"
                                     element={<ManagerCategory />}
+                                />
+                                <Route
+                                    path="skill-manager"
+                                    element={<SkillCategory />}
                                 />
                                 <Route
                                     path="job-manager/:id"

@@ -13,7 +13,7 @@ function LockBiddingJob({ jobId, onCloseModal, status }) {
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['acceptingBidsJob'] })
             toast.success(
-                status === 'Đang chào giá'
+                status === 3
                     ? 'Khóa chào giá của công việc thành công!'
                     : 'Mở chào giá công việc thành công'
             )
@@ -40,17 +40,14 @@ function LockBiddingJob({ jobId, onCloseModal, status }) {
                         mutate({
                             id: jobId,
                             payload: {
-                                status:
-                                    status === 'Đang chào giá'
-                                        ? 'Khóa chào giá'
-                                        : 'Đang chào giá',
+                                status: status === 3 ? 4 : 3,
                             },
                         })
                     }
                 >
                     {isLoading ? (
                         <Spinner />
-                    ) : status === 'Đang chào giá' ? (
+                    ) : status === 3 ? (
                         'Khóa chào giá'
                     ) : (
                         'Mở chào giá'
