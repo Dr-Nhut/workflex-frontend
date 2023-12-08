@@ -42,7 +42,13 @@ function Contract() {
     if (loadingJobDetail || loadingOfferProcessing) return <Spinner />
     return (
         <div className="m-8">
-            <HeaderDetailPage nav="/freelancer-jobs/current">
+            <HeaderDetailPage
+                nav={`${
+                    user.role === 'fre'
+                        ? '/freelancer-jobs/current'
+                        : '/employer-job/current'
+                }`}
+            >
                 Chi tiết hợp tác
             </HeaderDetailPage>
             <SidebarLayout

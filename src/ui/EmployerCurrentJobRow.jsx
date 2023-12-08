@@ -52,9 +52,9 @@ function EmployerCurrentJobRow({ job }) {
                 )}
             </td>
             <td className="col-span-1">
-                <span className="rounded-xl bg-red-600 px-2 text-stone-50">
+                {/* <span className="rounded-xl bg-red-600 px-2 text-stone-50">
                     2
-                </span>
+                </span> */}
             </td>
         </Table.Row>
     )

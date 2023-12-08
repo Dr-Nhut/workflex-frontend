@@ -91,7 +91,8 @@ function PaymentDetail({ job, offer, payment }) {
                         fullName={offer.fullname}
                         avatarUrl={`${URL_SERVER_SIMPLE}${offer.avatar}`}
                     >
-                        {offer.freelancerEmail}
+                        <p>{offer.freelancerEmail}</p>
+                        <p>Số tài khoản: {offer.bank_account}</p>
                     </UserCard>
 
                     {job.status === 7 && (

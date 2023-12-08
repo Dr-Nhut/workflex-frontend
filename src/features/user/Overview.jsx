@@ -17,6 +17,10 @@ import { getInfor, updateInfor } from '../../services/apiUser'
 import Button from '../../common/buttons/Button'
 import toast from 'react-hot-toast'
 import { UserContext } from './userSlice'
+import { getFreelancerCompletedAndFailJobs } from '../../services/apiJob'
+import CardContainer from '../../ui/CardContainer'
+import Rectangle from '../../ui/Rectangle'
+import EmployerInformation from './EmployerInformation'
 
 function Overview({ userId }) {
     const { user } = useContext(UserContext)
@@ -40,6 +44,12 @@ function Overview({ userId }) {
         },
     })
 
+    const { isLoading: loadingJobComplete, data: completeAndFailJobs } =
+        useQuery({
+            queryKey: ['freelancer-complete-n-fail-jobs', userId],
+            queryFn: () => getFreelancerCompletedAndFailJobs(userId),
+        })
+
     const { isLoading: loadingUpdate, mutate } = useMutation({
         mutationFn: updateInfor,
         onSuccess: () => {
@@ -61,10 +71,14 @@ function Overview({ userId }) {
         }
     }
 
-    if (loadingUser) return null
+    console.log(
+        completeAndFailJobs?.filter((job) => job.status !== 0).slice(0, 3)
+    )
+
+    if (loadingUser || loadingJobComplete) return null
 
     return (
-        <>
+        <div className="bg-stone-100">
             <section className="border-b p-4">
                 <div className="flex items-center justify-between">
                     <TitleSection icon={UilUserSquare}>
@@ -99,6 +113,46 @@ function Overview({ userId }) {
                 )}
             </section>
 
+            {user.role === 'fre' &&
+                completeAndFailJobs.filter((job) => job.status !== 0).length >
+                    0 && (
+                    <section className="border-b p-4">
+                        <div className="flex items-center justify-between">
+                            <TitleSection icon={UilCommentAltChartLines}>
+                                Công việc đã làm
+                            </TitleSection>
+                            <Button
+                                type="btn-text"
+                                // onClick={() => setShowMore((pre) => !pre)}
+                            >
+                                Xem tất cả
+                            </Button>
+                        </div>
+                        {isLoading ? (
+                            <Spinner />
+                        ) : (
+                            completeAndFailJobs
+                                .filter((job) => job.status !== 0)
+                                .slice(0, 3)
+                                .map((job) => (
+                                    <CardContainer key={job.id} jobId={job.id}>
+                                        <Rectangle background="bg-teal-500">
+                                            {job.category}
+                                        </Rectangle>
+                                        <div className="my-2 flex items-center justify-between">
+                                            <h2 className="font-semibold text-stone-900">
+                                                {job.name}
+                                            </h2>
+                                        </div>
+                                        <EmployerInformation
+                                            employerId={job.employerId}
+                                        />
+                                    </CardContainer>
+                                ))
+                        )}
+                    </section>
+                )}
+
             <section className="border-b p-4">
                 <div className="flex items-center justify-between">
                     <TitleSection icon={UilCommentAltChartLines}>
@@ -108,7 +162,7 @@ function Overview({ userId }) {
                         type="btn-text"
                         onClick={() => setShowMore((pre) => !pre)}
                     >
-                        Xem thêm
+                        {showMore ? 'Ẩn bớt' : 'Xem thêm'}
                     </Button>
                 </div>
                 {isLoading ? (
@@ -137,7 +191,7 @@ function Overview({ userId }) {
                     ))
                 )}
             </section>
-        </>
+        </div>
     )
 }
 
