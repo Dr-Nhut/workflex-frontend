@@ -1,5 +1,6 @@
 import Button from '../../common/buttons/Button'
 import Inbox from './Inbox'
+import Support from './Support'
 import Notification from './Notification'
 import UserOption from './UserOption'
 import PostJob from '../jobs/PostJob'
@@ -22,6 +23,7 @@ function UserMenu({ role }) {
             )}
             <Notification />
             <Inbox />
+            {role !== 'adm' && <Support />}
             <UserOption />
         </div>
     )

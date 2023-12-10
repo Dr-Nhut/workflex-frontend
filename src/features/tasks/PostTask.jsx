@@ -3,7 +3,7 @@ import Label from '../../common/Label'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import Button from '../../common/buttons/Button'
-import { Controller, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { createTask } from '../../services/apiTask'
 import toast from 'react-hot-toast'
@@ -26,9 +26,11 @@ function PostTask({
     const { user, socket } = useContext(UserContext)
     const queryClient = useQueryClient()
     const [description, setDescription] = useState()
+    const [dateStart, setDateStart] = useState()
+    const [dateEnd, setDateEnd] = useState()
+    const [isSubmit, setIsSubmit] = useState(false)
     const {
         register,
-        control,
         reset,
         handleSubmit,
         formState: { errors },
@@ -64,9 +66,15 @@ function PostTask({
         onError: (err) => toast.error(err.message),
     })
 
+    // console.log(dateStartProject)
+
     const onSubmit = (data) => {
+        setIsSubmit(true)
+        if (!dateStart || !dateEnd) return
         data.description = description
         data.contractId = contractId
+        data.dateStart = dateStart
+        data.dateEnd = dateEnd
         mutate(data)
     }
 
@@ -92,7 +100,20 @@ function PostTask({
 
             <div>
                 <Label>Ngày bắt đầu</Label>
-                <Controller
+                <span className="rounded border-2 border-stone-500 p-1 focus-within:border-none">
+                    <DatePicker
+                        dateFormat="dd/MM/yyyy"
+                        minDate={new Date(dateStartProject)}
+                        maxDate={new Date(dateEndProject)}
+                        wrapperClassName="border-none mt-4"
+                        selected={dateStart}
+                        onChange={setDateStart}
+                    />
+                </span>
+                {!dateStart && isSubmit && (
+                    <p className="text-red-500">Vui lòng chọn ngày.</p>
+                )}
+                {/* <Controller
                     control={control}
                     name="dateStart"
                     rules={{
@@ -103,6 +124,7 @@ function PostTask({
                         <span className="rounded border-2 border-stone-500 p-1 focus-within:border-none">
                             <DatePicker
                                 dateFormat="dd/MM/yyyy"
+                                minDate={new Date(dateStartProject)}
                                 wrapperClassName="border-none mt-4"
                                 selected={value}
                                 onChange={onChange}
@@ -112,14 +134,28 @@ function PostTask({
                 />
                 {errors.dateStart && (
                     <p className="text-red-500">Vui lòng chọn ngày hợp lệ.</p>
-                )}
+                )} */}
             </div>
 
             <div>
                 <div className="inline pr-9">
                     <Label>Thời hạn</Label>
                 </div>
-                <Controller
+                <span className="rounded border-2 border-stone-500 p-1 focus-within:border-none">
+                    <DatePicker
+                        dateFormat="dd/MM/yyyy"
+                        wrapperClassName="border-none mt-4"
+                        disabled={!dateStart}
+                        minDate={dateStart}
+                        maxDate={new Date(dateEndProject)}
+                        selected={dateEnd}
+                        onChange={setDateEnd}
+                    />
+                </span>
+                {!dateEnd && isSubmit && (
+                    <p className="text-red-500">Vui lòng chọn ngày.</p>
+                )}
+                {/* <Controller
                     control={control}
                     name="dateEnd"
                     rules={{
@@ -139,7 +175,7 @@ function PostTask({
                 />
                 {errors.categories && (
                     <p className="text-red-500">Bạn chưa điền thông tin.</p>
-                )}
+                )} */}
             </div>
 
             <div className="mt-4 flex justify-end gap-x-4">

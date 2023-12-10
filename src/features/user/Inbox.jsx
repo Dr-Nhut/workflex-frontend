@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query'
 import { Portal, PortalWithState } from 'react-portal'
 import { Link } from 'react-router-dom'
 import { getMessagesByUser } from '../../services/apiMessage'
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { UserContext } from './userSlice'
 import MessagerItem from '../../ui/MessagerItem'
 import UserCard from './UserCard'
@@ -13,17 +13,64 @@ import MessageMainContainer from '../../ui/MessageMainContainer'
 import SendMainMessage from '../jobs/SendMainMessage'
 
 function Inbox() {
-    const { user } = useContext(UserContext)
+    const { user, socket } = useContext(UserContext)
+
+    const [messages, setMessages] = useState([])
+
+    console.log('mes ', messages)
 
     const [isOpenChat, setIsOpenChat] = useState(false)
     const [partner, setPartner] = useState()
 
-    console.log(partner)
-
-    const { isLoading, data: messages } = useQuery({
+    const { isLoading } = useQuery({
         queryKey: ['messages', user.id],
         queryFn: () => getMessagesByUser(user.id),
+        onSuccess: (data) => {
+            user.role === 'adm'
+                ? setMessages(data || [])
+                : setMessages(
+                      data.filter(
+                          (item) =>
+                              !item.users.includes(
+                                  'a68af9ff-7835-426e-b9e1-3c3dd081a40b'
+                              )
+                      ) || []
+                  )
+        },
     })
+
+    useEffect(() => {
+        function handler(data) {
+            if (data.users.includes('a68af9ff-7835-426e-b9e1-3c3dd081a40b')) {
+                return
+            }
+            const isExists = messages.find((message) =>
+                message.users.includes(data.from)
+            )
+            console.log('data: ', data)
+            const newMessage = {
+                fromSelt: false,
+                message: data.message,
+                createdAt: data.createdAt,
+                seen: false,
+                users: [data.from, user.id],
+            }
+            if (isExists) {
+                setMessages((pre) =>
+                    pre.map((message) =>
+                        message.id === isExists.id ? newMessage : message
+                    )
+                )
+            } else {
+                setMessages((pre) => [...pre, newMessage])
+            }
+        }
+        socket?.on('msg-receive', handler)
+
+        return () => {
+            socket?.off('msg-receive', handler)
+        }
+    }, [socket])
 
     return (
         <>
@@ -37,11 +84,16 @@ function Inbox() {
                             <UilComment className="relative text-stone-200 hover:text-stone-300" />
                             <span className="absolute -top-2 left-2 rounded-full bg-red-500 px-2 text-sm text-stone-50">
                                 {!isLoading &&
-                                messages.filter((msg) => msg.seen === false)
-                                    .length > 5
+                                messages.filter(
+                                    (msg) =>
+                                        msg.seen === false &&
+                                        msg.fromSelt === false
+                                ).length > 5
                                     ? '5+'
                                     : messages?.filter(
-                                          (msg) => msg.seen === false
+                                          (msg) =>
+                                              msg.seen === false &&
+                                              msg.fromSelt === false
                                       )?.length}
                             </span>
                         </div>
@@ -57,8 +109,8 @@ function Inbox() {
                                             {[...messages]
                                                 .sort(
                                                     (a, b) =>
-                                                        b.createdAt -
-                                                        a.createdAt
+                                                        new Date(b.createdAt) -
+                                                        new Date(a.createdAt)
                                                 )
                                                 ?.slice(0, 5)
                                                 .map((item, index) => (

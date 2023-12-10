@@ -1,17 +1,29 @@
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { URL_SERVER_SIMPLE } from '../constants'
 import formatFullTime from '../utils/formatFullTime'
-import Avatar from './Avatar'
 import { getInfor } from '../services/apiUser'
 import UserCard from '../features/user/UserCard'
+import { seededMessage } from '../services/apiMessage'
+import { useContext } from 'react'
+import { UserContext } from '../features/user/userSlice'
 
 function MessagerItem({ msg, onClosePortal, onClick, setPartner }) {
-    console.log(msg)
+    const { user } = useContext(UserContext)
     const { id, fromSelt, users, message, seen, createdAt } = msg
+    const queryClient = useQueryClient()
 
     const { isLoading, data: conversationPartner } = useQuery({
         queryKey: ['conversationPartner', id],
         queryFn: () => getInfor(fromSelt ? users[1] : users[0]),
+    })
+
+    const { mutate } = useMutation({
+        mutationFn: seededMessage,
+        onSuccess: () => {
+            queryClient.invalidateQueries({
+                queryKey: ['messages', user.id],
+            })
+        },
     })
 
     return (
@@ -24,6 +36,7 @@ function MessagerItem({ msg, onClosePortal, onClick, setPartner }) {
                         ...conversationPartner,
                         id: fromSelt ? users[1] : users[0],
                     })
+                    mutate(id)
                 }}
                 className="relative cursor-pointer"
             >

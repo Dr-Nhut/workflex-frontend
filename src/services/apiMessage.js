@@ -30,3 +30,13 @@ export async function getAllMessages(data) {
         throw new Error('Đã xảy ra lỗi');
     }
 }
+
+export async function seededMessage(id) {
+    try {
+        const response = await axios.patch(`${URL_SOCKET_SERVER}/api/socket/update-message?id=${id}`, { seen: true });
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        throw new Error('Đã xảy ra lỗi');
+    }
+}

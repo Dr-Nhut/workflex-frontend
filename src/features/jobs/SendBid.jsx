@@ -15,6 +15,7 @@ import toast from 'react-hot-toast'
 import Spinner from '../../ui/Spinner'
 import checkBid from '../../utils/checkBidded'
 import { createNotification } from '../../services/apiNotification'
+import { addDays } from 'date-fns'
 
 function SendBid({ jobDetail }) {
     const queryClient = useQueryClient()
@@ -120,6 +121,21 @@ function SendBid({ jobDetail }) {
                                 <span className="rounded border-2 border-stone-500 p-1 focus-within:border-none">
                                     <DatePicker
                                         dateFormat="dd/MM/yyyy"
+                                        // startDate={
+                                        //     new Date(jobDetail.dateStart)
+                                        // }
+                                        // endDate={new Date(
+                                        //     jobDetail.dateStart
+                                        // ).setDate(
+                                        //     new Date(
+                                        //         jobDetail.dateStart
+                                        //     ).getDate() + jobDetail.duration
+                                        // )}
+                                        minDate={new Date(jobDetail.dateStart)}
+                                        maxDate={addDays(
+                                            new Date(jobDetail.dateStart),
+                                            jobDetail.duration
+                                        )}
                                         wrapperClassName="border-none mt-4"
                                         selected={value}
                                         onChange={onChange}

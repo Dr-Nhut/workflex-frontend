@@ -15,11 +15,19 @@ import Select from 'react-select'
 import { EXP, TypeProject } from '../../constants'
 import Button from '../../common/buttons/Button'
 import Spinner from '../../ui/Spinner'
+import { addDays } from 'date-fns'
 
 function PostJob({ onCloseModal }) {
     const queryClient = useQueryClient()
     const { user } = useContext(UserContext)
     const [description, setDescription] = useState()
+    const [bidDeadline, setBidDeadline] = useState()
+    const [dateStart, setDateStart] = useState()
+    const [dateEnd, setDateEnd] = useState()
+    const [selectedBidDeadline, setSelectedBidDeadline] = useState(false)
+    const [selectedDateStart, setSelectedDateStart] = useState(false)
+    const [selectedDateEnd, setSelectedDateEnd] = useState(false)
+    const [isSubmit, setIsSubmit] = useState(false)
     const {
         register,
         control,
@@ -40,8 +48,11 @@ function PostJob({ onCloseModal }) {
     })
 
     const onSubmit = (data) => {
+        setIsSubmit(true)
+        if (!selectedBidDeadline || selectedDateStart || selectedDateEnd) return
         data.employerId = user.id
         data.description = description
+        data.bidDeadline = bidDeadline
         data.categoryId = data.category.value
         data.duration = (data.dateEnd - data.dateStart) / 86400000
         data.skills = data.skills?.map((skill) => skill.value)
@@ -78,13 +89,27 @@ function PostJob({ onCloseModal }) {
 
             <div>
                 <Label>Hạn chào giá</Label>
-                <Controller
+                <span className="rounded border-2 border-stone-500 p-1 focus-within:border-none">
+                    <DatePicker
+                        dateFormat="dd/MM/yyyy"
+                        minDate={new Date()}
+                        wrapperClassName="border-none mt-4"
+                        selected={bidDeadline}
+                        onChange={(date) => {
+                            setBidDeadline(date)
+                            setSelectedBidDeadline(true)
+                        }}
+                    />
+                </span>
+                {!selectedBidDeadline && isSubmit && (
+                    <p className="text-red-500">Vui lòng chọn ngày.</p>
+                )}
+                {/* <Controller
                     control={control}
                     name="bidDeadline"
                     rules={{
                         required: true,
                         validate: (v) => {
-                            console.log(v)
                             return v >= new Date()
                         },
                     }}
@@ -92,6 +117,7 @@ function PostJob({ onCloseModal }) {
                         <span className="rounded border-2 border-stone-500 p-1 focus-within:border-none">
                             <DatePicker
                                 dateFormat="dd/MM/yyyy"
+                                minDate={new Date()}
                                 wrapperClassName="border-none mt-4"
                                 selected={value}
                                 onChange={onChange}
@@ -101,11 +127,27 @@ function PostJob({ onCloseModal }) {
                 />
                 {errors.bidDeadline && (
                     <p className="text-red-500">Vui lòng chọn ngày phù hợp.</p>
-                )}
+                )} */}
             </div>
             <div>
                 <Label>Ngày bắt đầu</Label>
-                <Controller
+                <span className="rounded border-2 border-stone-500 p-1 focus-within:border-none">
+                    <DatePicker
+                        dateFormat="dd/MM/yyyy"
+                        disabled={!bidDeadline}
+                        minDate={addDays(bidDeadline, 1)}
+                        wrapperClassName="border-none mt-4"
+                        selected={dateStart}
+                        onChange={(date) => {
+                            setDateStart(date)
+                            setSelectedDateStart(true)
+                        }}
+                    />
+                </span>
+                {!selectedDateStart && isSubmit && (
+                    <p className="text-red-500">Vui lòng chọn ngày.</p>
+                )}
+                {/* <Controller
                     control={control}
                     name="dateStart"
                     rules={{
@@ -125,12 +167,28 @@ function PostJob({ onCloseModal }) {
                 />
                 {errors.dateStart && (
                     <p className="text-red-500">Vui lòng chọn ngày phù hợp.</p>
-                )}
+                )} */}
             </div>
 
             <div>
                 <Label>Ngày kết thúc dự kiến</Label>
-                <Controller
+                <span className="rounded border-2 border-stone-500 p-1 focus-within:border-none">
+                    <DatePicker
+                        dateFormat="dd/MM/yyyy"
+                        wrapperClassName="border-none mt-4"
+                        disabled={!dateStart}
+                        minDate={addDays(dateStart, 1)}
+                        selected={dateEnd}
+                        onChange={(date) => {
+                            setDateEnd(date)
+                            setSelectedDateEnd(true)
+                        }}
+                    />
+                </span>
+                {!selectedDateEnd && isSubmit && (
+                    <p className="text-red-500">Vui lòng chọn ngày.</p>
+                )}
+                {/* <Controller
                     control={control}
                     name="dateEnd"
                     rules={{
@@ -150,7 +208,7 @@ function PostJob({ onCloseModal }) {
                 />
                 {errors.dateEnd && (
                     <p className="text-red-500">Vui lòng chọn ngày phù hợp.</p>
-                )}
+                )} */}
             </div>
 
             <Controller

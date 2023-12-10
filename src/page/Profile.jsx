@@ -18,7 +18,7 @@ function Profile() {
         <>
             <PageHeader />
             <SidebarLayout sidebar={<UserProfileCard userId={userId} />}>
-                <div className="ml-8 border">
+                <div className="ml-8 border min-h-[600px]">
                     <Tab tabs={tabs} active={1}>
                         <Overview userId={userId} />
                     </Tab>
