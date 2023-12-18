@@ -1,8 +1,5 @@
-# React + Vite
+**Giới thiệu**
+Dự án này là một phần của dự án xây dựng website tìm kiếm việc làm freelance - kết nối nhà tuyển dụng là freelancer. Frontend của nó được xây dựng để cung cấp giao diện người dùng cho người dùng cuối để đăng việc, tìm việc, trò chuyện và thực hiện thanh toán.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**Chức năng chính**: đăng ký tài khoản, đăng nhập, đăng việc, tìm việc, chào giá, thanh toán, trò chuyện,...
+**Công nghệ sử dụng**: ReactJS, React Query, TailwindCSS, Socket.IO, Cổng thanh toán Stripe.
