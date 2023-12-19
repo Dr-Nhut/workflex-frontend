@@ -13,7 +13,7 @@ function JobList() {
     const {
         isLoading,
         data: jobs,
-        error,
+        // error,
     } = useQuery({
         queryKey: ['acceptingBidsJob', searchParams.toString()],
         queryFn: () => getBiddingJob(searchParams.toString()),

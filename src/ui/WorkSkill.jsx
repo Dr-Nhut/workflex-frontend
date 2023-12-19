@@ -3,8 +3,10 @@ import { getCategoryByUser } from '../services/apiCategory'
 import Label from './Label'
 import Rectangle from './Rectangle'
 import { getSkillByUser } from '../services/apiSkill'
-import { UilAngleDown, UilAngleUp } from '@iconscout/react-unicons'
+import { UilAngleDown, UilAngleUp, UilEditAlt } from '@iconscout/react-unicons'
 import { useState } from 'react'
+import Modal from './Modal-v1'
+import UpdateCategories from '../features/user/UpdateCategories'
 
 function WorkSkill({ userId, role }) {
     const [isOpenCategories, setIsOpenCategories] = useState(false)
@@ -37,12 +39,25 @@ function WorkSkill({ userId, role }) {
                 {isOpenCategories ? <UilAngleUp /> : <UilAngleDown />}
             </div>
             {isOpenCategories && (
-                <div className="my-4 flex flex-wrap gap-2">
+                <div className='relative'>
+                    <Modal>
+                        <Modal.Open opens="update-categories">
+                            <UilEditAlt
+                                className="absolute right-0 top-0 cursor-pointer text-stone-600 hover:text-stone-500"
+                            />
+                        </Modal.Open> 
+                        <Modal.Window title="Cập nhật lĩnh vực" name="update-categories">
+                            <UpdateCategories />
+                        </Modal.Window>
+                    </Modal>
+                    
+                    <div className="my-4 flex flex-wrap gap-2">
                     {categories.map((category) => (
                         <Rectangle key={category.id} primary>
                             {category.name}
                         </Rectangle>
                     ))}
+                </div>
                 </div>
             )}
 

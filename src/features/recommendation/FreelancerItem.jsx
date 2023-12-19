@@ -24,7 +24,7 @@ function FreelancerItem({ freelancerId }) {
                 </UserCard>
             </Link>
 
-            <Button type="btn-primary rounded-xl">Liên hệ</Button>
+            {/* <Button type="btn-primary rounded-xl">Liên hệ</Button> */}
         </div>
     )
 }

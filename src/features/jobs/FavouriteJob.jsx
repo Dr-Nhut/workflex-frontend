@@ -11,29 +11,31 @@ function FavouriteJob() {
         setFavouriteJobs(JSON.parse(localStorage.getItem(user.id)) || [])
     }, [user.id])
 
-    if (favouriteJobs.length === 0)
-        return (
-            <Table columns="grid-cols-12">
-                <Table.Header>
-                    <th className="col-span-2">Lĩnh vực</th>
-                    <th className="col-span-4">Tên công việc</th>
-                    <th className="col-span-2">Hạn chào giá</th>
-                    <th className="col-span-2">Ngân sách</th>
-                    <th className="col-span-1"></th>
-                    <th className="col-span-1"></th>
-                </Table.Header>
+    if(favouriteJobs.length === 0) return null;
 
-                <Table.Body>
-                    {favouriteJobs.map((job) => (
-                        <FavouriteJobRow
-                            key={job}
-                            id={job}
-                            onChange={setFavouriteJobs}
-                        />
-                    ))}
-                </Table.Body>
-            </Table>
-        )
+    return (
+        <Table columns="grid-cols-12">
+            <Table.Header>
+                <th className="col-span-2">Lĩnh vực</th>
+                <th className="col-span-4">Tên công việc</th>
+                <th className="col-span-2">Hạn chào giá</th>
+                <th className="col-span-2">Ngân sách</th>
+                <th className="col-span-1"></th>
+                <th className="col-span-1"></th>
+            </Table.Header>
+
+            <Table.Body>
+                {favouriteJobs.map((job) => (
+                    <FavouriteJobRow
+                        key={job}
+                        id={job}
+                        onChange={setFavouriteJobs}
+                    />
+                ))}
+            </Table.Body>
+        </Table>
+    )
+        
 }
 
 export default FavouriteJob

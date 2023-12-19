@@ -72,6 +72,7 @@ function JobApprove({ jobDetail }) {
                 onClick={() => {
                     mutateApprovalJob({
                         id: jobId,
+                        categoryId: jobDetail.categoryId,
                         payload: {
                             approval: true,
                             bidDeadline: jobDetail.bidDeadline,

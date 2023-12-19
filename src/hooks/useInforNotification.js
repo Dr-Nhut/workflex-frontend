@@ -1,4 +1,7 @@
-import { useEffect, useState } from "react"
+import {
+    useEffect,
+    useState
+} from "react"
 
 export default function useInforNotification(fullname, description, type) {
     const [notificationInfor, setNotificationInfor] = useState();
@@ -36,7 +39,7 @@ export default function useInforNotification(fullname, description, type) {
                 break
             case 8:
                 setNotificationInfor(`<b>${fullname}</b> đã thanh toán cho công việc của họ.`)
-                setLocationInfor(`/admin/job-manager/payment`)
+                setLocationInfor(`/admin/job-payment`)
                 break
             case 9:
                 setNotificationInfor(`Bạn đã được thanh toán cho <b>${description}</b>. Xác nhận và đánh giá cho đối tác ngay.`)

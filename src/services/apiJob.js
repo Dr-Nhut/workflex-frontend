@@ -1,5 +1,7 @@
 import axios from "axios";
-import { URL_SERVER } from "../constants";
+import {
+    URL_SERVER
+} from "../constants";
 
 export async function createJob(newJob) {
     try {
@@ -94,7 +96,7 @@ export async function getDetailJob(id) {
 
 export async function approvalJob(data) {
     try {
-        const response = await axios.post(`${URL_SERVER}/admin/approval-job/${data.id}`, data.payload);
+        const response = await axios.post(`${URL_SERVER}/admin/approval-job/${data.id}?categoryId=${data.categoryId}`, data.payload);
         return response
     } catch (error) {
         console.error(error);

@@ -19,6 +19,7 @@ import EmployerInformation from '../features/user/EmployerInformation'
 import JobRecommendation from '../features/recommendation/JobRecommendation'
 import DemandJob from '../features/jobs/DemandJob'
 import FreelancerRecommendation from '../features/recommendation/FreelancerRecommendation'
+import TextDescriptionEditor from '../ui/TextDescriptionEditor'
 
 function FreelancerDashboard() {
     const { user } = useContext(UserContext)
@@ -29,6 +30,7 @@ function FreelancerDashboard() {
         { isLoading: loadingFreelancerCompletedJobs, data: completedJobs },
         { isLoading: loadingOffers, data: offers },
         { isLoading: loadingEmployerJobs, data: employerJobs },
+        // { isLoading: loadingEmployerCurrentJobs, data: currentJobs },
     ] = useQueries({
         queries: [
             {
@@ -146,7 +148,7 @@ function FreelancerDashboard() {
                     </div>
                 )}
 
-                {currentJobs.length === 0 ? (
+                {(user.role === 'fre' ? currentJobs.length === 0 : employerJobs.filter(job => job.status === 5).length === 0) ? (
                     <DemandJob />
                 ) : (
                     <section>
@@ -166,7 +168,7 @@ function FreelancerDashboard() {
                             </Link>
                         </header>
 
-                        {currentJobs.slice(0, 3).map((currentJob) => (
+                        {user.role === 'fre' ? currentJobs.slice(0, 3).map((currentJob) => (
                             <CardContainer
                                 key={currentJob.id}
                                 jobId={currentJob.id}
@@ -182,6 +184,24 @@ function FreelancerDashboard() {
                                 <EmployerInformation
                                     employerId={currentJob.employerId}
                                 />
+                            </CardContainer>
+                        )) : employerJobs.filter(job => job.status === 5).map(job => (
+                            <CardContainer
+                                key={job.id}
+                                jobId={job.id}
+                            >
+                                <Rectangle background="bg-teal-500">
+                                    {job.category}
+                                </Rectangle>
+                                <div className="my-2 flex items-center justify-between">
+                                    <h2 className="font-semibold text-stone-900">
+                                        {job.name}
+                                    </h2>
+                                </div>
+                                <TextDescriptionEditor lineClamp >{job.description}</TextDescriptionEditor>
+                                {/* <EmployerInformation
+                                    employerId={currentJob.employerId}
+                                /> */}
                             </CardContainer>
                         ))}
                     </section>

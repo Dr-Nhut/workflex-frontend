@@ -20,7 +20,6 @@ function RehiredRate({ userId }) {
             if (findElement.length === 0) return job
             else {
                 duplicate += findElement.length
-                console.log(index, duplicate)
             }
         })
 

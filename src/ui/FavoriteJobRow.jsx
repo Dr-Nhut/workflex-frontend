@@ -11,6 +11,7 @@ import { UserContext } from '../features/user/userSlice'
 
 function FavouriteJobRow({ id, onChange }) {
     const { user } = useContext(UserContext)
+
     const { isLoading, data: jobDetail } = useQuery({
         queryKey: ['jobDetail', id],
         queryFn: () => getDetailJob(id),

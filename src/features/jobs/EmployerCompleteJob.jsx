@@ -39,7 +39,7 @@ function EmployerCompleteJob() {
                     </Table.Header>
 
                     <Table.Body>
-                        {completedJobs.map((job) => (
+                        {completedJobs.sort((a,b) => a.status - b.status).map((job) => (
                             <CompleteJobRow key={job.id} job={job} />
                         ))}
                     </Table.Body>

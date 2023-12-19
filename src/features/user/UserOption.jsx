@@ -34,9 +34,9 @@ function UserOption() {
 
             {isOpen && (
                 <Modal>
-                    <ListItem to="/my-profile" icon={<UilClipboardNotes />}>
+                    {user.role !== 'adm' && <ListItem to="/my-profile" icon={<UilClipboardNotes />}>
                         Quản lý hồ sơ
-                    </ListItem>
+                    </ListItem>}
                     <ListItem onClick={handleLogout} icon={<UilSignout />}>
                         Đăng xuất
                     </ListItem>
