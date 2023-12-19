@@ -49,12 +49,13 @@ function PostJob({ onCloseModal }) {
 
     const onSubmit = (data) => {
         setIsSubmit(true)
-        if (!selectedBidDeadline || selectedDateStart || selectedDateEnd) return
+        if (!selectedBidDeadline || !selectedDateStart || !selectedDateEnd) return
         data.employerId = user.id
         data.description = description
         data.bidDeadline = bidDeadline
+        data.dateStart = dateStart
         data.categoryId = data.category.value
-        data.duration = (data.dateEnd - data.dateStart) / 86400000
+        data.duration = (dateEnd - dateStart) / 86400000
         data.skills = data.skills?.map((skill) => skill.value)
         data.type = data.type?.label
         data.experience = data.experience?.label

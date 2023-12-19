@@ -3,7 +3,7 @@ function TextDescriptionEditor({ children, lineClamp }) {
         <div
             dangerouslySetInnerHTML={{ __html: children }}
             className={`${
-                lineClamp ? 'line-clamp-6' : ''
+                lineClamp ? 'line-clamp-4' : ''
             } px-2 text-justify text-stone-500`}
         />
     )

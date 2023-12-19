@@ -1,6 +1,11 @@
+import { useContext } from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
+import { UserContext } from '../features/user/userSlice'
 
 function FreelancerJob() {
+    const {user} = useContext(UserContext);
+
+    if(user.role !== 'fre') return null
     return (
         <div className="min-h-[600px]">
             <div className="flex border-b px-6 text-center text-lg font-semibold text-stone-400">

@@ -113,7 +113,7 @@ function Overview({ userId }) {
                 )}
             </section>
 
-            {user.role === 'fre' &&
+            {user.role === 'fre' || (user.id !== userId && user.role !== 'fre') &&
                 completeAndFailJobs.filter((job) => job.status !== 0).length >
                     0 && (
                     <section className="border-b p-4">

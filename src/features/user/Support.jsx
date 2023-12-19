@@ -6,13 +6,12 @@ import SendMainMessage from '../jobs/SendMainMessage'
 
 function Support() {
     return (
-        <>
             <PortalWithState closeOnOutsideClick closeOnEsc>
                 {({ openPortal, closePortal, isOpen, portal }) => (
                     <>
                         <div
-                            onClick={isOpen ? closePortal : openPortal}
                             className="relative cursor-pointer"
+                            onClick={isOpen ? closePortal : openPortal}
                         >
                             <UilLifeRing className="relative text-stone-200 hover:text-stone-300" />
                         </div>
@@ -47,7 +46,6 @@ function Support() {
                     </>
                 )}
             </PortalWithState>
-        </>
     )
 }
 
