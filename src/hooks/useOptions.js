@@ -11,7 +11,7 @@ export default function useOptions(urlOptions) {
         axios
             .get(`${URL_SERVER}${urlOptions}`)
             .then((res) => {
-                const cateFormatted = formatKeyObject(res.data, [
+                const cateFormatted = formatKeyObject(res.data.data, [
                     { old: 'id', new: 'value' },
                     { old: 'name', new: 'label' },
                 ])

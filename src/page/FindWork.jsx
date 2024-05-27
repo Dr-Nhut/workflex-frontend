@@ -10,7 +10,7 @@ function FindWork() {
     const { user } = useContext(UserContext)
 
     return (
-        <div className="mx-8">
+        <div className="mx-8 pb-8">
             <PageHeader
                 title="Việc làm Freelance"
                 description="Hàng trăm công việc khắp các lĩnh vực đang chờ đợi bạn"

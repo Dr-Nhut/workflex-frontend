@@ -20,7 +20,7 @@ function LoginForm() {
 
     function handleLogin(data) {
         axios
-            .post(`${URL_SERVER}/auth/login`, data)
+            .post(`${URL_SERVER}/v2/auth/login`, data)
             .then((response) => {
                 const { user, status, message, token } = response.data
                 if (status !== 'success') toast[status](message)
@@ -28,7 +28,7 @@ function LoginForm() {
                     dispatch({ type: 'users/login', payload: user })
                     Cookies.set('token', token, { expires: 365 })
 
-                    if (user.role === 'adm') {
+                    if (user.Role.name === 'adm') {
                         navigate('/admin/job-pending')
                     } else navigate('/dashboard')
                 }

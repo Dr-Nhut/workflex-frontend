@@ -49,8 +49,8 @@ function PostJob({ onCloseModal }) {
 
     const onSubmit = (data) => {
         setIsSubmit(true)
-        if (!selectedBidDeadline || !selectedDateStart || !selectedDateEnd) return
-        data.employerId = user.id
+        if (!selectedBidDeadline || !selectedDateStart || !selectedDateEnd)
+            return
         data.description = description
         data.bidDeadline = bidDeadline
         data.dateStart = dateStart

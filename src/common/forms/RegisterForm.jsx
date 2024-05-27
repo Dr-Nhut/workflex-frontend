@@ -17,12 +17,15 @@ function RegisterForm() {
 
     const submitAndVerifyEmail = (data) => {
         axios
-            .post(`${URL_SERVER}/auth/send-email-verify`, data)
+            .post(`${URL_SERVER}/v2/auth/send-email-verify`, data)
             .then((response) => {
                 console.log(response)
                 if (response.status === 200) handleContinue(data)
             })
-            .catch((err) => toast.error(err.response.data.message))
+            .catch((err) => {
+                console.log(err)
+                toast.error(err.response.data.message)
+            })
     }
 
     return (

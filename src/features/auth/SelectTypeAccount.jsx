@@ -2,14 +2,16 @@ import { useState } from 'react'
 import Button from '../../common/buttons/Button'
 
 function SelectTypeAccount({ onContinue }) {
-    const [type, setType] = useState('emp')
+    const [type, setType] = useState('3ed05a87-fbc7-412d-83c9-e257737f4bdc')
     return (
         <>
             <div className="mb-8 flex justify-around gap-x-4">
                 <label
                     htmlFor="client"
                     className={`relative rounded-xl bg-stone-200 px-4 py-8 text-xl hover:ring-2 hover:ring-primary ${
-                        type === 'emp' ? 'ring-2 ring-primary' : ''
+                        type === '3ed05a87-fbc7-412d-83c9-e257737f4bdc'
+                            ? 'ring-2 ring-primary'
+                            : ''
                     }`}
                 >
                     Tôi muốn tuyển dụng freelancer
@@ -18,8 +20,10 @@ function SelectTypeAccount({ onContinue }) {
                         className="absolute right-2 top-2 h-4 w-4 border-gray-300 bg-gray-100 text-primary "
                         type="radio"
                         name="typeAccount"
-                        value="emp"
-                        checked={type === 'emp'}
+                        value="3ed05a87-fbc7-412d-83c9-e257737f4bdc"
+                        checked={
+                            type === '3ed05a87-fbc7-412d-83c9-e257737f4bdc'
+                        }
                         onChange={(e) => setType(e.target.value)}
                     />
                 </label>
@@ -27,7 +31,9 @@ function SelectTypeAccount({ onContinue }) {
                 <label
                     htmlFor="freelancer"
                     className={`relative rounded-xl bg-stone-200 px-4 py-8 text-xl hover:ring-2 hover:ring-primary ${
-                        type === 'fre' ? 'ring-2 ring-primary' : ''
+                        type === '0da3b491-bb4a-4a4c-808c-6658ef7a1219'
+                            ? 'ring-2 ring-primary'
+                            : ''
                     }`}
                 >
                     Tôi là người tìm việc freelance
@@ -36,8 +42,10 @@ function SelectTypeAccount({ onContinue }) {
                         className="absolute right-2 top-2 h-4 w-4 border-gray-300 bg-gray-100 text-primary "
                         type="radio"
                         name="typeAccount"
-                        value="fre"
-                        checked={type === 'fre'}
+                        value="0da3b491-bb4a-4a4c-808c-6658ef7a1219"
+                        checked={
+                            type === '0da3b491-bb4a-4a4c-808c-6658ef7a1219'
+                        }
                         onChange={(e) => setType(e.target.value)}
                     />
                 </label>
@@ -49,7 +57,9 @@ function SelectTypeAccount({ onContinue }) {
                 onClick={() => onContinue({ role: type })}
             >
                 Tiếp tục với vai trò{' '}
-                {type === 'emp' ? 'Tuyển dụng' : 'Freelancer'}
+                {type === '3ed05a87-fbc7-412d-83c9-e257737f4bdc'
+                    ? 'Tuyển dụng'
+                    : 'Freelancer'}
             </Button>
         </>
     )

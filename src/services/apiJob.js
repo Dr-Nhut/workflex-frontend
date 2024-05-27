@@ -5,7 +5,7 @@ import {
 
 export async function createJob(newJob) {
     try {
-        const response = await axios.post(`${URL_SERVER}/job/create`, newJob);
+        const response = await axios.post(`${URL_SERVER}/v2/job/`, newJob);
         return response
     } catch (error) {
         console.error(error);

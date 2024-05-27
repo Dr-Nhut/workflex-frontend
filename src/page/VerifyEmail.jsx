@@ -23,7 +23,7 @@ function VerifyEmail() {
 
     useEffect(() => {
         axios
-            .get(`${URL_SERVER}/auth/verify?email=${email}&token=${token}`)
+            .get(`${URL_SERVER}/v2/auth/verify?email=${email}&token=${token}`)
             .then((response) => {
                 if (response.status === 200) {
                     setStatus(response.data.status)

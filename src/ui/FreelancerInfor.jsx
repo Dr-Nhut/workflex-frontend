@@ -13,9 +13,9 @@ function FreelancerInfor({ control, errors }) {
 
     useEffect(() => {
         axios
-            .get(`${URL_SERVER}/skill/all`)
+            .get(`${URL_SERVER}/v2/skill`)
             .then((res) => {
-                const skillFormatted = formatKeyObject(res.data, [
+                const skillFormatted = formatKeyObject(res.data.data, [
                     { old: 'id', new: 'value' },
                     { old: 'name', new: 'label' },
                 ])
@@ -73,7 +73,7 @@ function FreelancerInfor({ control, errors }) {
             <label className="mr-10">Ngày sinh</label>
             <Controller
                 control={control}
-                name="dateOfBirth"
+                name="dateofbirth"
                 rules={{ required: true }}
                 render={({ field: { onChange, value } }) => (
                     <span className="rounded border-2 border-stone-500 p-1 focus-within:border-none">
@@ -86,7 +86,7 @@ function FreelancerInfor({ control, errors }) {
                     </span>
                 )}
             />
-            {errors.dateOfBirth && (
+            {errors.dateofbirth && (
                 <p className="text-red-500">Vui lòng chọn ngày sinh của bạn.</p>
             )}
         </>

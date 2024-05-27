@@ -11,7 +11,7 @@ function Verify() {
     const handleOnClick = () => {
         setIsLoading('loading')
         axios
-            .post(`${URL_SERVER}/auth/send-email-verify`, userInfor)
+            .post(`${URL_SERVER}/v2/auth/send-email-verify`, userInfor)
             .then((response) => {
                 if (response.status === 200) setIsLoading('success')
                 // else display error

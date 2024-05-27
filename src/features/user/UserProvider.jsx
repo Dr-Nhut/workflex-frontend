@@ -10,8 +10,6 @@ function UserProvider() {
     const [state, dispatch] = useReducer(reducer, initialState)
     const [socket, setSocket] = useState(null)
 
-    console.log(state)
-
     useEffect(() => {
         if (state.id) setSocket(io('http://localhost:3001'))
     }, [state.id])
@@ -22,8 +20,9 @@ function UserProvider() {
 
     useEffect(() => {
         axios
-            .get(`${URL_SERVER}/auth/userInfor`, { withCredentials: true })
+            .get(`${URL_SERVER}/v2/auth/userInfor`, { withCredentials: true })
             .then((response) => {
+                console.log(response)
                 dispatch({ type: 'users/login', payload: response.data })
             })
             .catch((err) => console.log(err))
