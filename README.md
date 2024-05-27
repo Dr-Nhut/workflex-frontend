@@ -4,3 +4,8 @@ Dự án này là một phần của dự án xây dựng website tìm kiếm vi
 **Chức năng chính**: đăng ký tài khoản, đăng nhập, đăng việc, tìm việc, chào giá, thanh toán, trò chuyện,...
 
 **Công nghệ sử dụng**: ReactJS, React Query, TailwindCSS, Socket.IO, Cổng thanh toán Stripe.
+
+**Tài khoản test**:
+ -Admin: +admin@gmail.com  pw: 99999999
+ -Employer: +employer@gmail.com pw: 999999999
+ -Freelancer: +freelancer@gmail.com pw: 99999999
