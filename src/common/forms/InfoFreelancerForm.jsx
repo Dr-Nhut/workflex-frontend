@@ -1,38 +1,38 @@
-import Button from '../buttons/Button'
-import Input from '../Input'
-import FreelancerInfor from '../../ui/FreelancerInfor'
-import { Controller, useForm } from 'react-hook-form'
-import { URL_SERVER } from '../../constants'
-import axios from 'axios'
-import toast, { Toaster } from 'react-hot-toast'
-import { useNavigate } from 'react-router-dom'
-import SelectFetching from '../SelectFetching'
-import Select from 'react-select'
+import Button from '../buttons/Button';
+import Input from '../Input';
+import FreelancerInfor from '../../ui/FreelancerInfor';
+import { Controller, useForm } from 'react-hook-form';
+import { URL_SERVER } from '../../constants';
+import axios from 'axios';
+import toast, { Toaster } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
+import SelectFetching from '../SelectFetching';
+import Select from 'react-select';
 
 function InfoFreelancerForm({ userInfor }) {
-    const navigate = useNavigate()
-    const { role } = userInfor
+    const navigate = useNavigate();
+    const { role } = userInfor;
     const {
         register,
         watch,
         handleSubmit,
         control,
         formState: { errors },
-    } = useForm()
+    } = useForm();
 
     const registerUser = (data) => {
-        data.categories = data.categories.map((category) => category.value)
-        data.sex = data.sex.value
-        data.skills = data.skills?.map((skill) => skill.value)
-        data?.experiece ? (data.experience = data?.experience.value) : ''
+        data.categories = data.categories.map((category) => category.value);
+        data.sex = data.sex.value;
+        data.skills = data.skills?.map((skill) => skill.value);
+        data?.experiece ? (data.experience = data?.experience.value) : '';
         axios
             .post(`${URL_SERVER}/v2/auth/`, { ...userInfor, ...data })
             .then(() => {
-                toast.success('Đăng ký tài khoản thành công')
-                navigate('/login')
+                toast.success('Đăng ký tài khoản thành công');
+                navigate('/login');
             })
-            .catch((err) => toast.error(err.response.data.message))
-    }
+            .catch((err) => toast.error(err.response.data.message));
+    };
 
     return (
         <form
@@ -62,7 +62,7 @@ function InfoFreelancerForm({ userInfor }) {
                     required: true,
                     validate: (pass) => {
                         if (watch('password') != pass) {
-                            return 'Mật khẩu không khớp'
+                            return 'Mật khẩu không khớp';
                         }
                     },
                 })}
@@ -149,7 +149,7 @@ function InfoFreelancerForm({ userInfor }) {
             </Button>
             <Toaster />
         </form>
-    )
+    );
 }
 
-export default InfoFreelancerForm
+export default InfoFreelancerForm;

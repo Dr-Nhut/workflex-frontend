@@ -1,32 +1,27 @@
-// import { useState } from 'react'
-import axios from 'axios'
-import Button from '../buttons/Button'
-import Input from '../Input'
-import { useForm } from 'react-hook-form'
-import { URL_SERVER } from '../../constants'
-import { useOutletContext } from 'react-router-dom'
-import toast from 'react-hot-toast'
+import Button from '../buttons/Button';
+import Input from '../Input';
+import { useForm } from 'react-hook-form';
+import { useOutletContext } from 'react-router-dom';
+import toast from 'react-hot-toast';
+import AuthServices from '../../services/auth.services';
 
 function RegisterForm() {
-    const [userInfor, step, handleContinue] = useOutletContext()
     const {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm()
+    } = useForm();
+    const [, , handleContinue] = useOutletContext();
 
-    const submitAndVerifyEmail = (data) => {
-        axios
-            .post(`${URL_SERVER}/v2/auth/send-email-verify`, data)
-            .then((response) => {
-                console.log(response)
-                if (response.status === 200) handleContinue(data)
-            })
-            .catch((err) => {
-                console.log(err)
-                toast.error(err.response.data.message)
-            })
-    }
+    const submitAndVerifyEmail = async (data) => {
+        try {
+            const { message } = await AuthServices.sendVerificationEmail(data);
+            toast.success(message);
+            handleContinue(data);
+        } catch (err) {
+            toast.error(err.message);
+        }
+    };
 
     return (
         <form onSubmit={handleSubmit(submitAndVerifyEmail)}>
@@ -45,7 +40,7 @@ function RegisterForm() {
                 Tiếp tục
             </Button>
         </form>
-    )
+    );
 }
 
-export default RegisterForm
+export default RegisterForm;

@@ -28,15 +28,17 @@ function UserOption() {
                 type="smallImage"
             />
             <div className="flex">
-                <UserName>{user.fullname.split(' ').at(-1)}</UserName>
+                <UserName>{user.name.split(' ').at(-1)}</UserName>
                 <UilAngleDown className="text-stone-50" />
             </div>
 
             {isOpen && (
                 <Modal>
-                    {user.role !== 'adm' && <ListItem to="/my-profile" icon={<UilClipboardNotes />}>
-                        Quản lý hồ sơ
-                    </ListItem>}
+                    {user.role !== 'adm' && (
+                        <ListItem to="/my-profile" icon={<UilClipboardNotes />}>
+                            Quản lý hồ sơ
+                        </ListItem>
+                    )}
                     <ListItem onClick={handleLogout} icon={<UilSignout />}>
                         Đăng xuất
                     </ListItem>

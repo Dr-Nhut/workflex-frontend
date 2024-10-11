@@ -1,23 +1,26 @@
-import axios from 'axios'
-import Button from '../../common/buttons/Button'
-import { URL_SERVER } from '../../constants'
-import { useOutletContext } from 'react-router-dom'
-import { useState } from 'react'
-import Spinner from '../../ui/Spinner'
+import Button from '../../common/buttons/Button';
+import { useOutletContext } from 'react-router-dom';
+import { useState } from 'react';
+import Spinner from '../../ui/Spinner';
+import AuthServices from '../../services/auth.services';
+import toast from 'react-hot-toast';
 
 function Verify() {
-    const [userInfor, step, handleContinue] = useOutletContext()
-    const [isLoading, setIsLoading] = useState()
-    const handleOnClick = () => {
-        setIsLoading('loading')
-        axios
-            .post(`${URL_SERVER}/v2/auth/send-email-verify`, userInfor)
-            .then((response) => {
-                if (response.status === 200) setIsLoading('success')
-                // else display error
-            })
-            .catch((err) => console.error(err))
-    }
+    // const [userInfor, step, handleContinue] = useOutletContext();
+    const [userInfor] = useOutletContext();
+    const [isLoading, setIsLoading] = useState();
+    const handleOnClick = async () => {
+        setIsLoading('loading');
+        try {
+            const { message } = await AuthServices.sendVerificationEmail(
+                userInfor
+            );
+            setIsLoading('success');
+            toast.success(message);
+        } catch (err) {
+            toast.error(err.message);
+        }
+    };
 
     return (
         <>
@@ -34,7 +37,7 @@ function Verify() {
                 {isLoading === 'loading' ? <Spinner size="small" /> : 'Gửi lại'}
             </Button>
         </>
-    )
+    );
 }
 
-export default Verify
+export default Verify;

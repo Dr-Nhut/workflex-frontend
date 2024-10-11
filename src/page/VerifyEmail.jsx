@@ -1,46 +1,64 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react';
 import {
     useNavigate,
     useOutletContext,
     useSearchParams,
-} from 'react-router-dom'
-import axios from 'axios'
-import { UilCheckCircle, UilTimesCircle } from '@iconscout/react-unicons'
-
-import { URL_SERVER } from '../constants'
-
-import Spinner from '../ui/Spinner'
-import Button from '../common/buttons/Button'
+} from 'react-router-dom';
+import axios from 'axios';
+import { UilCheckCircle, UilTimesCircle } from '@iconscout/react-unicons';
+import Spinner from '../ui/Spinner';
+import Button from '../common/buttons/Button';
+import AuthServices from '../services/auth.services';
+import toast from 'react-hot-toast';
 
 function VerifyEmail() {
-    const [status, setStatus] = useState('loading')
-    const [userInfor, step, handleContinue] = useOutletContext()
+    const [status, setStatus] = useState('loading');
+    const [, , handleContinue] = useOutletContext();
 
-    const [searchParams] = useSearchParams()
-    const navigate = useNavigate()
-    const email = searchParams.get('email')
-    const token = searchParams.get('token')
+    const [searchParams] = useSearchParams();
+    const navigate = useNavigate();
+    const email = searchParams.get('email');
+    const token = searchParams.get('token');
+
+    const handleVerifyEmail = async () => {
+        try {
+            const response = await AuthServices.verifyEmail({ email, token });
+
+            setStatus('success');
+            handleContinue(
+                {
+                    email,
+                    emailVerifiedAt: response.emailVerifiedAt,
+                },
+                2
+            );
+            navigate('/register');
+        } catch (err) {
+            toast.error(err.message);
+        }
+    };
 
     useEffect(() => {
-        axios
-            .get(`${URL_SERVER}/v2/auth/verify?email=${email}&token=${token}`)
-            .then((response) => {
-                if (response.status === 200) {
-                    setStatus(response.data.status)
-                    handleContinue(
-                        {
-                            email,
-                            emailVerifiedAt: response.data.emailVerifiedAt,
-                        },
-                        2
-                    )
-                    navigate('/register')
-                } else {
-                    setStatus('fail')
-                }
-            })
-            .catch(() => setStatus('fail'))
-    }, [email, token, navigate, handleContinue])
+        handleVerifyEmail();
+        // axios
+        //     .get(`/auth/verify?email=${email}&token=${token}`)
+        //     .then((response) => {
+        //         if (response.status === 200) {
+        //             setStatus(response.data.status);
+        //             handleContinue(
+        //                 {
+        //                     email,
+        //                     emailVerifiedAt: response.data.emailVerifiedAt,
+        //                 },
+        //                 2
+        //             );
+        //             navigate('/register');
+        //         } else {
+        //             setStatus('fail');
+        //         }
+        //     })
+        //     .catch(() => setStatus('fail'));
+    }, [email, token, navigate, handleContinue]);
 
     return (
         <div className="mt-8 flex justify-center">
@@ -72,7 +90,7 @@ function VerifyEmail() {
                 </div>
             )}
         </div>
-    )
+    );
 }
 
-export default VerifyEmail
+export default VerifyEmail;

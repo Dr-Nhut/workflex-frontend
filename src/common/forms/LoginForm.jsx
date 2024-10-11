@@ -1,39 +1,39 @@
-import Button from '../buttons/Button'
-import Input from '../Input'
-import { Link, useNavigate } from 'react-router-dom'
-import { useForm } from 'react-hook-form'
-import axios from 'axios'
-import { URL_SERVER } from '../../constants'
-import toast, { Toaster } from 'react-hot-toast'
-import { useContext } from 'react'
-import { UserContext } from '../../features/user/userSlice'
-import Cookies from 'js-cookie'
+import Button from '../buttons/Button';
+import Input from '../Input';
+import { Link } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import toast, { Toaster } from 'react-hot-toast';
+import { useContext } from 'react';
+import { UserContext } from '../../features/user/userSlice';
+import Cookies from 'js-cookie';
+import AuthServices from '../../services/auth.services';
+import { useNavigate } from 'react-router-dom';
 
 function LoginForm() {
-    const { dispatch } = useContext(UserContext)
-    const navigate = useNavigate()
+    const { dispatch } = useContext(UserContext);
+    const navigate = useNavigate();
     const {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm()
+    } = useForm();
 
-    function handleLogin(data) {
-        axios
-            .post(`${URL_SERVER}/v2/auth/login`, data)
-            .then((response) => {
-                const { user, status, message, token } = response.data
-                if (status !== 'success') toast[status](message)
-                else {
-                    dispatch({ type: 'users/login', payload: user })
-                    Cookies.set('token', token, { expires: 365 })
-
-                    if (user.Role.name === 'adm') {
-                        navigate('/admin/job-pending')
-                    } else navigate('/dashboard')
-                }
-            })
-            .catch((err) => console.log(err))
+    async function handleLogin(data) {
+        try {
+            const { metadata } = await AuthServices.login(data);
+            dispatch({ type: 'users/login', payload: metadata.tokens });
+            Cookies.set('token', metadata.tokens.accessToken, {
+                expires: 7,
+            });
+            Cookies.set('userId', metadata.id, {
+                expires: 7,
+            });
+            navigate('/');
+        } catch (err) {
+            if (err instanceof Error) {
+                toast.error(err.message);
+            }
+        }
     }
 
     return (
@@ -61,7 +61,7 @@ function LoginForm() {
             </Button>
             <Toaster />
         </form>
-    )
+    );
 }
 
-export default LoginForm
+export default LoginForm;

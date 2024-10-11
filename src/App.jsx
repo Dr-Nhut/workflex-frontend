@@ -48,7 +48,7 @@ import SkillCategory from './page/SkillCategory'
 import Profile from './page/Profile'
 import Notification from './page/Notification'
 import ManagerAccount from './page/ManagerAccount'
-import FreelancerResult from './page/FreelancerResult'
+// import FreelancerResult from './page/FreelancerResult'
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -181,10 +181,10 @@ function App() {
                                     path="find-freelancer"
                                     element={<Freelancer />}
                                 />
-                                <Route
+                                {/* <Route
                                     path="result-freelancer"
                                     element={<FreelancerResult />}
-                                />
+                                /> */}
                                 <Route
                                     path="checkout-success"
                                     element={<CheckoutSuccess />}

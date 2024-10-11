@@ -2,7 +2,7 @@ import Account from '../ui/Account'
 import UserMenu from '../features/user/UserMenu'
 import Logo from '../ui/Logo'
 import Navbar from '../ui/NavBar/Navbar'
-import Search from '../features/Search'
+// import Search from '../features/Search'
 import { DEFAULT_NAV } from '../constants'
 import { useContext } from 'react'
 import { UserContext } from '../features/user/userSlice'
@@ -21,7 +21,7 @@ function Header() {
                 }`}
             >
                 <Logo />
-                {user?.role !== 'adm' && <Search />}
+                {/* {user?.role !== 'adm' && <Search />} */}
                 {!user.id && <Navbar items={DEFAULT_NAV} />}
                 {user.id ? <UserMenu role={user.role} /> : <Account />}
             </div>

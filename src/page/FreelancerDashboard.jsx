@@ -148,7 +148,12 @@ function FreelancerDashboard() {
                     </div>
                 )}
 
-                {(user.role === 'fre' ? currentJobs.length === 0 : employerJobs.filter(job => job.status === 5).length === 0) ? (
+                {(
+                    user.role === 'fre'
+                        ? currentJobs.length === 0
+                        : employerJobs.filter((job) => job.status === 5)
+                              .length === 0
+                ) ? (
                     <DemandJob />
                 ) : (
                     <section>
@@ -168,42 +173,48 @@ function FreelancerDashboard() {
                             </Link>
                         </header>
 
-                        {user.role === 'fre' ? currentJobs.slice(0, 3).map((currentJob) => (
-                            <CardContainer
-                                key={currentJob.id}
-                                jobId={currentJob.id}
-                            >
-                                <Rectangle background="bg-teal-500">
-                                    {currentJob.category}
-                                </Rectangle>
-                                <div className="my-2 flex items-center justify-between">
-                                    <h2 className="font-semibold text-stone-900">
-                                        {currentJob.name}
-                                    </h2>
-                                </div>
-                                <EmployerInformation
-                                    employerId={currentJob.employerId}
-                                />
-                            </CardContainer>
-                        )) : employerJobs.filter(job => job.status === 5).map(job => (
-                            <CardContainer
-                                key={job.id}
-                                jobId={job.id}
-                            >
-                                <Rectangle background="bg-teal-500">
-                                    {job.category}
-                                </Rectangle>
-                                <div className="my-2 flex items-center justify-between">
-                                    <h2 className="font-semibold text-stone-900">
-                                        {job.name}
-                                    </h2>
-                                </div>
-                                <TextDescriptionEditor lineClamp >{job.description}</TextDescriptionEditor>
-                                {/* <EmployerInformation
+                        {user.role === 'fre'
+                            ? currentJobs.slice(0, 3).map((currentJob) => (
+                                  <CardContainer
+                                      key={currentJob.id}
+                                      jobId={currentJob.id}
+                                  >
+                                      <Rectangle background="bg-teal-500">
+                                          {currentJob.category}
+                                      </Rectangle>
+                                      <div className="my-2 flex items-center justify-between">
+                                          <h2 className="font-semibold text-stone-900">
+                                              {currentJob.name}
+                                          </h2>
+                                      </div>
+                                      <EmployerInformation
+                                          employerId={currentJob.employerId}
+                                      />
+                                  </CardContainer>
+                              ))
+                            : employerJobs
+                                  .filter((job) => job.status === 5)
+                                  .map((job) => (
+                                      <CardContainer
+                                          key={job.id}
+                                          jobId={job.id}
+                                      >
+                                          <Rectangle background="bg-teal-500">
+                                              {job.category}
+                                          </Rectangle>
+                                          <div className="my-2 flex items-center justify-between">
+                                              <h2 className="font-semibold text-stone-900">
+                                                  {job.name}
+                                              </h2>
+                                          </div>
+                                          <TextDescriptionEditor lineClamp>
+                                              {job.description}
+                                          </TextDescriptionEditor>
+                                          {/* <EmployerInformation
                                     employerId={currentJob.employerId}
                                 /> */}
-                            </CardContainer>
-                        ))}
+                                      </CardContainer>
+                                  ))}
                     </section>
                 )}
             </SidebarLayout>
